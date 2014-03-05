@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/JSMPreferenceOption.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/JSMPreferenceOption</TokenIdentifier>
+			<Abstract type="html">A class for creating options to be used with JSMPreference objects.</Abstract>
+			<DeclaredIn>JSMPreferenceOption.h</DeclaredIn>
+            
+			
+			<NodeRef refid="3"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/JSMPreferenceOption/setLabel:</TokenIdentifier>
+			<Abstract type="html">The label for this option.</Abstract>
+			<DeclaredIn>JSMPreferenceOption.h</DeclaredIn>
+			
+			<Declaration>@property (strong, nonatomic, readonly) NSString *label</Declaration>
+			
+			
+			<Anchor>//api/name/label</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/JSMPreferenceOption/label</TokenIdentifier>
+			<Abstract type="html">The label for this option.</Abstract>
+			<DeclaredIn>JSMPreferenceOption.h</DeclaredIn>
+			
+			<Declaration>@property (strong, nonatomic, readonly) NSString *label</Declaration>
+			
+			
+			<Anchor>//api/name/label</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/JSMPreferenceOption/label</TokenIdentifier>
+			<Abstract type="html">The label for this option.</Abstract>
+			<DeclaredIn>JSMPreferenceOption.h</DeclaredIn>
+			
+			<Declaration>@property (strong, nonatomic, readonly) NSString *label</Declaration>
+			
+			
+			<Anchor>//api/name/label</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/JSMPreferenceOption/setValue:</TokenIdentifier>
+			<Abstract type="html">The value for this option.</Abstract>
+			<DeclaredIn>JSMPreferenceOption.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) id value</Declaration>
+			
+			
+			<Anchor>//api/name/value</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/JSMPreferenceOption/value</TokenIdentifier>
+			<Abstract type="html">The value for this option.</Abstract>
+			<DeclaredIn>JSMPreferenceOption.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) id value</Declaration>
+			
+			
+			<Anchor>//api/name/value</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/JSMPreferenceOption/value</TokenIdentifier>
+			<Abstract type="html">The value for this option.</Abstract>
+			<DeclaredIn>JSMPreferenceOption.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) id value</Declaration>
+			
+			
+			<Anchor>//api/name/value</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/JSMPreferenceOption/optionWithLabel:</TokenIdentifier>
+			<Abstract type="html">Create an option with the given label. The label will act as the value when selected.</Abstract>
+			<DeclaredIn>JSMPreferenceOption.h</DeclaredIn>
+			
+			<Declaration>+ (instancetype)optionWithLabel:(NSString *)label</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>label</Name>
+					<Abstract type="html">A string to be used as the label when displaying the option.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">The instance of the option created using the given label.</Abstract></ReturnValue>
+			<Anchor>//api/name/optionWithLabel:</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/JSMPreferenceOption/optionWithLabel:andValue:</TokenIdentifier>
+			<Abstract type="html">Create an option with the given label and value.</Abstract>
+			<DeclaredIn>JSMPreferenceOption.h</DeclaredIn>
+			
+			<Declaration>+ (instancetype)optionWithLabel:(NSString *)label andValue:(id)value</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>label</Name>
+					<Abstract type="html">A string to be used as the label when displaying the option.</Abstract>
+				</Parameter><Parameter>
+					<Name>value</Name>
+					<Abstract type="html">An object to be provided as the value of the option.</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">The instance of the option created using the given parameters.</Abstract></ReturnValue>
+			<Anchor>//api/name/optionWithLabel:andValue:</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+        
+	</File>
+</Tokens>

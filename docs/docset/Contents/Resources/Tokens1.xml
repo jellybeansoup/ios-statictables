@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/JSMBooleanPreference.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/JSMBooleanPreference</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>JSMBooleanPreference.h</DeclaredIn>
+            
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/JSMBooleanPreference/setDefaultValue:</TokenIdentifier>
+			<Abstract type="html">The default value of the preference.</Abstract>
+			<DeclaredIn>JSMBooleanPreference.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) BOOL defaultValue</Declaration>
+			
+			
+			<Anchor>//api/name/defaultValue</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/JSMBooleanPreference/defaultValue</TokenIdentifier>
+			<Abstract type="html">The default value of the preference.</Abstract>
+			<DeclaredIn>JSMBooleanPreference.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) BOOL defaultValue</Declaration>
+			
+			
+			<Anchor>//api/name/defaultValue</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/JSMBooleanPreference/defaultValue</TokenIdentifier>
+			<Abstract type="html">The default value of the preference.</Abstract>
+			<DeclaredIn>JSMBooleanPreference.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) BOOL defaultValue</Declaration>
+			
+			
+			<Anchor>//api/name/defaultValue</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/JSMBooleanPreference/setBoolValue:</TokenIdentifier>
+			<Abstract type="html">The current value of the preference.</Abstract>
+			<DeclaredIn>JSMBooleanPreference.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) BOOL boolValue</Declaration>
+			
+			
+			<Anchor>//api/name/boolValue</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/JSMBooleanPreference/boolValue</TokenIdentifier>
+			<Abstract type="html">The current value of the preference.</Abstract>
+			<DeclaredIn>JSMBooleanPreference.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) BOOL boolValue</Declaration>
+			
+			
+			<Anchor>//api/name/boolValue</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/JSMBooleanPreference/boolValue</TokenIdentifier>
+			<Abstract type="html">The current value of the preference.</Abstract>
+			<DeclaredIn>JSMBooleanPreference.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic) BOOL boolValue</Declaration>
+			
+			
+			<Anchor>//api/name/boolValue</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+        
+	</File>
+</Tokens>

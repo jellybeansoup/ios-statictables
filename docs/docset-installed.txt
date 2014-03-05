@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/Jelly/Library/Developer/Shared/Documentation/DocSets/com.jellystyle.StaticTables.docset
+Time: 2013-12-08 01:09:56 +0000
