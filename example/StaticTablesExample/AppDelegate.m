@@ -23,7 +23,22 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+	// Build the view controller
+	ViewController *viewController = [[ViewController alloc] initWithStyle:UITableViewStylePlain];
+
+	// Load the window
+	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    self.window.backgroundColor = [UIColor blackColor];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:viewController];
+	[self.window makeKeyAndVisible];
+
+    return YES;
+}
 
 @end

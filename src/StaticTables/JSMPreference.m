@@ -25,12 +25,25 @@
 #import "JSMPreference.h"
 #import "JSMPreferenceViewController.h"
 
+@interface JSMPreference ()
+
+@property (strong, nonatomic) NSMutableArray *observerBlocks;
+
+@end
+
 @implementation JSMPreference
 
 # pragma mark - Instance creation
 
-- (instancetype)initWithKey:(NSString *)key {
+- (instancetype)init {
     if( ( self = [super init] ) ) {
+        _observerBlocks = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (instancetype)initWithKey:(NSString *)key {
+    if( ( self = [self init] ) ) {
         _key = key;
     }
     return self;
@@ -88,7 +101,30 @@
 }
 
 - (void)setValue:(id)value {
+    // Dont' update if the value doesn't change
+    if( value == self.value ) {
+        return;
+    }
+    // Set the value
     [NSUserDefaults.standardUserDefaults setValue:value forKey:_key];
+    // Call the observing blocks
+    for( JSMPreferenceValueObserver observer in _observerBlocks ) {
+        observer( self );
+    }
+}
+
+# pragma mark - Observing changes
+
+- (void)observeValueWithBlock:(JSMPreferenceValueObserver)observer {
+    if( observer != nil ) {
+        [_observerBlocks addObject:observer];
+    }
+}
+
+- (void)removeObservingBlock:(JSMPreferenceValueObserver)observer {
+    if( observer != nil ) {
+        [_observerBlocks removeObject:observer];
+    }
 }
 
 # pragma mark - Adding options

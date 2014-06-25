@@ -25,11 +25,16 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "JSMStaticViewController.h"
-#import "JSMStaticViewSection.h"
-#import "JSMStaticViewCell.h"
+#import "JSMStaticDataSource.h"
+#import "JSMStaticSection.h"
+#import "JSMStaticRow.h"
 
-#import "JSMPreference.h"
-#import "JSMPreferenceOption.h"
-#import "JSMPreferenceViewController.h"
-#import "JSMBooleanPreference.h"
+#import "UITableView+StaticTables.h"
+
+//#import "JSMStaticViewCell.h"
+//#import "JSMStaticViewController.h"
+//#import "JSMStaticViewSection.h"
+//#import "JSMPreference.h"
+//#import "JSMPreferenceOption.h"
+//#import "JSMPreferenceViewController.h"
+//#import "JSMBooleanPreference.h"

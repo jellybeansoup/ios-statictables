@@ -12,7 +12,6 @@
 		A11C057616FAA51700C44D43 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A11C057516FAA51700C44D43 /* CoreGraphics.framework */; };
 		A11C057E16FAA51700C44D43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A11C057D16FAA51700C44D43 /* main.m */; };
 		A11C058216FAA51700C44D43 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A11C058116FAA51700C44D43 /* AppDelegate.m */; };
-		A1A0BAEC16FAC6B100093C2F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A11C058916FAA51700C44D43 /* MainStoryboard.storyboard */; };
 		A1FCE6D718503BDD00E9362F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1FCE6D618503BDD00E9362F /* Images.xcassets */; };
 		A1FCE6DB18503C8700E9362F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FCE6DA18503C8700E9362F /* ViewController.m */; };
 		A1FEE5D918AEE0AA00F36186 /* libStaticTables.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1FEE5D618AEDFED00F36186 /* libStaticTables.a */; };
@@ -45,7 +44,6 @@
 		A11C057F16FAA51700C44D43 /* StaticTablesExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StaticTablesExample-Prefix.pch"; sourceTree = "<group>"; };
 		A11C058016FAA51700C44D43 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A11C058116FAA51700C44D43 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A11C058A16FAA51700C44D43 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		A11C059816FAA51700C44D43 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		A1FCE6D618503BDD00E9362F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A1FCE6D918503C8700E9362F /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 			children = (
 				A11C058016FAA51700C44D43 /* AppDelegate.h */,
 				A11C058116FAA51700C44D43 /* AppDelegate.m */,
-				A11C058916FAA51700C44D43 /* MainStoryboard.storyboard */,
 				A1FCE6D918503C8700E9362F /* ViewController.h */,
 				A1FCE6DA18503C8700E9362F /* ViewController.m */,
 				A11C057816FAA51700C44D43 /* Supporting Files */,
@@ -198,7 +195,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1FCE6D718503BDD00E9362F /* Images.xcassets in Resources */,
-				A1A0BAEC16FAC6B100093C2F /* MainStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,17 +220,6 @@
 			targetProxy = A1FEE5D718AEE0A400F36186 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		A11C058916FAA51700C44D43 /* MainStoryboard.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A11C058A16FAA51700C44D43 /* en */,
-			);
-			name = MainStoryboard.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A11C05A716FAA51700C44D43 /* Debug */ = {
@@ -306,6 +291,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../src/StaticTables/\"";
 				INFOPLIST_FILE = "$(SRCROOT)/StaticTablesExample/StaticTablesExample-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = StaticTablesExample;
 				WRAPPER_EXTENSION = app;
 			};
@@ -322,6 +308,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../src/StaticTables/\"";
 				INFOPLIST_FILE = "$(SRCROOT)/StaticTablesExample/StaticTablesExample-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = StaticTablesExample;
 				WRAPPER_EXTENSION = app;
 			};

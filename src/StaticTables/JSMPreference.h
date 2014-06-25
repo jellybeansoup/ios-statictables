@@ -25,6 +25,10 @@
 #import <Foundation/Foundation.h>
 #import "JSMPreferenceOption.h"
 
+@class JSMPreference;
+
+typedef void(^JSMPreferenceValueObserver)(JSMPreference *preference);
+
 /**
  * JSMPreference class
  *
@@ -56,7 +60,6 @@
  */
 
 @property (nonatomic) id value;
-
 
 /**
  * Create a preference with the given key.
@@ -108,6 +111,10 @@
 - (JSMPreferenceOption *)optionForValue:(id)value;
 
 - (JSMPreferenceOption *)optionForIndex:(NSUInteger)index;
+
+- (void)observeValueWithBlock:(JSMPreferenceValueObserver)observer;
+
+- (void)removeObservingBlock:(JSMPreferenceValueObserver)observer;
 
 @property (nonatomic) NSString *placeholder;
 @property (nonatomic) UITextAutocapitalizationType autocapitalizationType;

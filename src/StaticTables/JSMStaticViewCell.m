@@ -41,7 +41,13 @@
 }
 
 - (void)prepareForReuse {
+    [super prepareForReuse];
     self.accessoryView = nil;
+    self.accessoryType = UITableViewCellAccessoryNone;
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
+
+    //self.backgroundColor
+    //self.selectedBackgroundColor
 }
 
 # pragma mark - Switch

@@ -23,8 +23,155 @@
 //
 
 #import "ViewController.h"
-#import "StaticTables.h"
+
+@interface ViewController ()
+
+@property (nonatomic, strong) JSMStaticDataSource *dataSource;
+
+@property (nonatomic, strong) JSMStaticSection *managers;
+
+@property (nonatomic, strong) JSMStaticSection *employees;
+
+@property (nonatomic, strong) JSMStaticSection *customers;
+
+@end
 
 @implementation ViewController
+
+- (void)viewDidLoad {
+
+    self.navigationItem.title = @"Static Tables";
+
+    // Create the data source
+    self.dataSource = [JSMStaticDataSource new];
+    self.dataSource.delegate = self;
+
+    // Apply the data source to the table view
+    self.tableView.dataSource = self.dataSource;
+
+    // Managers
+    self.managers = [JSMStaticSection new];
+    self.managers.headerText = @"Managers";
+    self.managers.footerText = @"Tap a manager to demote them.";
+    [self.dataSource addSection:self.managers];
+
+    JSMStaticRow *bob = [JSMStaticRow new];
+    bob.text = @"Bob";
+    [self.managers addRow:bob];
+
+    // Employees
+    self.employees = [JSMStaticSection new];
+    self.employees.delegate = self;
+    self.employees.headerText = @"Employees";
+    self.employees.footerText = @"Tap an employee to promote them.";
+    [self.dataSource addSection:self.employees];
+
+    JSMStaticRow *jason = [JSMStaticRow new];
+    jason.text = @"Jason";
+    jason.detailText = @"Ticketing";
+    jason.style = UITableViewCellStyleSubtitle;
+    [self.employees addRow:jason];
+
+    JSMStaticRow *becky = [JSMStaticRow new];
+    becky.text = @"Becky";
+    becky.style = UITableViewCellStyleSubtitle;
+    [self.employees addRow:becky];
+
+    JSMStaticRow *melissa = [JSMStaticRow new];
+    melissa.text = @"Melissa";
+    melissa.detailText = @"Concessions";
+    melissa.style = UITableViewCellStyleSubtitle;
+    [self.employees addRow:melissa];
+
+    JSMStaticRow *kurt = [JSMStaticRow new];
+    kurt.text = @"Kurt";
+    kurt.detailText = @"Janitorial";
+    kurt.style = UITableViewCellStyleSubtitle;
+    [self.employees addRow:kurt];
+
+    // Customers
+    self.customers = [JSMStaticSection new];
+    self.customers.headerText = @"Customers";
+    self.customers.footerText = @"The customer is almost never right.";
+    [self.dataSource addSection:self.customers];
+
+    JSMStaticRow *joe = [JSMStaticRow new];
+    joe.text = @"Joe";
+    [joe configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }];
+    [self.customers addRow:joe];
+
+    JSMStaticRow *michelle = [JSMStaticRow new];
+    michelle.text = @"Michelle";
+    [michelle configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }];
+    [self.customers addRow:michelle];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Deselect the row
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    // Fetch the row that was selected
+    JSMStaticRow *row = [self.dataSource rowAtIndexPath:indexPath];
+    // Here's where we'll be moving people
+    JSMStaticSection *newSection;
+    if( [row.section isEqual:self.employees] ) {
+        newSection = self.managers;
+    }
+    else if( [row.section isEqual:self.managers] ) {
+        newSection = self.employees;
+    }
+    // Perform the updates
+    if( newSection != nil ) {
+        if( ! [newSection.dataSource isEqual:self.dataSource] ) {
+            [self.tableView performUpdates:^{
+                [self.tableView addSection:newSection withRowAnimation:UITableViewRowAnimationAutomatic];
+            }];
+            indexPath = [self.dataSource indexPathForRow:row];
+        }
+        [self.tableView performUpdates:^{
+            [self.tableView addRow:row toSection:newSection withRowAnimation:UITableViewRowAnimationFade];
+        } withCompletion:^{
+            [self.tableView performUpdates:^{
+                [self.tableView reloadRow:row withRowAnimation:UITableViewRowAnimationNone];
+            }];
+        }];
+        [self.tableView performUpdates:^{
+            if( self.managers.numberOfRows == 0 ) {
+                [self.tableView removeSection:self.managers withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            if( self.employees.numberOfRows == 0 ) {
+                [self.tableView removeSection:self.employees withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        }];
+   }
+}
+
+#pragma mark - Static data source delegate
+
+- (NSArray *)dataSource:(JSMStaticDataSource *)viewController sectionsDidChange:(NSArray *)sections {
+    NSArray *sectionOrder = @[ @"Managers", @"Employees", @"Customers" ];
+    return [sections sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSUInteger obj1Index = [sectionOrder indexOfObject:[(JSMStaticSection *)obj1 headerText]];
+        NSUInteger obj2Index = [sectionOrder indexOfObject:[(JSMStaticSection *)obj2 headerText]];
+        if( obj1Index > obj2Index ) {
+            return NSOrderedDescending;
+        }
+        else if( obj1Index < obj2Index ) {
+            return NSOrderedAscending;
+        }
+        return NSOrderedSame;
+    }];
+}
+
+#pragma mark - Static section delegate
+
+- (NSArray *)section:(JSMStaticSection *)section rowsDidChange:(NSArray *)rows {
+    return [rows sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [[(JSMStaticRow *)obj1 text] compare:[(JSMStaticRow *)obj2 text]];
+    }];
+}
 
 @end

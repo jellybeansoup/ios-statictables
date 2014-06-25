@@ -23,7 +23,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StaticTables.h"
 
-@interface ViewController : JSMStaticTableViewController
+@interface ViewController : UITableViewController <JSMStaticDataSourceDelegate, JSMStaticSectionDelegate>
 
 @end
