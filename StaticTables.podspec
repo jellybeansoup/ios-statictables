@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "StaticTables"
   s.version      = "0.1.0"
-  s.summary      = "A library for easily creating static table view controllers programatically."
+  s.summary      = "A library for easily creating static table views programatically."
   s.homepage     = "https://github.com/jellybeansoup/ios-statictables"
   s.license      = { :type => 'BSD', :file => 'LICENSE' }
   s.author       = { "Daniel Farrelly" => "daniel@jellystyle.com" }
