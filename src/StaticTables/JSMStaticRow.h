@@ -29,8 +29,6 @@
 @class JSMStaticSection;
 @class JSMStaticRow;
 
-typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableViewCell *cell );
-
 /**
  * A `JSMStaticRow` objects acts as a data source for a single `UITableViewCell`.
  * It defines the basic structure such as the number of rows and any header or footer text.
@@ -79,6 +77,8 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableVi
 ///---------------------------------------------
 /// @name Configuring the cell
 ///---------------------------------------------
+
+typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableViewCell *cell );
 
 /**
  * Provide configuration for the row's `UITableViewCell` when it is prepared for view.

@@ -22,13 +22,14 @@
 
 /* Begin PBXBuildFile section */
 		A1486E4619599C330017CACD /* UITableView+StaticTables.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4519599C330017CACD /* UITableView+StaticTables.m */; };
+		A1486E4B195AE6E60017CACD /* JSMStaticPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4A195AE6E60017CACD /* JSMStaticPreference.m */; };
+		A1486E4E195DA3580017CACD /* JSMStaticTextPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4D195DA3580017CACD /* JSMStaticTextPreference.m */; };
+		A1486E5119601B2F0017CACD /* JSMStaticBooleanPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E5019601B2F0017CACD /* JSMStaticBooleanPreference.m */; };
+		A1486E5419601F550017CACD /* JSMStaticSelectPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E5319601F550017CACD /* JSMStaticSelectPreference.m */; };
+		A1486E571960223F0017CACD /* JSMStaticSelectPreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E561960223F0017CACD /* JSMStaticSelectPreferenceViewController.m */; };
 		A1713509185007F800E56C4D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1713508185007F800E56C4D /* Foundation.framework */; };
 		A1713537185009F100E56C4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1713536185009F100E56C4D /* UIKit.framework */; };
 		A171354718500B9400E56C4D /* JSMStaticViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A171353D18500B9400E56C4D /* JSMStaticViewCell.m */; };
-		A171354818500B9400E56C4D /* JSMPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A171353F18500B9400E56C4D /* JSMPreference.m */; };
-		A171354918500B9400E56C4D /* JSMPreferenceOption.m in Sources */ = {isa = PBXBuildFile; fileRef = A171354118500B9400E56C4D /* JSMPreferenceOption.m */; };
-		A171354A18500B9400E56C4D /* JSMPreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A171354318500B9400E56C4D /* JSMPreferenceViewController.m */; };
-		A171354B18500B9400E56C4D /* JSMBooleanPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A171354518500B9400E56C4D /* JSMBooleanPreference.m */; };
 		A19D143019541ACA005146CB /* JSMStaticSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D142F19541ACA005146CB /* JSMStaticSection.m */; };
 		A19D143319541ADC005146CB /* JSMStaticRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D143219541ADC005146CB /* JSMStaticRow.m */; };
 		A19D1436195426A2005146CB /* JSMStaticDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D1435195426A2005146CB /* JSMStaticDataSource.m */; };
@@ -49,6 +50,16 @@
 /* Begin PBXFileReference section */
 		A1486E4419599C330017CACD /* UITableView+StaticTables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+StaticTables.h"; sourceTree = "<group>"; };
 		A1486E4519599C330017CACD /* UITableView+StaticTables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+StaticTables.m"; sourceTree = "<group>"; };
+		A1486E49195AE6E60017CACD /* JSMStaticPreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticPreference.h; sourceTree = "<group>"; };
+		A1486E4A195AE6E60017CACD /* JSMStaticPreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMStaticPreference.m; sourceTree = "<group>"; };
+		A1486E4C195DA3580017CACD /* JSMStaticTextPreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticTextPreference.h; sourceTree = "<group>"; };
+		A1486E4D195DA3580017CACD /* JSMStaticTextPreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMStaticTextPreference.m; sourceTree = "<group>"; };
+		A1486E4F19601B2F0017CACD /* JSMStaticBooleanPreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticBooleanPreference.h; sourceTree = "<group>"; };
+		A1486E5019601B2F0017CACD /* JSMStaticBooleanPreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMStaticBooleanPreference.m; sourceTree = "<group>"; };
+		A1486E5219601F550017CACD /* JSMStaticSelectPreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticSelectPreference.h; sourceTree = "<group>"; };
+		A1486E5319601F550017CACD /* JSMStaticSelectPreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMStaticSelectPreference.m; sourceTree = "<group>"; };
+		A1486E551960223F0017CACD /* JSMStaticSelectPreferenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticSelectPreferenceViewController.h; sourceTree = "<group>"; };
+		A1486E561960223F0017CACD /* JSMStaticSelectPreferenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMStaticSelectPreferenceViewController.m; sourceTree = "<group>"; };
 		A1713505185007F800E56C4D /* libStaticTables.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libStaticTables.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1713508185007F800E56C4D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A171352E185008F400E56C4D /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -59,14 +70,6 @@
 		A171353818500A1A00E56C4D /* StaticTables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticTables.h; sourceTree = "<group>"; };
 		A171353C18500B9400E56C4D /* JSMStaticViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticViewCell.h; sourceTree = "<group>"; };
 		A171353D18500B9400E56C4D /* JSMStaticViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMStaticViewCell.m; sourceTree = "<group>"; };
-		A171353E18500B9400E56C4D /* JSMPreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMPreference.h; sourceTree = "<group>"; };
-		A171353F18500B9400E56C4D /* JSMPreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMPreference.m; sourceTree = "<group>"; };
-		A171354018500B9400E56C4D /* JSMPreferenceOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMPreferenceOption.h; sourceTree = "<group>"; };
-		A171354118500B9400E56C4D /* JSMPreferenceOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMPreferenceOption.m; sourceTree = "<group>"; };
-		A171354218500B9400E56C4D /* JSMPreferenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMPreferenceViewController.h; sourceTree = "<group>"; };
-		A171354318500B9400E56C4D /* JSMPreferenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMPreferenceViewController.m; sourceTree = "<group>"; };
-		A171354418500B9400E56C4D /* JSMBooleanPreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMBooleanPreference.h; sourceTree = "<group>"; };
-		A171354518500B9400E56C4D /* JSMBooleanPreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMBooleanPreference.m; sourceTree = "<group>"; };
 		A19D142E19541ACA005146CB /* JSMStaticSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticSection.h; sourceTree = "<group>"; };
 		A19D142F19541ACA005146CB /* JSMStaticSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMStaticSection.m; sourceTree = "<group>"; };
 		A19D143119541ADC005146CB /* JSMStaticRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticRow.h; sourceTree = "<group>"; };
@@ -88,6 +91,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1486E48195AE6B30017CACD /* Data Structure */ = {
+			isa = PBXGroup;
+			children = (
+				A19D1434195426A2005146CB /* JSMStaticDataSource.h */,
+				A19D1435195426A2005146CB /* JSMStaticDataSource.m */,
+				A19D142E19541ACA005146CB /* JSMStaticSection.h */,
+				A19D142F19541ACA005146CB /* JSMStaticSection.m */,
+				A19D143119541ADC005146CB /* JSMStaticRow.h */,
+				A19D143219541ADC005146CB /* JSMStaticRow.m */,
+			);
+			name = "Data Structure";
+			sourceTree = "<group>";
+		};
 		A17134FC185007F800E56C4D = {
 			isa = PBXGroup;
 			children = (
@@ -124,14 +140,9 @@
 				A171353818500A1A00E56C4D /* StaticTables.h */,
 				A1486E4419599C330017CACD /* UITableView+StaticTables.h */,
 				A1486E4519599C330017CACD /* UITableView+StaticTables.m */,
-				A19D1434195426A2005146CB /* JSMStaticDataSource.h */,
-				A19D1435195426A2005146CB /* JSMStaticDataSource.m */,
-				A19D142E19541ACA005146CB /* JSMStaticSection.h */,
-				A19D142F19541ACA005146CB /* JSMStaticSection.m */,
-				A19D143119541ADC005146CB /* JSMStaticRow.h */,
-				A19D143219541ADC005146CB /* JSMStaticRow.m */,
-				A1FEE5DD18AEE3EC00F36186 /* Old Classes */,
+				A1486E48195AE6B30017CACD /* Data Structure */,
 				A1FEE5DE18AEE41200F36186 /* Preferences */,
+				A1FEE5DD18AEE3EC00F36186 /* Old Classes */,
 			);
 			name = StaticTables;
 			path = src/StaticTables;
@@ -158,14 +169,16 @@
 		A1FEE5DE18AEE41200F36186 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				A171353E18500B9400E56C4D /* JSMPreference.h */,
-				A171353F18500B9400E56C4D /* JSMPreference.m */,
-				A171354018500B9400E56C4D /* JSMPreferenceOption.h */,
-				A171354118500B9400E56C4D /* JSMPreferenceOption.m */,
-				A171354218500B9400E56C4D /* JSMPreferenceViewController.h */,
-				A171354318500B9400E56C4D /* JSMPreferenceViewController.m */,
-				A171354418500B9400E56C4D /* JSMBooleanPreference.h */,
-				A171354518500B9400E56C4D /* JSMBooleanPreference.m */,
+				A1486E49195AE6E60017CACD /* JSMStaticPreference.h */,
+				A1486E4A195AE6E60017CACD /* JSMStaticPreference.m */,
+				A1486E4C195DA3580017CACD /* JSMStaticTextPreference.h */,
+				A1486E4D195DA3580017CACD /* JSMStaticTextPreference.m */,
+				A1486E4F19601B2F0017CACD /* JSMStaticBooleanPreference.h */,
+				A1486E5019601B2F0017CACD /* JSMStaticBooleanPreference.m */,
+				A1486E5219601F550017CACD /* JSMStaticSelectPreference.h */,
+				A1486E5319601F550017CACD /* JSMStaticSelectPreference.m */,
+				A1486E551960223F0017CACD /* JSMStaticSelectPreferenceViewController.h */,
+				A1486E561960223F0017CACD /* JSMStaticSelectPreferenceViewController.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -240,14 +253,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A19D143319541ADC005146CB /* JSMStaticRow.m in Sources */,
+				A1486E4B195AE6E60017CACD /* JSMStaticPreference.m in Sources */,
+				A1486E4E195DA3580017CACD /* JSMStaticTextPreference.m in Sources */,
 				A171354718500B9400E56C4D /* JSMStaticViewCell.m in Sources */,
-				A171354918500B9400E56C4D /* JSMPreferenceOption.m in Sources */,
+				A1486E571960223F0017CACD /* JSMStaticSelectPreferenceViewController.m in Sources */,
 				A19D143019541ACA005146CB /* JSMStaticSection.m in Sources */,
-				A171354A18500B9400E56C4D /* JSMPreferenceViewController.m in Sources */,
-				A171354B18500B9400E56C4D /* JSMBooleanPreference.m in Sources */,
-				A171354818500B9400E56C4D /* JSMPreference.m in Sources */,
+				A1486E5419601F550017CACD /* JSMStaticSelectPreference.m in Sources */,
 				A19D1436195426A2005146CB /* JSMStaticDataSource.m in Sources */,
 				A1486E4619599C330017CACD /* UITableView+StaticTables.m in Sources */,
+				A1486E5119601B2F0017CACD /* JSMStaticBooleanPreference.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

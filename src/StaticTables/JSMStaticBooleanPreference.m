@@ -22,28 +22,48 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <UIKit/UIKit.h>
-#import "JSMStaticViewController.h"
-#import "JSMPreference.h"
+#import "JSMStaticBooleanPreference.h"
 
-@interface JSMPreferenceViewController : JSMStaticViewController
+@implementation JSMStaticBooleanPreference
 
-/**
- * The title of the view controller
- */
+#pragma mark - User Interface
 
-@property (strong, nonatomic) NSString *title;
+@synthesize control = _control;
 
-/**
- * The preference to use to build the view
- */
+- (UIControl *)control {
+    if( _control == nil ) {
+        UISwitch *toggle = [[UISwitch alloc] init];
+        toggle.on = self.boolValue;
+        [toggle addTarget:self action:@selector(toggleChanged:) forControlEvents:UIControlEventValueChanged];
+        _control = (UIControl *)toggle;
+    }
+    return _control;
+}
 
-@property (strong, nonatomic) JSMPreference *preference;
+- (UISwitch *)toggle {
+    return (UISwitch *)self.control;
+}
 
-/**
- *
- */
+#pragma mark - Updating the value
 
-+ (instancetype)instanceWithPreference:(JSMPreference *)preference;
+- (BOOL)boolValue {
+    return self.value.boolValue;
+}
+
+- (void)setBoolValue:(BOOL)boolValue {
+    self.value = [NSNumber numberWithBool:boolValue];
+}
+
+- (void)valueDidChange {
+    if( self.toggle.on != self.boolValue ) {
+        [self.toggle setOn:self.boolValue animated:YES];
+    }
+}
+
+#pragma mark - Event Handling
+
+- (void)toggleChanged:(UISwitch *)toggle {
+    self.value = [NSNumber numberWithBool:toggle.on];
+}
 
 @end

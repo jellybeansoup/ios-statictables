@@ -31,10 +31,8 @@
 
 #import "UITableView+StaticTables.h"
 
-//#import "JSMStaticViewCell.h"
-//#import "JSMStaticViewController.h"
-//#import "JSMStaticViewSection.h"
-//#import "JSMPreference.h"
-//#import "JSMPreferenceOption.h"
-//#import "JSMPreferenceViewController.h"
-//#import "JSMBooleanPreference.h"
+#import "JSMStaticPreference.h"
+#import "JSMStaticTextPreference.h"
+#import "JSMStaticBooleanPreference.h"
+#import "JSMStaticSelectPreference.h"
+#import "JSMStaticSelectPreferenceViewController.h"

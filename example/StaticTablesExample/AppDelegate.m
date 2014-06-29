@@ -30,7 +30,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
 	// Build the view controller
-	ViewController *viewController = [[ViewController alloc] initWithStyle:UITableViewStylePlain];
+	ViewController *viewController = [[ViewController alloc] initWithStyle:UITableViewStyleGrouped];
 
 	// Load the window
 	self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];

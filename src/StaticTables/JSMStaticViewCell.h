@@ -23,49 +23,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JSMPreference.h"
 
-@interface JSMStaticViewCell : UITableViewCell <UITextFieldDelegate>
-
-/**
- * A preference to attach to this cell. This, in effect, will make the cell a pointer to allow the preference to be changed.
- */
-
-@property (strong, nonatomic) JSMPreference *preference;
-
-/**
- *
- */
-
-@property (nonatomic, strong) UIColor *selectedBackgroundColor;
-
-/**
- *
- */
-
-- (void)displayTextFieldWithValue:(NSString *)value;
-
-/**
- * 
- */
-
-- (void)displaySwitchWithValue:(BOOL)value;
-
-/**
- *
- */
-
-- (void)displaySwitchWithValue:(BOOL)value target:(id)target action:(SEL)action;
-
-/**
- *
- */
+@interface JSMStaticViewCell : UITableViewCell
 
 - (void)startActivityIndicator;
-
-/**
- *
- */
 
 - (void)stopActivityIndicator;
 

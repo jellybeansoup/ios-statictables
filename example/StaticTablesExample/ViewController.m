@@ -28,6 +28,8 @@
 
 @property (nonatomic, strong) JSMStaticDataSource *dataSource;
 
+@property (nonatomic, strong) JSMStaticSection *preferences;
+
 @property (nonatomic, strong) JSMStaticSection *managers;
 
 @property (nonatomic, strong) JSMStaticSection *employees;
@@ -39,6 +41,7 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
 
     self.navigationItem.title = @"Static Tables";
 
@@ -48,6 +51,40 @@
 
     // Apply the data source to the table view
     self.tableView.dataSource = self.dataSource;
+
+    // Preferences
+    self.preferences = [JSMStaticSection new];
+    self.preferences.headerText = @"Preferences";
+    [self.dataSource addSection:self.preferences];
+
+    JSMStaticTextPreference *urlPreference = [JSMStaticTextPreference preferenceWithKey:@"com.jellystyle.staticTables.url"];
+    urlPreference.text = @"URL";
+    urlPreference.defaultValue = @"http://apple.com";
+    urlPreference.textField.keyboardType = UIKeyboardTypeURL;
+    [self.preferences addRow:urlPreference];
+
+    JSMStaticBooleanPreference *boolPreference = [JSMStaticBooleanPreference preferenceWithKey:@"com.jellystyle.staticTables.bool"];
+    boolPreference.text = @"Boolean";
+    boolPreference.toggle.onTintColor = [UIColor purpleColor];
+    [self.preferences addRow:boolPreference];
+
+    JSMStaticSelectPreference *selectPreference = [JSMStaticSelectPreference preferenceWithKey:@"com.jellystyle.staticTables.select"];
+    selectPreference.text = @"Select";
+    //selectPreference.detailText = @"This probably shouldn't work.";
+    selectPreference.options = @{ @"option1": @"Option 1", @"option2": @"Option 2", @"option3": @"Option 3" };
+    [self.preferences addRow:selectPreference];
+
+    NSLog(@"%@",selectPreference.defaultValue);
+
+
+    JSMStaticRow *reset = [JSMStaticRow new];
+    reset.style = UITableViewCellStyleDefault;
+    reset.text = @"Reset All Preferences";
+    [reset configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor colorWithRed:0.6 green:0 blue:0 alpha:1];
+    }];
+    [self.preferences addRow:reset];
 
     // Managers
     self.managers = [JSMStaticSection new];
@@ -110,11 +147,32 @@
     [self.customers addRow:michelle];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    // Reload the tableview
+    [self.tableView reloadData];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Deselect the row
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // Fetch the row that was selected
     JSMStaticRow *row = [self.dataSource rowAtIndexPath:indexPath];
+    // Reset Preferences
+    if( [row.text isEqual:@"Reset All Preferences"] ) {
+        for( NSUInteger i = 0; i<self.preferences.rows.count; i++ ) {
+            JSMStaticRow *row = [self.preferences rowAtIndex:i];
+            if( [row isKindOfClass:[JSMStaticPreference class]] ) {
+                [[(JSMStaticPreference *)row control] resignFirstResponder];
+                [(JSMStaticPreference *)row setValue:nil];
+            }
+        }
+    }
+    else if ( [row isKindOfClass:[JSMStaticSelectPreference class]] ) {
+        JSMStaticSelectPreference *select = (JSMStaticSelectPreference *)row;
+        [self.navigationController pushViewController:select.viewController animated:YES];
+    }
     // Here's where we'll be moving people
     JSMStaticSection *newSection;
     if( [row.section isEqual:self.employees] ) {
@@ -152,7 +210,7 @@
 #pragma mark - Static data source delegate
 
 - (NSArray *)dataSource:(JSMStaticDataSource *)viewController sectionsDidChange:(NSArray *)sections {
-    NSArray *sectionOrder = @[ @"Managers", @"Employees", @"Customers" ];
+    NSArray *sectionOrder = @[ @"Preferences", @"Managers", @"Employees", @"Customers" ];
     return [sections sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         NSUInteger obj1Index = [sectionOrder indexOfObject:[(JSMStaticSection *)obj1 headerText]];
         NSUInteger obj2Index = [sectionOrder indexOfObject:[(JSMStaticSection *)obj2 headerText]];

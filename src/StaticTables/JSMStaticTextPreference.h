@@ -22,20 +22,49 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "JSMPreference.h"
-
-@interface JSMBooleanPreference : JSMPreference
+#import "JSMStaticPreference.h"
 
 /**
- * The default value of the preference.
+ * Instances of `JSMStaticTextPreference` act as an interface for a text based preference,
+ * such as a user defined string, or a URL.
+ *
+ * The provided control is a text field that can be manipulated or inserted into a view, but
+ * the intended behaviour is to add instances as rows in a `JSMStaticSection` for display as
+ * a table view cell.
  */
 
-@property (nonatomic) BOOL defaultValue;
+@interface JSMStaticTextPreference : JSMStaticPreference
+
+///---------------------------------------------
+/// @name Storage
+///---------------------------------------------
 
 /**
- * The current value of the preference.
+ * The value of the preference.
+ *
+ * This will return the `defaultValue` if it is set to nil, or if no value has been provided yet.
  */
 
-@property (nonatomic) BOOL boolValue;
+@property (nonatomic, strong) NSString *value;
+
+/**
+ * The default value for the preference.
+ *
+ * This is not stored as part of the user defaults, but will be provided as the `value` if none is available.
+ */
+
+@property (nonatomic, strong) NSString *defaultValue;
+
+///---------------------------------------------
+/// @name User Interface
+///---------------------------------------------
+
+/**
+ * The `UITextField` used by the reciever to modify the preference.
+ *
+ * This acts as a correctly typed alias for the `control` property on `JSMStaticPreference`
+ */
+
+@property (nonatomic, weak, readonly) UITextField *textField;
 
 @end
