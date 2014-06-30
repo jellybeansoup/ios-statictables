@@ -72,7 +72,7 @@
  * The delegate must adopt the JSMStaticSectionDelegate protocol. The delegate is not retained.
  */
 
-@property (nonatomic, assign) __unsafe_unretained id <JSMStaticSectionDelegate> delegate;
+@property (nonatomic, weak) id <JSMStaticSectionDelegate> delegate;
 
 ///---------------------------------------------
 /// @name Data Structure

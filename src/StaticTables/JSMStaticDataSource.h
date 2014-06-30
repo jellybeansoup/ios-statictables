@@ -70,7 +70,7 @@
  * The delegate must adopt the JSMStaticDataSourceDelegate protocol. The delegate is not retained.
  */
 
-@property (nonatomic, assign) __unsafe_unretained id <JSMStaticDataSourceDelegate> delegate;
+@property (nonatomic, weak) id <JSMStaticDataSourceDelegate> delegate;
 
 ///---------------------------------------------
 /// @name Managing the Sections
