@@ -51,8 +51,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Prepare a data source
-    self.tableView.dataSource = self.staticDataSource;
+    // Add the section
+    self.section = [JSMStaticSection new];
+    [self.dataSource addSection:self.section];
 
     // Prepare the section with the preference's options
     for( NSString *key in self.preference.options.allKeys ) {
@@ -61,6 +62,13 @@
         [self.rows setObject:row forKey:key];
         [self.section addRow:row];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    // Reload the tableview
+    [self.tableView reloadData];
 }
 
 - (JSMStaticRow *)rowForOption:(NSString *)option andLabel:(NSString *)label {
@@ -80,21 +88,6 @@
     return row;
 }
 
-#pragma mark - Data Source
-
-@synthesize staticDataSource = _staticDataSource;
-
-- (JSMStaticDataSource *)staticDataSource {
-    if( _staticDataSource == nil ) {
-        // Create the data source
-        _staticDataSource = [JSMStaticDataSource new];
-        // Add the section
-        self.section = [JSMStaticSection new];
-        [_staticDataSource addSection:self.section];
-    }
-    return _staticDataSource;
-}
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -102,7 +95,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // Find the rows for the existing and new values
     JSMStaticRow *oldRow = [self.rows objectForKey:self.preference.value];
-    JSMStaticRow *newRow = [self.staticDataSource rowAtIndexPath:indexPath];
+    JSMStaticRow *newRow = [self.dataSource rowAtIndexPath:indexPath];
     // If the rows are actually one and the same, stop right now.
     if( [oldRow isEqual:newRow] ) {
         return;
@@ -110,7 +103,7 @@
     // We're going to perform some updates
     [tableView beginUpdates];
     // Find the row that is checked and reload it
-    [tableView reloadRowsAtIndexPaths:@[[self.staticDataSource indexPathForRow:oldRow]] withRowAnimation:UITableViewRowAnimationFade];
+    [tableView reloadRowsAtIndexPaths:@[[self.dataSource indexPathForRow:oldRow]] withRowAnimation:UITableViewRowAnimationFade];
     // Fetch the row for the option we are going to select and reload it
     self.preference.value = newRow.detailText;
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

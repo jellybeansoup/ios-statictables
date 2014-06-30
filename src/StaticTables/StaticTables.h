@@ -25,6 +25,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "JSMStaticTableViewController.h"
 #import "JSMStaticDataSource.h"
 #import "JSMStaticSection.h"
 #import "JSMStaticRow.h"

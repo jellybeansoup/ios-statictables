@@ -23,8 +23,35 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StaticTables.h"
+#import "JSMStaticDataSource.h"
 
-@interface ViewController : JSMStaticTableViewController <JSMStaticDataSourceDelegate, JSMStaticSectionDelegate>
+/**
+ * The `JSMStaticTableViewController` class creates a view controller object that manages a table view
+ * using a `JSMStaticDataSource` as the data source for the table view. It's purpose it to implement
+ * common behaviours and functionality so you don't have to do that yourself.
+ *
+ * Because I'm nice like that.
+ *
+ * It also conforms to the `JSMStaticDataSourceDelegate` protocol so that you can respond to messages
+ * from the data source when necessary. It also implements some of the more useful delegate methods with
+ * common implementations, including:
+ *
+ * - `dataSource:sectionNeedsReload:atIndex:`
+ * - `dataSource:rowNeedsReload:atIndexPath:`
+ *
+ * Of course, these implementations can be overridden if desired.
+ */
+
+@interface JSMStaticTableViewController : UITableViewController <JSMStaticDataSourceDelegate>
+
+///---------------------------------------------
+/// @name Data Source
+///---------------------------------------------
+
+/**
+ * The static data source used to control the content of the reciever's table view.
+ */
+
+@property (nonatomic, strong, readonly) JSMStaticDataSource *dataSource;
 
 @end

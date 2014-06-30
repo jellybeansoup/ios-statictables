@@ -64,7 +64,6 @@
 - (JSMStaticSelectPreferenceViewController *)viewController {
     if( _viewController == nil ) {
         JSMStaticSelectPreferenceViewController *viewController = [[JSMStaticSelectPreferenceViewController alloc] initWithPreference:self];
-        NSLog(@"%@",viewController);
         _viewController = viewController;
     }
     return _viewController;

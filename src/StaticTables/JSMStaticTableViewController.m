@@ -22,40 +22,54 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <UIKit/UIKit.h>
 #import "JSMStaticTableViewController.h"
 
-@class JSMStaticSelectPreference;
-@class JSMStaticDataSource;
+@interface JSMStaticTableViewController ()
 
-/**
- * Instances of `JSMStaticSelectPreferenceViewController` are used as the interface for selecting a
- * value for a `JSMStaticSelectPreference` instance from a preconfigured collection of options.
- *
- * Typically, an instance is provided by the `JSMStaticSelectPreference` in question, but for more
- * complex behaviours, or customisation of the user interface, a subclass can be created an initialised
- * with `initWithPreference:`.
- */
+@end
 
-@interface JSMStaticSelectPreferenceViewController : JSMStaticTableViewController <UITableViewDelegate>
+@implementation JSMStaticTableViewController
 
-///---------------------------------------------
-/// @name Creating the View Controller
-///---------------------------------------------
+- (id)initWithStyle:(UITableViewStyle)style {
+    if( ( self = [super initWithStyle:style] ) ) {
 
-/**
- * Initialises an allocated `JSMStaticSelectPreferenceViewController` object with a given `preference`.
- *
- * @param preference The preference that is used to provide the default functionality.
- * @return Initialised `JSMStaticSelectPreferenceViewController` object with `preference`.
- */
+    }
+    return self;
+}
 
-- (instancetype)initWithPreference:(JSMStaticSelectPreference *)preference;
+#pragma mark - View Lifecycle
 
-/**
- * The `JSMStaticSelectPreference` that provides the default options and other functionality for the reciever.
- */
+- (void)viewDidLoad {
+    [super viewDidLoad];
 
-@property (nonatomic, strong) JSMStaticSelectPreference *preference;
+    // Override the initial data source
+    self.tableView.dataSource = self.dataSource;
+}
+
+#pragma mark - Data Source
+
+@synthesize dataSource = _dataSource;
+
+- (JSMStaticDataSource *)dataSource {
+    if( _dataSource == nil ) {
+        _dataSource = [JSMStaticDataSource new];
+        _dataSource.delegate = self;
+    }
+    return _dataSource;
+}
+
+#pragma mark - Static data source delegate
+
+- (void)dataSource:(JSMStaticDataSource *)dataSource sectionNeedsReload:(JSMStaticSection *)section atIndex:(NSUInteger)index {
+    [self.tableView beginUpdates];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+}
+
+- (void)dataSource:(JSMStaticDataSource *)dataSource rowNeedsReload:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+}
 
 @end

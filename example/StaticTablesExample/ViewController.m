@@ -26,8 +26,6 @@
 
 @interface ViewController ()
 
-@property (nonatomic, strong) JSMStaticDataSource *dataSource;
-
 @property (nonatomic, strong) JSMStaticSection *preferences;
 
 @property (nonatomic, strong) JSMStaticSection *managers;
@@ -44,10 +42,6 @@
     [super viewDidLoad];
 
     self.navigationItem.title = @"Static Tables";
-
-    // Create the data source
-    self.dataSource = [JSMStaticDataSource new];
-    self.dataSource.delegate = self;
 
     // Apply the data source to the table view
     self.tableView.dataSource = self.dataSource;
@@ -73,9 +67,6 @@
     //selectPreference.detailText = @"This probably shouldn't work.";
     selectPreference.options = @{ @"option1": @"Option 1", @"option2": @"Option 2", @"option3": @"Option 3" };
     [self.preferences addRow:selectPreference];
-
-    NSLog(@"%@",selectPreference.defaultValue);
-
 
     JSMStaticRow *reset = [JSMStaticRow new];
     reset.style = UITableViewCellStyleDefault;

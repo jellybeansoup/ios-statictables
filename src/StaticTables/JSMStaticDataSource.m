@@ -283,6 +283,9 @@
     cell.textLabel.text = row.text;
     cell.detailTextLabel.text = row.detailText;
     cell.imageView.image = row.image;
+    // Reset some basics
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.accessoryView = nil;
     // Configure the cell using the row's configuration block
     [row prepareCell:cell];
     // Return the cell
