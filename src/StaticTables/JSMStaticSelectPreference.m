@@ -72,6 +72,11 @@
 
 #pragma mark - Updating the value
 
+- (void)setValue:(NSString *)value {
+    [super setValue:value];
+    [self setNeedsReload];
+}
+
 - (id)defaultValue {
     // If we haven't been given a value, use the first option.
     if( super.defaultValue == nil ) {

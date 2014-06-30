@@ -94,6 +94,8 @@
 
     JSMStaticRow *bob = [JSMStaticRow new];
     bob.text = @"Bob";
+    bob.detailText = @"Janitorial";
+    bob.style = UITableViewCellStyleDefault;
     [self.managers addRow:bob];
 
     // Employees
@@ -111,6 +113,7 @@
 
     JSMStaticRow *becky = [JSMStaticRow new];
     becky.text = @"Becky";
+    becky.detailText = @"Ticketing";
     becky.style = UITableViewCellStyleSubtitle;
     [self.employees addRow:becky];
 
@@ -145,13 +148,6 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }];
     [self.customers addRow:michelle];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    // Reload the tableview
-    [self.tableView reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -192,9 +188,12 @@
         [self.tableView performUpdates:^{
             [self.tableView addRow:row toSection:newSection withRowAnimation:UITableViewRowAnimationFade];
         } withCompletion:^{
-            [self.tableView performUpdates:^{
-                [self.tableView reloadRow:row withRowAnimation:UITableViewRowAnimationNone];
-            }];
+            if( newSection == self.managers ) {
+                row.style = UITableViewCellStyleDefault;
+            }
+            else {
+                row.style = UITableViewCellStyleSubtitle;
+            }
         }];
         [self.tableView performUpdates:^{
             if( self.managers.numberOfRows == 0 ) {
@@ -203,7 +202,7 @@
             if( self.employees.numberOfRows == 0 ) {
                 [self.tableView removeSection:self.employees withRowAnimation:UITableViewRowAnimationAutomatic];
             }
-        }];
+       }];
    }
 }
 

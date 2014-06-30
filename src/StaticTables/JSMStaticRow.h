@@ -91,15 +91,28 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableVi
 
 - (void)configurationForCell:(JSMStaticTableViewCellConfiguration)configurationBlock;
 
+///---------------------------------------------
+/// @name Refreshing the Row
+///---------------------------------------------
+
 /**
- * Configure the cell for this row and refresh the row if necessary.
+ * Returns a Boolean indicating whether the row has been marked as needing to be reloaded.
  *
- * @param configurationBlock The location of the section you want to retrieve. You are provided with two parameters:
- *      a cell for you to configure, passed by reference, and the index path pointing to the cell in the overall
- *      structure.
+ * @return Flag indicating if the row has been marked as needing to be reloaded (`YES`) or not (`NO`).
+ */
+
+- (BOOL)needsReload;
+
+/**
+ * Marks the row as needing to be reloaded within the table view.
+ *
+ * This method simply informs the data source it is contained in (if one is available) that it would like to be reloaded.
+ * The data source will then inform its delegate, which needs to perform the reload. If the data source is not part of an
+ * instance of `JSMStaticTableViewController`, you will need to ensure that you respond to the message appropriately.
+ *
  * @return void
  */
 
-- (void)configureCellWithBlock:(JSMStaticTableViewCellConfiguration)configurationBlock;
+- (void)setNeedsReload;
 
 @end

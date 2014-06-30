@@ -23,10 +23,17 @@
 //
 
 #import "JSMStaticRow.h"
+#import "JSMStaticDataSource.h"
 
 @interface JSMStaticRow ()
 
 @property (nonatomic, strong) JSMStaticTableViewCellConfiguration configurationBlock;
+
+@end
+
+@interface JSMStaticDataSource (JSMStaticRow)
+
+- (void)requestReloadForRow:(JSMStaticRow *)row;
 
 @end
 
@@ -58,6 +65,28 @@
     _section = section;
 }
 
+#pragma mark - Predefined content
+
+- (void)setText:(NSString *)text {
+    _text = text;
+    [self setNeedsReload];
+}
+
+- (void)setDetailText:(NSString *)detailText {
+    _detailText = detailText;
+    [self setNeedsReload];
+}
+
+- (void)setImage:(UIImage *)image {
+    _image = image;
+    [self setNeedsReload];
+}
+
+- (void)setStyle:(UITableViewCellStyle)style {
+    _style = style;
+    [self setNeedsReload];
+}
+
 #pragma mark - Configuring the cell
 
 - (void)prepareCell:(UITableViewCell *)cell {
@@ -70,8 +99,19 @@
     self.configurationBlock = configurationBlock;
 }
 
-- (void)configureCellWithBlock:(JSMStaticTableViewCellConfiguration)configurationBlock {
+#pragma mark - Refreshing the Row
 
+- (BOOL)needsReload {
+    return NO;
+}
+
+- (void)setNeedsReload {
+    // No section or data source
+    if( self.section.dataSource == nil ) {
+        return;
+    }
+    // Request a reload
+    [self.section.dataSource requestReloadForRow:self];
 }
 
 @end

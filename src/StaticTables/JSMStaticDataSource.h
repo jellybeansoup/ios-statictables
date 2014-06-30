@@ -52,6 +52,38 @@
 
 - (NSArray *)dataSource:(JSMStaticDataSource *)dataSource sectionsDidChange:(NSArray *)sections;
 
+/**
+ * Called when a `section` requests a reload using its `setNeedsReload` method.
+ *
+ * This method is optional, but it is strongly suggested that, if you are not using `JSMStaticTableViewController`, you
+ * implement it and perform the appropriate reload on your table view. This will allow you to easily respond to requests
+ * by the section to reload its contents, and will allow you to make changes without having to perform refreshes throughout
+ * your code.
+ *
+ * @param dataSource The data source that contains the section needing to be reloaded.
+ * @param section The section that requested to be reloaded.
+ * @param index The index of the section within the data source.
+ * @return void
+ */
+
+- (void)dataSource:(JSMStaticDataSource *)dataSource sectionNeedsReload:(JSMStaticSection *)section atIndex:(NSUInteger)index;
+
+/**
+ * Called when a `row` requests a reload using its `setNeedsReload` method.
+ *
+ * This method is optional, but it is strongly suggested that, if you are not using `JSMStaticTableViewController`, you
+ * implement it and perform the appropriate reload on your table view. This will allow you to easily respond to requests
+ * by the section to reload its contents, and will allow you to make changes without having to perform refreshes throughout
+ * your code.
+ *
+ * @param dataSource The data source that contains the section needing to be reloaded.
+ * @param row The row that requested to be reloaded.
+ * @param indexPath The index path of the section within the data source.
+ * @return void
+ */
+
+- (void)dataSource:(JSMStaticDataSource *)dataSource rowNeedsReload:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 /**

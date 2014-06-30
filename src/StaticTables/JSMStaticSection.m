@@ -32,6 +32,12 @@
 
 @end
 
+@interface JSMStaticDataSource (JSMStaticSection)
+
+- (void)requestReloadForSection:(JSMStaticSection *)section;
+
+@end
+
 @interface JSMStaticRow (JSMStaticSection)
 
 - (void)setSection:(JSMStaticSection *)section;
@@ -160,6 +166,21 @@
     if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
         self.mutableRows = [[self.delegate section:self rowsDidChange:self.mutableRows.copy] mutableCopy];
     }
+}
+
+#pragma mark - Refreshing the Row
+
+- (BOOL)needsReload {
+    return NO;
+}
+
+- (void)setNeedsReload {
+    // No section or data source
+    if( self.dataSource == nil ) {
+        return;
+    }
+    // Request a reload
+    [self.dataSource requestReloadForSection:self];
 }
 
 @end

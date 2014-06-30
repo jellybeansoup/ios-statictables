@@ -193,6 +193,31 @@
     [self removeRowAtIndexPath:indexPath];
 }
 
+#pragma mark - Refreshing the Contents
+
+- (void)requestReloadForSection:(JSMStaticSection *)section {
+    // Ensure we own the section first
+    if( ! [self containsSection:section] ) {
+        return;
+    }
+    // All we do is notify the delegate
+    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:sectionNeedsReload:atIndex:)] ) {
+        [self.delegate dataSource:self sectionNeedsReload:section atIndex:[self indexForSection:section]];
+    }
+}
+
+- (void)requestReloadForRow:(JSMStaticRow *)row {
+    // Ensure we own the row first
+    NSIndexPath *indexPath = [self indexPathForRow:row];
+    if( indexPath == nil ) {
+        return;
+    }
+    // All we do is notify the delegate
+    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:rowNeedsReload:atIndexPath:)] ) {
+        [self.delegate dataSource:self rowNeedsReload:row atIndexPath:indexPath];
+    }
+}
+
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

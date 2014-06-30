@@ -201,4 +201,28 @@
 
 @property (nonatomic, strong) NSString *footerText;
 
+///---------------------------------------------
+/// @name Refreshing the Section
+///---------------------------------------------
+
+/**
+ * Returns a Boolean indicating whether the row has been marked as needing to be reloaded.
+ *
+ * @return Flag indicating if the row has been marked as needing to be reloaded (`YES`) or not (`NO`).
+ */
+
+- (BOOL)needsReload;
+
+/**
+ * Marks the row as needing to be reloaded within the table view.
+ *
+ * This method simply informs the data source it is contained in (if one is available) that it would like to be reloaded.
+ * The data source will then inform its delegate, which needs to perform the reload. If the data source is not part of an
+ * instance of `JSMStaticTableViewController`, you will need to ensure that you respond to the message appropriately.
+ *
+ * @return void
+ */
+
+- (void)setNeedsReload;
+
 @end
