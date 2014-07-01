@@ -50,7 +50,66 @@ At the top of the header file for the view controller you want to implement Stat
 #import "StaticTables.h"
 ```
 
-More instructions to come.
+Implementing StaticTables can easily be done by simply subclassing `JSMStaticTableViewController` the same way you would `UITableViewController`. This class contains some default implementation, and you immediately begin building your initial data source in `viewDidLoad`.
+
+```objc
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	
+	// Create an add a basic section
+	JSMStaticSection *employees = [JSMStaticSection new];
+	employees.headerText = @"Employees";
+	[self.dataSource addSection:employees];
+	
+	// Now we just add a couple of rows
+	JSMStaticRow *becky = [JSMStaticRow new];
+	becky.text = @"Becky";
+	becky.detailText = @"Ticketing";
+	becky.style = UITableViewCellStyleSubtitle;
+	[employees addRow:becky];
+	
+	JSMStaticRow *jason = [JSMStaticRow new];
+	jason.text = @"Jason";
+	jason.detailText = @"Ticketing";
+	jason.style = UITableViewCellStyleSubtitle;
+	[employees addRow:jason];
+}
+```
+
+If `JSMStaticTableViewController` doesn't fit your needs, you can set up `JSMStaticDataSource` as the data source for any instance of `UITableView`, which gives you greater flexibility and control.
+
+```objc
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	
+	// Create and insert the tableview
+	UITableView *tableView = [[UITableView alloc] initWithStyle:UITableViewStyleGrouped];
+	[self.view addSubview:tableView];
+	
+	// Create the data source instance
+	JSMStaticDataSource *dataSource = [JSMStaticDataSource new];
+	tableView.dataSource = dataSource;
+	
+	// Create an add a basic section
+	JSMStaticSection *employees = [JSMStaticSection new];
+	employees.headerText = @"Employees";
+	[dataSource addSection:employees];
+
+	...
+}
+```
+
+Once the initial data is loaded, you can use the included category for `UITableView` to add, move and delete rows from the data source, with automatic animation applied to them. This is particularly useful for simple table view structures, such as preference screens that have sections or rows that respond to the user's input.
+
+```objc
+[tableView performUpdates:^{
+	[tableView addSection:newSection withRowAnimation:UITableViewRowAnimationAutomatic];
+} withCompletion:^{
+	NSLog(@"Oh look, the table view section has finished animating into place.");
+}];
+```
+
+For more extensive details on what methods are available, take a look at the included example project (example/StaticTablesExample.xcodeproj), or the documentation, which can be built from the header files using [appledoc](http://gentlebytes.com/appledoc/) (there is a preconfigured target in the main project).
 
 ##Released under the BSD License
 
