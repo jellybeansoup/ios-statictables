@@ -110,8 +110,6 @@
 }
 
 - (void)settings {
-    self.employees.headerText = @"YES";
-    return;
     SettingsViewController *settingsController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsController];
     [self presentViewController:navigationController animated:YES completion:nil];
