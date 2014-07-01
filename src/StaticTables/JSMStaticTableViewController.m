@@ -30,13 +30,6 @@
 
 @implementation JSMStaticTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style {
-    if( ( self = [super initWithStyle:style] ) ) {
-
-    }
-    return self;
-}
-
 #pragma mark - View Lifecycle
 
 - (void)viewDidLoad {

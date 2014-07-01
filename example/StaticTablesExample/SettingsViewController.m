@@ -101,7 +101,7 @@
     // Fetch the row that was selected
     JSMStaticRow *row = [self.dataSource rowAtIndexPath:indexPath];
     // Reset all the preferences to their default values
-    if( [row.text isEqual:@"Reset All Preferences"] ) {
+    if( [row.text isEqualToString:@"Reset All Preferences"] ) {
 
         [self.view endEditing:YES];
 

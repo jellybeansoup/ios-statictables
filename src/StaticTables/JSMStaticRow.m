@@ -27,7 +27,9 @@
 
 @interface JSMStaticRow ()
 
-@property (nonatomic, strong) JSMStaticTableViewCellConfiguration configurationBlock;
+@property (nonatomic, copy) JSMStaticTableViewCellConfiguration configurationBlock;
+
+@property (nonatomic, getter=isDirty) BOOL dirty;
 
 @end
 
@@ -90,6 +92,7 @@
 #pragma mark - Configuring the cell
 
 - (void)prepareCell:(UITableViewCell *)cell {
+    self.dirty = NO;
     if( self.configurationBlock != nil ) {
         self.configurationBlock( self, cell );
     }
@@ -102,7 +105,7 @@
 #pragma mark - Refreshing the Row
 
 - (BOOL)needsReload {
-    return NO;
+    return self.isDirty;
 }
 
 - (void)setNeedsReload {

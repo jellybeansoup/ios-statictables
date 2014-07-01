@@ -30,6 +30,8 @@
 
 @property (nonatomic, strong) NSMutableArray *mutableRows;
 
+@property (nonatomic, getter=isDirty) BOOL dirty;
+
 @end
 
 @interface JSMStaticDataSource (JSMStaticSection)
@@ -183,7 +185,7 @@
 #pragma mark - Refreshing the Row
 
 - (BOOL)needsReload {
-    return NO;
+    return self.isDirty;
 }
 
 - (void)setNeedsReload {

@@ -41,6 +41,10 @@
 /// @name Preparing for Updates
 ///---------------------------------------------
 
+typedef void(^JSMTableViewUpdatesBlock)(void);
+
+typedef void(^JSMTableViewUpdatesCompletion)(void);
+
 /**
  * Block based alternative to the `beginUpdates` and `endUpdates` methods.
  *
@@ -48,7 +52,7 @@
  * @return void
  */
 
-- (void)performUpdates:(void(^)(void))updates;
+- (void)performUpdates:(JSMTableViewUpdatesBlock)updates;
 
 /**
  * Block based alternative to the `beginUpdates` and `endUpdates` methods, with bonus completion
@@ -59,7 +63,7 @@
  * @return void
  */
 
-- (void)performUpdates:(void(^)(void))updates withCompletion:(void(^)(void))completion;
+- (void)performUpdates:(JSMTableViewUpdatesBlock)updates withCompletion:(JSMTableViewUpdatesCompletion)completion;
 
 ///---------------------------------------------
 /// @name Managing the Sections

@@ -193,13 +193,13 @@
  * The text used in the section header.
  */
 
-@property (nonatomic, strong) NSString *headerText;
+@property (nonatomic, copy) NSString *headerText;
 
 /**
  * The text used in the section footer.
  */
 
-@property (nonatomic, strong) NSString *footerText;
+@property (nonatomic, copy) NSString *footerText;
 
 ///---------------------------------------------
 /// @name Refreshing the Section

@@ -36,6 +36,8 @@
 
 - (void)setDataSource:(JSMStaticDataSource *)dataSource;
 
+- (void)setDirty:(BOOL)dirty;
+
 @end
 
 @interface JSMStaticRow (JSMStaticDataSource)
@@ -225,7 +227,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self sectionAtIndex:(NSUInteger)section] numberOfRows];
+    JSMStaticSection *sectionObject = [self sectionAtIndex:(NSUInteger)section];
+    [sectionObject setDirty:NO];
+    return sectionObject.numberOfRows;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -289,7 +293,7 @@
     // Configure the cell using the row's configuration block
     [row prepareCell:cell];
     // Return the cell
-	return (UITableViewCell *)cell;
+	return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

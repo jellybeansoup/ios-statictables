@@ -110,6 +110,8 @@
 }
 
 - (void)settings {
+    self.employees.headerText = @"YES";
+    return;
     SettingsViewController *settingsController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsController];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -166,6 +168,9 @@
         [self.tableView performUpdates:^{
             if( oldSection.numberOfRows == 0 ) {
                 [self.tableView removeSection:oldSection withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            else {
+                //[oldSection setNeedsReload];
             }
        }];
    }

@@ -54,19 +54,19 @@
  * The string used for the `UITableViewCell`'s `textLabel` content.
  */
 
-@property (nonatomic, strong) NSString *text;
+@property (nonatomic, copy) NSString *text;
 
 /**
  * The string used for the `UITableViewCell`'s `detailTextLabel` content.
  */
 
-@property (nonatomic, strong) NSString *detailText;
+@property (nonatomic, copy) NSString *detailText;
 
 /**
  * The image used for the `UITableViewCell`'s `imageView` content.
  */
 
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, copy) UIImage *image;
 
 /**
  * The cell style used for the `UITableViewCell` instance.

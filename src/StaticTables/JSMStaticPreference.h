@@ -71,7 +71,7 @@
  * is in memory.
  */
 
-@property (nonatomic, strong) NSString *key;
+@property (nonatomic, copy) NSString *key;
 
 /**
  * The value of the preference.
