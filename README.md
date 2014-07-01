@@ -111,6 +111,12 @@ Once the initial data is loaded, you can use the included category for `UITableV
 
 For more extensive details on what methods are available, take a look at the included example project (example/StaticTablesExample.xcodeproj), or the documentation, which can be built from the header files using [appledoc](http://gentlebytes.com/appledoc/) (there is a preconfigured target in the main project).
 
+##Why is this project named StaticTables, when it's clearly not really static at all?
+
+The project was originally designed as an alternative to creating static table views in storyboards, so that I could construct the settings views for [GIFwrapped](http://gifwrapped.co) without having to wrestle with the default methods of writing table views programmatically.
+
+Obviously it's come a long way since then, and honestly, I'm way too lazy to rename it.
+
 ##Released under the BSD License
 
 Copyright © 2014 Daniel Farrelly
