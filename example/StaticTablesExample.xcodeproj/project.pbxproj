@@ -12,8 +12,9 @@
 		A11C057616FAA51700C44D43 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A11C057516FAA51700C44D43 /* CoreGraphics.framework */; };
 		A11C057E16FAA51700C44D43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A11C057D16FAA51700C44D43 /* main.m */; };
 		A11C058216FAA51700C44D43 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A11C058116FAA51700C44D43 /* AppDelegate.m */; };
+		A13E85FE1962B59D00878531 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A13E85FD1962B59D00878531 /* SettingsViewController.m */; };
 		A1FCE6D718503BDD00E9362F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1FCE6D618503BDD00E9362F /* Images.xcassets */; };
-		A1FCE6DB18503C8700E9362F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FCE6DA18503C8700E9362F /* ViewController.m */; };
+		A1FCE6DB18503C8700E9362F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FCE6DA18503C8700E9362F /* MainViewController.m */; };
 		A1FEE5D918AEE0AA00F36186 /* libStaticTables.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1FEE5D618AEDFED00F36186 /* libStaticTables.a */; };
 /* End PBXBuildFile section */
 
@@ -45,9 +46,11 @@
 		A11C058016FAA51700C44D43 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A11C058116FAA51700C44D43 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A11C059816FAA51700C44D43 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		A13E85FC1962B59D00878531 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		A13E85FD1962B59D00878531 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		A1FCE6D618503BDD00E9362F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		A1FCE6D918503C8700E9362F /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A1FCE6DA18503C8700E9362F /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A1FCE6D918503C8700E9362F /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		A1FCE6DA18503C8700E9362F /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		A1FEE5D018AEDFED00F36186 /* StaticTables.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = StaticTables.xcodeproj; path = ../../StaticTables.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,8 +102,10 @@
 			children = (
 				A11C058016FAA51700C44D43 /* AppDelegate.h */,
 				A11C058116FAA51700C44D43 /* AppDelegate.m */,
-				A1FCE6D918503C8700E9362F /* ViewController.h */,
-				A1FCE6DA18503C8700E9362F /* ViewController.m */,
+				A1FCE6D918503C8700E9362F /* MainViewController.h */,
+				A1FCE6DA18503C8700E9362F /* MainViewController.m */,
+				A13E85FC1962B59D00878531 /* SettingsViewController.h */,
+				A13E85FD1962B59D00878531 /* SettingsViewController.m */,
 				A11C057816FAA51700C44D43 /* Supporting Files */,
 			);
 			path = StaticTablesExample;
@@ -205,9 +210,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1FCE6DB18503C8700E9362F /* ViewController.m in Sources */,
+				A1FCE6DB18503C8700E9362F /* MainViewController.m in Sources */,
 				A11C057E16FAA51700C44D43 /* main.m in Sources */,
 				A11C058216FAA51700C44D43 /* AppDelegate.m in Sources */,
+				A13E85FE1962B59D00878531 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

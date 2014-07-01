@@ -22,9 +22,8 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <UIKit/UIKit.h>
 #import "StaticTables.h"
 
-@interface ViewController : JSMStaticTableViewController <JSMStaticDataSourceDelegate, JSMStaticSectionDelegate>
+@interface MainViewController : JSMStaticTableViewController <JSMStaticDataSourceDelegate, JSMStaticSectionDelegate>
 
 @end

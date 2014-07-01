@@ -22,11 +22,10 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "ViewController.h"
+#import "MainViewController.h"
+#import "SettingsViewController.h"
 
-@interface ViewController ()
-
-@property (nonatomic, strong) JSMStaticSection *preferences;
+@interface MainViewController ()
 
 @property (nonatomic, strong) JSMStaticSection *managers;
 
@@ -36,46 +35,35 @@
 
 @end
 
-@implementation ViewController
+@implementation MainViewController
+
+#pragma mark - View life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = @"Static Tables";
+    self.navigationItem.title = @"StaticTables";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"🔧" style:UIBarButtonItemStyleBordered target:self action:@selector(settings)];
 
-    // Apply the data source to the table view
-    self.tableView.dataSource = self.dataSource;
+    // Customers
+    self.customers = [JSMStaticSection new];
+    self.customers.headerText = @"Customers";
+    self.customers.footerText = @"The customer is almost never right.";
+    [self.dataSource addSection:self.customers];
 
-    // Preferences
-    self.preferences = [JSMStaticSection new];
-    self.preferences.headerText = @"Preferences";
-    [self.dataSource addSection:self.preferences];
-
-    JSMStaticTextPreference *urlPreference = [JSMStaticTextPreference preferenceWithKey:@"com.jellystyle.staticTables.url"];
-    urlPreference.text = @"URL";
-    urlPreference.defaultValue = @"http://apple.com";
-    urlPreference.textField.keyboardType = UIKeyboardTypeURL;
-    [self.preferences addRow:urlPreference];
-
-    JSMStaticBooleanPreference *boolPreference = [JSMStaticBooleanPreference preferenceWithKey:@"com.jellystyle.staticTables.bool"];
-    boolPreference.text = @"Boolean";
-    boolPreference.toggle.onTintColor = [UIColor purpleColor];
-    [self.preferences addRow:boolPreference];
-
-    JSMStaticSelectPreference *selectPreference = [JSMStaticSelectPreference preferenceWithKey:@"com.jellystyle.staticTables.select"];
-    selectPreference.text = @"Select";
-    //selectPreference.detailText = @"This probably shouldn't work.";
-    selectPreference.options = @{ @"option1": @"Option 1", @"option2": @"Option 2", @"option3": @"Option 3" };
-    [self.preferences addRow:selectPreference];
-
-    JSMStaticRow *reset = [JSMStaticRow new];
-    reset.style = UITableViewCellStyleDefault;
-    reset.text = @"Reset All Preferences";
-    [reset configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [UIColor colorWithRed:0.6 green:0 blue:0 alpha:1];
+    JSMStaticRow *devina = [JSMStaticRow new];
+    devina.text = @"Devina";
+    [devina configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }];
-    [self.preferences addRow:reset];
+    [self.customers addRow:devina];
+
+    JSMStaticRow *chase = [JSMStaticRow new];
+    chase.text = @"Chase";
+    [chase configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }];
+    [self.customers addRow:chase];
 
     // Managers
     self.managers = [JSMStaticSection new];
@@ -83,11 +71,11 @@
     self.managers.footerText = @"Tap a manager to demote them.";
     [self.dataSource addSection:self.managers];
 
-    JSMStaticRow *bob = [JSMStaticRow new];
-    bob.text = @"Bob";
-    bob.detailText = @"Janitorial";
-    bob.style = UITableViewCellStyleDefault;
-    [self.managers addRow:bob];
+    JSMStaticRow *norma = [JSMStaticRow new];
+    norma.text = @"Norma";
+    norma.detailText = @"Technician";
+    norma.style = UITableViewCellStyleDefault;
+    [self.managers addRow:norma];
 
     // Employees
     self.employees = [JSMStaticSection new];
@@ -119,48 +107,24 @@
     kurt.detailText = @"Janitorial";
     kurt.style = UITableViewCellStyleSubtitle;
     [self.employees addRow:kurt];
-
-    // Customers
-    self.customers = [JSMStaticSection new];
-    self.customers.headerText = @"Customers";
-    self.customers.footerText = @"The customer is almost never right.";
-    [self.dataSource addSection:self.customers];
-
-    JSMStaticRow *joe = [JSMStaticRow new];
-    joe.text = @"Joe";
-    [joe configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }];
-    [self.customers addRow:joe];
-
-    JSMStaticRow *michelle = [JSMStaticRow new];
-    michelle.text = @"Michelle";
-    [michelle configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }];
-    [self.customers addRow:michelle];
 }
+
+- (void)settings {
+    SettingsViewController *settingsController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsController];
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+#pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Deselect the row
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // Fetch the row that was selected
     JSMStaticRow *row = [self.dataSource rowAtIndexPath:indexPath];
-    // Reset Preferences
-    if( [row.text isEqual:@"Reset All Preferences"] ) {
-        for( NSUInteger i = 0; i<self.preferences.rows.count; i++ ) {
-            JSMStaticRow *row = [self.preferences rowAtIndex:i];
-            if( [row isKindOfClass:[JSMStaticPreference class]] ) {
-                [[(JSMStaticPreference *)row control] resignFirstResponder];
-                [(JSMStaticPreference *)row setValue:nil];
-            }
-        }
-    }
-    else if ( [row isKindOfClass:[JSMStaticSelectPreference class]] ) {
-        JSMStaticSelectPreference *select = (JSMStaticSelectPreference *)row;
-        [self.navigationController pushViewController:select.viewController animated:YES];
-    }
-    // Here's where we'll be moving people
+
+    // Here, we'll move people between sections and take advantage of the added tableview
+    // methods for animating the changes while we do it.
     JSMStaticSection *newSection;
     if( [row.section isEqual:self.employees] ) {
         newSection = self.managers;
@@ -168,30 +132,40 @@
     else if( [row.section isEqual:self.managers] ) {
         newSection = self.employees;
     }
-    // Perform the updates
+
+    // And if we recieved a section, we go forth!
     if( newSection != nil ) {
+        JSMStaticSection *oldSection = row.section;
+
+        // If we removed the section we're moving to, we need to add it back in first.
         if( ! [newSection.dataSource isEqual:self.dataSource] ) {
             [self.tableView performUpdates:^{
                 [self.tableView addSection:newSection withRowAnimation:UITableViewRowAnimationAutomatic];
             }];
+            // We'll have to update the index path, because our row might have been shifted.
             indexPath = [self.dataSource indexPathForRow:row];
         }
+
+        // We'll add the row (or rather, move it), and then make a quick change when that's completed.
         [self.tableView performUpdates:^{
             [self.tableView addRow:row toSection:newSection withRowAnimation:UITableViewRowAnimationFade];
         } withCompletion:^{
+
+            // Note that we don't have to reload when the style is changed here. That's because the row asks to
+            // be reloaded, and JSMStaticTableViewController obliges automatically.
             if( newSection == self.managers ) {
                 row.style = UITableViewCellStyleDefault;
             }
             else {
                 row.style = UITableViewCellStyleSubtitle;
             }
+
         }];
+
+        // Once we've moved the row, we can safely remove any empty sections
         [self.tableView performUpdates:^{
-            if( self.managers.numberOfRows == 0 ) {
-                [self.tableView removeSection:self.managers withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-            if( self.employees.numberOfRows == 0 ) {
-                [self.tableView removeSection:self.employees withRowAnimation:UITableViewRowAnimationAutomatic];
+            if( oldSection.numberOfRows == 0 ) {
+                [self.tableView removeSection:oldSection withRowAnimation:UITableViewRowAnimationAutomatic];
             }
        }];
    }
@@ -199,8 +173,11 @@
 
 #pragma mark - Static data source delegate
 
+// Here, we use the data source delegate method to find out when it's section change and to then
+// re-sort them automatically in the order we want them.
+
 - (NSArray *)dataSource:(JSMStaticDataSource *)viewController sectionsDidChange:(NSArray *)sections {
-    NSArray *sectionOrder = @[ @"Preferences", @"Managers", @"Employees", @"Customers" ];
+    NSArray *sectionOrder = @[ @"Managers", @"Employees", @"Customers" ];
     return [sections sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         NSUInteger obj1Index = [sectionOrder indexOfObject:[(JSMStaticSection *)obj1 headerText]];
         NSUInteger obj2Index = [sectionOrder indexOfObject:[(JSMStaticSection *)obj2 headerText]];
@@ -215,6 +192,8 @@
 }
 
 #pragma mark - Static section delegate
+
+// We do the same with rows in the employees section, sorting alphabetically by name.
 
 - (NSArray *)section:(JSMStaticSection *)section rowsDidChange:(NSArray *)rows {
     return [rows sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
