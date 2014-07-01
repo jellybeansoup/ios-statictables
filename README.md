@@ -14,11 +14,13 @@ This method is demonstrated in the included example project (example/StaticTable
 
 2. In your Project's target, under the Build Phases tab, add `libStaticTables.a` under 'Link Binary with Libraries'.
 
-3. While you're in the Build Phases tab, add `libStaticTables.a` and `StaticTablesResources.bundle` under 'Target Dependencies'.
+3. While you're in the Build Phases tab, add `libStaticTables.a` under 'Target Dependencies'.
 
 4. Under the Build Settings tab of you Project's target, do a search for 'Header Search Paths'. Add the path to the `/src/StaticTables/` folder of the StaticTables project. This should look something like `"$(SRCROOT)/../src/StaticTables/"`, replacing the `..` with the relative path from your project to the StaticTables project.
 
-5. Build your project (⌘B). All going well you should get a 'Build Succeeded' notification. This signifies that you're ready to implement StaticTables in your project.
+5. While you're in Build Settings, search for 'Other Linker Flags'. In order to use the included categories on `UITableView`, you'll need to ensure this setting includes the `-ObjC` flag.
+
+6. Build your project (⌘B). All going well you should get a 'Build Succeeded' notification. This signifies that you're ready to implement StaticTables in your project.
 
 ###Cocoapods
 
