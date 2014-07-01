@@ -55,6 +55,18 @@
     return self;
 }
 
+#pragma mark - Predefined content
+
+- (void)setHeaderText:(NSString *)headerText {
+    _headerText = headerText;
+    [self setNeedsReload];
+}
+
+- (void)setFooterText:(NSString *)footerText {
+    _footerText = footerText;
+    [self setNeedsReload];
+}
+
 #pragma mark - Data Structure
 
 - (void)setDataSource:(JSMStaticDataSource *)dataSource {
