@@ -143,8 +143,6 @@
             [self.tableView performUpdates:^(UITableView *tableView) {
                 [tableView addSection:newSection withRowAnimation:UITableViewRowAnimationAutomatic];
             }];
-            // We'll have to update the index path, because our row might have been shifted.
-            indexPath = [weakSelf.dataSource indexPathForRow:row];
         }
 
         // We'll add the row (or rather, move it), and then make a quick change when that's completed.
