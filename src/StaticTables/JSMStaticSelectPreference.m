@@ -69,6 +69,13 @@
     return _viewController;
 }
 
+- (void)clearViewController {
+    if( _viewController == nil ) {
+        return;
+    }
+    _viewController = nil;
+}
+
 #pragma mark - Updating the value
 
 - (void)setValue:(NSString *)value {

@@ -56,6 +56,6 @@
  * The `JSMStaticSelectPreference` that provides the default options and other functionality for the reciever.
  */
 
-@property (nonatomic, strong) JSMStaticSelectPreference *preference;
+@property (nonatomic, weak) JSMStaticSelectPreference *preference;
 
 @end

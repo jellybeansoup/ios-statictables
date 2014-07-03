@@ -136,24 +136,25 @@
     // And if we recieved a section, we go forth!
     if( newSection != nil ) {
         JSMStaticSection *oldSection = row.section;
+        MainViewController __weak *weakSelf = self;
 
         // If we removed the section we're moving to, we need to add it back in first.
         if( ! [newSection.dataSource isEqual:self.dataSource] ) {
-            [self.tableView performUpdates:^{
-                [self.tableView addSection:newSection withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView performUpdates:^(UITableView *tableView) {
+                [tableView addSection:newSection withRowAnimation:UITableViewRowAnimationAutomatic];
             }];
             // We'll have to update the index path, because our row might have been shifted.
-            indexPath = [self.dataSource indexPathForRow:row];
+            indexPath = [weakSelf.dataSource indexPathForRow:row];
         }
 
         // We'll add the row (or rather, move it), and then make a quick change when that's completed.
-        [self.tableView performUpdates:^{
-            [self.tableView addRow:row toSection:newSection withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView performUpdates:^(UITableView *tableView) {
+            [tableView addRow:row toSection:newSection withRowAnimation:UITableViewRowAnimationFade];
         } withCompletion:^{
 
             // Note that we don't have to reload when the style is changed here. That's because the row asks to
             // be reloaded, and JSMStaticTableViewController obliges automatically.
-            if( newSection == self.managers ) {
+            if( newSection == weakSelf.managers ) {
                 row.style = UITableViewCellStyleDefault;
             }
             else {
@@ -163,9 +164,9 @@
         }];
 
         // Once we've moved the row, we can safely remove any empty sections
-        [self.tableView performUpdates:^{
+        [self.tableView performUpdates:^(UITableView *tableView) {
             if( oldSection.numberOfRows == 0 ) {
-                [self.tableView removeSection:oldSection withRowAnimation:UITableViewRowAnimationAutomatic];
+                [tableView removeSection:oldSection withRowAnimation:UITableViewRowAnimationAutomatic];
             }
             else {
                 //[oldSection setNeedsReload];

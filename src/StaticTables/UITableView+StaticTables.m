@@ -31,15 +31,15 @@
 
 #pragma mark - Preparing for Updates
 
-- (void)performUpdates:(void(^)(void))updates {
+- (void)performUpdates:(JSMTableViewUpdatesBlock)updates {
     [self beginUpdates];
     if( updates ) {
-        updates();
+        updates(self);
     }
     [self endUpdates];
 }
 
-- (void)performUpdates:(void(^)(void))updates withCompletion:(void(^)(void))completion {
+- (void)performUpdates:(JSMTableViewUpdatesBlock)updates withCompletion:(JSMTableViewUpdatesCompletion)completion {
     [CATransaction begin];
     [CATransaction setCompletionBlock:completion];
     [self performUpdates:updates];

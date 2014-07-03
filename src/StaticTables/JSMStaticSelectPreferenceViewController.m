@@ -34,6 +34,12 @@
 
 @end
 
+@interface JSMStaticSelectPreference (JSMStaticSelectPreferenceViewController)
+
+- (void)clearViewController;
+
+@end
+
 @implementation JSMStaticSelectPreferenceViewController
 
 #pragma mark - Creating the View Controller
@@ -71,14 +77,23 @@
     [self.tableView reloadData];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+
+    // Reload the tableview
+    [self.preference clearViewController];
+}
+
 - (JSMStaticRow *)rowForOption:(NSString *)option andLabel:(NSString *)label {
     JSMStaticRow *row = [JSMStaticRow new];
     row.style = UITableViewCellStyleDefault;
     row.text = label;
     row.detailText = option;
     // We place a checkmark on the selected option
+    JSMStaticSelectPreferenceViewController __weak *weakSelf = self;
     [row configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
-        if( [self.preference.value isEqual:row.detailText] ) {
+        JSMStaticSelectPreferenceViewController __strong *strongSelf = weakSelf;
+        if( [strongSelf.preference.value isEqual:row.detailText] ) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
         else {

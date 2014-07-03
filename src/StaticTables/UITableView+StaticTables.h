@@ -41,7 +41,7 @@
 /// @name Preparing for Updates
 ///---------------------------------------------
 
-typedef void(^JSMTableViewUpdatesBlock)(void);
+typedef void(^JSMTableViewUpdatesBlock)(UITableView *tableView);
 
 typedef void(^JSMTableViewUpdatesCompletion)(void);
 
