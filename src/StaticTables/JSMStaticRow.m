@@ -41,11 +41,17 @@
 
 @implementation JSMStaticRow
 
-- (id)init {
+#pragma mark - Creating Sections
+
+- (instancetype)init {
     if( ( self = [super init] ) ) {
-        self.style = UITableViewCellStyleValue1;
+        _style = UITableViewCellStyleValue1;
     }
     return self;
+}
+
++ (instancetype)row {
+    return [[self alloc] init];
 }
 
 #pragma mark - Data Structure

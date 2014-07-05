@@ -37,6 +37,18 @@
 @interface JSMStaticRow : NSObject
 
 ///---------------------------------------------
+/// @name Creating rows
+///---------------------------------------------
+
+/**
+ * Allocates and initialises an instance of `JSMStaticRow`.
+ *
+ * @return The new instance of `JSMStaticRow`.
+ */
+
++ (instancetype)row;
+
+///---------------------------------------------
 /// @name Data Structure
 ///---------------------------------------------
 

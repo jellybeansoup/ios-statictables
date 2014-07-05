@@ -50,11 +50,17 @@
 
 @synthesize mutableRows = _mutableRows;
 
-- (id)init {
+#pragma mark - Creating Sections
+
+- (instancetype)init {
     if( ( self = [super init] ) ) {
-        self.mutableRows = [NSMutableArray array];
+        _mutableRows = [NSMutableArray array];
     }
     return self;
+}
+
++ (instancetype)section {
+    return [[self alloc] init];
 }
 
 #pragma mark - Predefined content
@@ -104,13 +110,13 @@
 }
 
 - (JSMStaticRow *)createRow {
-    JSMStaticRow *row = [JSMStaticRow new];
+    JSMStaticRow *row = [JSMStaticRow row];
     [self addRow:row];
     return row;
 }
 
 - (JSMStaticRow *)createRowAtIndex:(NSUInteger)index {
-    JSMStaticRow *row = [JSMStaticRow new];
+    JSMStaticRow *row = [JSMStaticRow row];
     [self insertRow:row atIndex:index];
     return row;
 }

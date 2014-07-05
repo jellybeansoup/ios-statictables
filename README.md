@@ -57,18 +57,18 @@ Implementing StaticTables can easily be done by simply subclassing `JSMStaticTab
 	[super viewDidLoad];
 	
 	// Create an add a basic section
-	JSMStaticSection *employees = [JSMStaticSection new];
+	JSMStaticSection *employees = [JSMStaticSection section];
 	employees.headerText = @"Employees";
 	[self.dataSource addSection:employees];
 	
 	// Now we just add a couple of rows
-	JSMStaticRow *becky = [JSMStaticRow new];
+	JSMStaticRow *becky = [JSMStaticRow row];
 	becky.text = @"Becky";
 	becky.detailText = @"Ticketing";
 	becky.style = UITableViewCellStyleSubtitle;
 	[employees addRow:becky];
 	
-	JSMStaticRow *jason = [JSMStaticRow new];
+	JSMStaticRow *jason = [JSMStaticRow row];
 	jason.text = @"Jason";
 	jason.detailText = @"Ticketing";
 	jason.style = UITableViewCellStyleSubtitle;
@@ -91,7 +91,7 @@ If `JSMStaticTableViewController` doesn't fit your needs, you can set up `JSMSta
 	tableView.dataSource = dataSource;
 	
 	// Create an add a basic section
-	JSMStaticSection *employees = [JSMStaticSection new];
+	JSMStaticSection *employees = [JSMStaticSection section];
 	employees.headerText = @"Employees";
 	[dataSource addSection:employees];
 

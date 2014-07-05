@@ -63,6 +63,18 @@
 @interface JSMStaticSection : NSObject
 
 ///---------------------------------------------
+/// @name Creating Sections
+///---------------------------------------------
+
+/**
+ * Allocates and initialises an instance of `JSMStaticSection`.
+ *
+ * @return The new instance of `JSMStaticSection`.
+ */
+
++ (instancetype)section;
+
+///---------------------------------------------
 /// @name Managing the Delegate
 ///---------------------------------------------
 

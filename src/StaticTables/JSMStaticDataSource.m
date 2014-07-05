@@ -80,13 +80,13 @@
 }
 
 - (JSMStaticSection *)createSection {
-    JSMStaticSection *section = [JSMStaticSection new];
+    JSMStaticSection *section = [JSMStaticSection section];
     [self addSection:section];
     return section;
 }
 
 - (JSMStaticSection *)createSectionAtIndex:(NSUInteger)index {
-    JSMStaticSection *section = [JSMStaticSection new];
+    JSMStaticSection *section = [JSMStaticSection section];
     [self insertSection:section atIndex:index];
     return section;
 }

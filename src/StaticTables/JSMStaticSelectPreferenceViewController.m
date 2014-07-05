@@ -58,7 +58,7 @@
     [super viewDidLoad];
 
     // Add the section
-    self.section = [JSMStaticSection new];
+    self.section = [JSMStaticSection section];
     [self.dataSource addSection:self.section];
 
     // Prepare the section with the preference's options
@@ -85,7 +85,7 @@
 }
 
 - (JSMStaticRow *)rowForOption:(NSString *)option andLabel:(NSString *)label {
-    JSMStaticRow *row = [JSMStaticRow new];
+    JSMStaticRow *row = [JSMStaticRow row];
     row.style = UITableViewCellStyleDefault;
     row.text = label;
     row.detailText = option;
