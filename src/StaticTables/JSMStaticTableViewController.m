@@ -30,6 +30,12 @@
 
 @implementation JSMStaticTableViewController
 
+#pragma mark - Creating a Table View Controller
+
++ (instancetype)grouped {
+    return [[self alloc] initWithStyle:UITableViewStyleGrouped];
+}
+
 #pragma mark - View Lifecycle
 
 - (void)viewDidLoad {

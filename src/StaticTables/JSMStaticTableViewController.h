@@ -45,6 +45,18 @@
 @interface JSMStaticTableViewController : UITableViewController <JSMStaticDataSourceDelegate>
 
 ///---------------------------------------------
+/// @name Creating a Table View Controller
+///---------------------------------------------
+
+/**
+ * Allocates a new instance of `JSMStaticTableViewController`, with a "grouped" table view.
+ *
+ * @return A new instance of a grouped `JSMStaticTableViewController`.
+ */
+
++ (instancetype)grouped;
+
+///---------------------------------------------
 /// @name Data Source
 ///---------------------------------------------
 
