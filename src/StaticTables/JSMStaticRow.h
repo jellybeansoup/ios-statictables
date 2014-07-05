@@ -48,6 +48,23 @@
 
 + (instancetype)row;
 
+/**
+ * Allocates and initialises an instance of `JSMStaticRow` with the given key.
+ *
+ * @param key The key to use in identifying the row.
+ * @return The new instance of `JSMStaticRow` with the given key.
+ */
+
++ (instancetype)rowWithKey:(id)key;
+
+/**
+ * An identifier for the reciever.
+ *
+ * This identifier is provided as part of `rowWithKey:` and cannot be changed.
+ */
+
+@property (nonatomic, strong, readonly) id key;
+
 ///---------------------------------------------
 /// @name Data Structure
 ///---------------------------------------------

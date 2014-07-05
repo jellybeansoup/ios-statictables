@@ -74,6 +74,23 @@
 
 + (instancetype)section;
 
+/**
+ * Allocates and initialises an instance of `JSMStaticSection` with the given key.
+ *
+ * @param key The key to use in identifying the section.
+ * @return The new instance of `JSMStaticSection` with the given key.
+ */
+
++ (instancetype)sectionWithKey:(id)key;
+
+/**
+ * An identifier for the reciever.
+ *
+ * This identifier is provided as part of `rowWithKey:` and cannot be changed.
+ */
+
+@property (nonatomic, strong, readonly) id key;
+
 ///---------------------------------------------
 /// @name Managing the Delegate
 ///---------------------------------------------

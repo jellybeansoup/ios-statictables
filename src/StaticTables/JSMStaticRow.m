@@ -50,8 +50,19 @@
     return self;
 }
 
+- (instancetype)initWithKey:(id)key {
+    if( ( self = [self init] ) ) {
+        _key = key;
+    }
+    return self;
+}
+
 + (instancetype)row {
     return [[self alloc] init];
+}
+
++ (instancetype)rowWithKey:(id)key {
+    return [[self alloc] initWithKey:key];
 }
 
 #pragma mark - Data Structure

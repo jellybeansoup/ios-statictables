@@ -59,8 +59,19 @@
     return self;
 }
 
+- (instancetype)initWithKey:(id)key {
+    if( ( self = [self init] ) ) {
+        _key = key;
+    }
+    return self;
+}
+
 + (instancetype)section {
-    return [[self alloc] init];
+    return [[self alloc] initWithKey:nil];
+}
+
++ (instancetype)sectionWithKey:(id)key {
+    return [[self alloc] initWithKey:key];
 }
 
 #pragma mark - Predefined content

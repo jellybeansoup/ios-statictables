@@ -38,15 +38,8 @@
 
 #pragma mark - Creating Preferences
 
-- (instancetype)initWithKey:(NSString *)key {
-    if( ( self = [super init] ) ) {
-        self.key = key;
-    }
-    return self;
-}
-
 + (instancetype)preferenceWithKey:(NSString *)key {
-    return [[self alloc] initWithKey:key];
+    return [self rowWithKey:key];
 }
 
 #pragma mark - Updating the value

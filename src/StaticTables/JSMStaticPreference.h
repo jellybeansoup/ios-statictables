@@ -43,15 +43,6 @@
 ///---------------------------------------------
 
 /**
- * Initialises an allocated `JSMStaticPreference` object with a user defaults `key`.
- *
- * @param key The string used as a key for storing the reciever's value in user defaults.
- * @return Initialised `JSMStaticPreference` object with `key`.
- */
-
-- (instancetype)initWithKey:(NSString *)key;
-
-/**
  * Allocates a new instance of `JSMStaticPreference`, and initialises it with the provided `key`.
  *
  * @param key The string used as a key for storing the reciever's value in user defaults.
@@ -71,7 +62,7 @@
  * is in memory.
  */
 
-@property (nonatomic, copy) NSString *key;
+@property (nonatomic, strong, readonly) NSString *key;
 
 /**
  * The value of the preference.
