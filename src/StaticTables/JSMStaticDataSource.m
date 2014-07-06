@@ -52,9 +52,25 @@
 
 - (id)init {
     if( ( self = [super init] ) ) {
+        self.cellClass = [JSMStaticDataSource cellClass];
         self.mutableSections = [NSMutableArray array];
     }
     return self;
+}
+
+#pragma mark - Creating Table View Cells
+
+static Class _staticCellClass = nil;
+
++ (Class)cellClass {
+    if( _staticCellClass == nil ) {
+        return [UITableViewCell class];
+    }
+    return _staticCellClass;
+}
+
++ (void)setCellClass:(Class)cellClass {
+    _staticCellClass = cellClass;
 }
 
 #pragma mark - Managing the Sections
@@ -241,35 +257,35 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView dequeueReusableCellWithStyle:(UITableViewCellStyle)style {
-    UITableViewCell *cell;
+    id cell;
     // Get the cell style
     switch( style ) {
         case UITableViewCellStyleDefault: {
             static NSString *JSMStaticDataSourceDefaultReuseIdentifier = @"JSMStaticDataSourceDefaultReuseIdentifier";
-            if( ( cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceDefaultReuseIdentifier] ) == nil ) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:JSMStaticDataSourceDefaultReuseIdentifier];
+            if( ( cell = [tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceDefaultReuseIdentifier] ) == nil ) {
+                cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:JSMStaticDataSourceDefaultReuseIdentifier];
             }
             break;
         }
         case UITableViewCellStyleValue1:
         default: {
             static NSString *JSMStaticDataSourceValue1ReuseIdentifier = @"JSMStaticDataSourceValue1ReuseIdentifier";
-            if( ( cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceValue1ReuseIdentifier] ) == nil ) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:JSMStaticDataSourceValue1ReuseIdentifier];
+            if( ( cell = [tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceValue1ReuseIdentifier] ) == nil ) {
+                cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:JSMStaticDataSourceValue1ReuseIdentifier];
             }
             break;
         }
         case UITableViewCellStyleValue2: {
             static NSString *JSMStaticDataSourceValue2ReuseIdentifier = @"JSMStaticDataSourceValue2ReuseIdentifier";
-            if( ( cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceValue2ReuseIdentifier] ) == nil ) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:JSMStaticDataSourceValue2ReuseIdentifier];
+            if( ( cell = [tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceValue2ReuseIdentifier] ) == nil ) {
+                cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:JSMStaticDataSourceValue2ReuseIdentifier];
             }
             break;
         }
         case UITableViewCellStyleSubtitle: {
             static NSString *JSMStaticDataSourceSubtitleReuseIdentifier = @"JSMStaticDataSourceSubtitleReuseIdentifier";
-            if( ( cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceSubtitleReuseIdentifier] ) == nil ) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:JSMStaticDataSourceSubtitleReuseIdentifier];
+            if( ( cell = [tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceSubtitleReuseIdentifier] ) == nil ) {
+                cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:JSMStaticDataSourceSubtitleReuseIdentifier];
             }
             break;
         }

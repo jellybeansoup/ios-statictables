@@ -105,6 +105,39 @@
 @property (nonatomic, weak) id <JSMStaticDataSourceDelegate> delegate;
 
 ///---------------------------------------------
+/// @name Creating Table View Cells
+///---------------------------------------------
+
+/**
+ * The class used by the data source when allocating new table view cells.
+ */
+
+@property (nonatomic) Class cellClass;
+
+/**
+ * Fetch the default table view cell class for all instances of `JSMStaticDataSource`.
+ *
+ * The class returned is used by all instances of `JSMStaticDataSource`, except where it is overridden by
+ * providing an alternate class with the `cellClass` property.
+ *
+ * @return The default class used by data source instances when allocating new table view cells.
+ */
+
++ (Class)cellClass;
+
+/**
+ * Set the default table view cell class for all instances of `JSMStaticDataSource`.
+ *
+ * The class given is used by all instances of `JSMStaticDataSource`, except where it is overridden by providing
+ * an alternate class with the `cellClass` property.
+ *
+ * @param cellClass The default class to be used by data source instances when allocating new table view cells.
+ * @return void
+ */
+
++ (void)setCellClass:(Class)cellClass;
+
+///---------------------------------------------
 /// @name Managing the Sections
 ///---------------------------------------------
 
