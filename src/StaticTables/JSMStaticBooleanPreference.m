@@ -54,6 +54,14 @@
     self.value = [NSNumber numberWithBool:boolValue];
 }
 
+- (BOOL)defaultBoolValue {
+    return self.defaultValue.boolValue;
+}
+
+- (void)setDefaultBoolValue:(BOOL)defaultBoolValue {
+    self.defaultValue = [NSNumber numberWithBool:defaultBoolValue];
+}
+
 - (void)valueDidChange {
     if( self.toggle.on != self.boolValue ) {
         [self.toggle setOn:self.boolValue animated:YES];
