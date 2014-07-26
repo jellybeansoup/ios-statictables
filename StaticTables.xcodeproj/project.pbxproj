@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		492A9D771983AD3500EC9CF0 /* JSMStaticSliderPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = 492A9D761983AD3500EC9CF0 /* JSMStaticSliderPreference.m */; };
 		A1486E4619599C330017CACD /* UITableView+StaticTables.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4519599C330017CACD /* UITableView+StaticTables.m */; };
 		A1486E4B195AE6E60017CACD /* JSMStaticPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4A195AE6E60017CACD /* JSMStaticPreference.m */; };
 		A1486E4E195DA3580017CACD /* JSMStaticTextPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4D195DA3580017CACD /* JSMStaticTextPreference.m */; };
@@ -49,6 +50,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		492A9D751983AD3500EC9CF0 /* JSMStaticSliderPreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticSliderPreference.h; sourceTree = "<group>"; };
+		492A9D761983AD3500EC9CF0 /* JSMStaticSliderPreference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMStaticSliderPreference.m; sourceTree = "<group>"; };
 		A1486E4419599C330017CACD /* UITableView+StaticTables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+StaticTables.h"; sourceTree = "<group>"; };
 		A1486E4519599C330017CACD /* UITableView+StaticTables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+StaticTables.m"; sourceTree = "<group>"; };
 		A1486E49195AE6E60017CACD /* JSMStaticPreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticPreference.h; sourceTree = "<group>"; };
@@ -184,6 +187,8 @@
 				A1486E5319601F550017CACD /* JSMStaticSelectPreference.m */,
 				A1486E551960223F0017CACD /* JSMStaticSelectPreferenceViewController.h */,
 				A1486E561960223F0017CACD /* JSMStaticSelectPreferenceViewController.m */,
+				492A9D751983AD3500EC9CF0 /* JSMStaticSliderPreference.h */,
+				492A9D761983AD3500EC9CF0 /* JSMStaticSliderPreference.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				A19D1436195426A2005146CB /* JSMStaticDataSource.m in Sources */,
 				A14B567C19604EEC00C2A701 /* JSMStaticTableViewController.m in Sources */,
 				A1486E4619599C330017CACD /* UITableView+StaticTables.m in Sources */,
+				492A9D771983AD3500EC9CF0 /* JSMStaticSliderPreference.m in Sources */,
 				A1486E5119601B2F0017CACD /* JSMStaticBooleanPreference.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

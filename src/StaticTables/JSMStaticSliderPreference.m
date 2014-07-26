@@ -22,19 +22,48 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
-#import "JSMStaticTableViewController.h"
-#import "JSMStaticDataSource.h"
-#import "JSMStaticSection.h"
-#import "JSMStaticRow.h"
-
-#import "UITableView+StaticTables.h"
-
-#import "JSMStaticPreference.h"
-#import "JSMStaticTextPreference.h"
-#import "JSMStaticBooleanPreference.h"
-#import "JSMStaticSelectPreference.h"
-#import "JSMStaticSelectPreferenceViewController.h"
 #import "JSMStaticSliderPreference.h"
+
+@implementation JSMStaticSliderPreference
+
+#pragma mark - User Interface
+
+@synthesize control = _control;
+
+- (UIControl *)control {
+    if( _control == nil ) {
+        UISlider *slider = [[UISlider alloc] init];
+        slider.value = self.floatValue;
+        [slider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
+        _control = (UIControl *)slider;
+    }
+    return _control;
+}
+
+- (UISlider *)slider {
+    return (UISlider *)self.control;
+}
+
+#pragma mark - Updating the value
+
+- (CGFloat)floatValue {
+    return self.value.floatValue;
+}
+
+- (void)setFlaotValue:(CGFloat)floatValue {
+    self.value = [NSNumber numberWithFloat:floatValue];
+}
+
+- (void)valueDidChange {
+    if( self.slider.value != self.floatValue ) {
+        [self.slider setValue:self.floatValue animated:YES];
+    }
+}
+
+#pragma mark - Event Handling
+
+- (void)sliderChanged:(UISlider *)slider {
+    self.value = [NSNumber numberWithFloat:slider.value];
+}
+
+@end
