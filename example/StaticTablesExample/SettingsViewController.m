@@ -72,6 +72,11 @@
     selectPreference.text = @"Select";
     selectPreference.options = @{ @"option1": @"Option 1", @"option2": @"Option 2", @"option3": @"Option 3" };
     [section3 addRow:selectPreference];
+    
+    JSMStaticSliderPreference *sliderPreference = [JSMStaticSliderPreference preferenceWithKey:@"com.jellystyle.staticTables.slider"];
+    sliderPreference.text = @"Slider";
+    sliderPreference.slider.tintColor = [UIColor purpleColor];
+    [section3 addRow:sliderPreference];
 
     JSMStaticSection *section4 = [JSMStaticSection new];
 
