@@ -50,7 +50,7 @@
     return self.value.floatValue;
 }
 
-- (void)setFlaotValue:(CGFloat)floatValue {
+- (void)setFloatValue:(CGFloat)floatValue {
     self.value = [NSNumber numberWithFloat:floatValue];
 }
 
