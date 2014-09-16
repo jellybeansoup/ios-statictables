@@ -87,21 +87,33 @@
 #pragma mark - Predefined content
 
 - (void)setText:(NSString *)text {
+    if( [_text isEqualToString:text] ) {
+        return;
+    }
     _text = text;
     [self setNeedsReload];
 }
 
 - (void)setDetailText:(NSString *)detailText {
+    if( [_detailText isEqualToString:detailText] ) {
+        return;
+    }
     _detailText = detailText;
     [self setNeedsReload];
 }
 
 - (void)setImage:(UIImage *)image {
+    if( [_image isEqual:image] ) {
+        return;
+    }
     _image = image;
     [self setNeedsReload];
 }
 
 - (void)setStyle:(UITableViewCellStyle)style {
+    if( _style == style ) {
+        return;
+    }
     _style = style;
     [self setNeedsReload];
 }

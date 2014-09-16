@@ -77,11 +77,17 @@
 #pragma mark - Predefined content
 
 - (void)setHeaderText:(NSString *)headerText {
+    if( [_headerText isEqualToString:headerText] ) {
+        return;
+    }
     _headerText = headerText;
     [self setNeedsReload];
 }
 
 - (void)setFooterText:(NSString *)footerText {
+    if( [_footerText isEqualToString:footerText] ) {
+        return;
+    }
     _footerText = footerText;
     [self setNeedsReload];
 }
