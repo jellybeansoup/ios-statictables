@@ -174,6 +174,17 @@ static Class _staticCellClass = nil;
     }
 }
 
+- (void)removeAllSections {
+    // Update the sections' datasource
+    [self.mutableSections makeObjectsPerformSelector:@selector(setDataSource:) withObject:nil];
+    // Remove the sections
+    [self.mutableSections removeAllObjects];
+    // Notify the delegate
+    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:sectionsDidChange:)] ) {
+        self.mutableSections = [[self.delegate dataSource:self sectionsDidChange:self.mutableSections.copy] mutableCopy];
+    }
+}
+
 #pragma mark - Managing the Rows
 
 - (JSMStaticRow *)createRowAtIndexPath:(NSIndexPath *)indexPath {

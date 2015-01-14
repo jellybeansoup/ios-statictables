@@ -238,6 +238,14 @@
 
 - (void)removeSection:(JSMStaticSection *)section;
 
+/**
+ * Remove all of the sections from the content structure.
+ *
+ * @return void
+ */
+
+- (void)removeAllSections;
+
 ///---------------------------------------------
 /// @name Managing the Rows
 ///---------------------------------------------

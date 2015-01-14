@@ -214,6 +214,14 @@
 
 - (void)removeRow:(JSMStaticRow *)row;
 
+/**
+ * Remove all of the rows from the section.
+ *
+ * @return void
+ */
+
+- (void)removeAllRows;
+
 ///---------------------------------------------
 /// @name Managing Headers and Footers
 ///---------------------------------------------

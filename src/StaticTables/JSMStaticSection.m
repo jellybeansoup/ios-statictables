@@ -205,6 +205,17 @@
     }
 }
 
+- (void)removeAllRows {
+    // Update the rows' sections
+    [self.mutableRows makeObjectsPerformSelector:@selector(setSection:) withObject:nil];
+    // Remove the rows
+    [self.mutableRows removeAllObjects];
+    // Notify the delegate
+    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
+        self.mutableRows = [[self.delegate section:self rowsDidChange:self.mutableRows.copy] mutableCopy];
+    }
+}
+
 #pragma mark - Refreshing the Row
 
 - (BOOL)needsReload {
