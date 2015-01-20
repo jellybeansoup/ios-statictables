@@ -70,6 +70,14 @@
 ///---------------------------------------------
 
 /**
+ * The table view the row belongs to.
+ *
+ * @see [JSMStaticDataSource tableview]
+ */
+
+@property (nonatomic, weak, readonly) UITableView *tableView;
+
+/**
  * The section that the row belongs to.
  */
 

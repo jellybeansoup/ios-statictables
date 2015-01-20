@@ -67,6 +67,10 @@
 
 #pragma mark - Data Structure
 
+- (UITableView *)tableView {
+    return self.section.tableView;
+}
+
 /**
  * Provide the section for contained rows.
  *

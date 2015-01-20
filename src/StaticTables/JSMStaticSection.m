@@ -94,6 +94,10 @@
 
 #pragma mark - Data Structure
 
+- (UITableView *)tableView {
+    return self.dataSource.tableView;
+}
+
 - (void)setDataSource:(JSMStaticDataSource *)dataSource {
     if( [_dataSource isEqual:dataSource] ) {
         return;

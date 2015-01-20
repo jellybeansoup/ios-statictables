@@ -108,6 +108,14 @@
 ///---------------------------------------------
 
 /**
+ * The table view the section belongs to.
+ * 
+ * @see [JSMStaticDataSource tableview]
+ */
+
+@property (nonatomic, weak, readonly) UITableView *tableView;
+
+/**
  * The `JSMStaticDataSource` that the section belongs to.
  */
 

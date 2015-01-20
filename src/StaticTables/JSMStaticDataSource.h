@@ -93,6 +93,19 @@
 @interface JSMStaticDataSource : NSObject <UITableViewDataSource>
 
 ///---------------------------------------------
+/// @name Managing the Table View
+///---------------------------------------------
+
+/**
+ * The table view the data source is supplying data to.
+ *
+ * If for whatever reason you've set the reciever as the data source for multiple table views (which is crazy), the value of
+ * this property will be the most recently updated table view.
+ */
+
+@property (nonatomic, weak, readonly) UITableView *tableView;
+
+///---------------------------------------------
 /// @name Managing the Delegate
 ///---------------------------------------------
 

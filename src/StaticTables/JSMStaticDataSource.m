@@ -250,6 +250,10 @@ static Class _staticCellClass = nil;
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Store a link to the table view
+    _tableView = tableView;
+
+    // Return the number of sections
     return self.numberOfSections;
 }
 
