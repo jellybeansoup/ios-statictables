@@ -143,6 +143,10 @@
 }
 
 - (void)addRow:(JSMStaticRow *)row {
+    // The row can't be in two places at once
+    if( row.section != nil ) {
+        [row.section removeRow:row];
+    }
     // Update the row's section
     row.section = self;
     // Add the row to the end
@@ -154,6 +158,10 @@
 }
 
 - (void)insertRow:(JSMStaticRow *)row atIndex:(NSUInteger)index {
+    // The row can't be in two places at once
+    if( row.section != nil ) {
+        [row.section removeRow:row];
+    }
     // Update the row's section
     row.section = self;
     // No inserting outside the bounds, default to the appropriate end
