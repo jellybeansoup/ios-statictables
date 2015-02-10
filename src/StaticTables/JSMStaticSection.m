@@ -178,6 +178,10 @@
     }
 }
 
+- (JSMStaticRow *)rowWithKey:(NSString *)key {
+    return [[self.mutableRows filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"key = %@",key]] firstObject];
+}
+
 - (JSMStaticRow *)rowAtIndex:(NSUInteger)index {
     // We won't find anything outside the bounds
     if( index >= self.mutableRows.count ) {

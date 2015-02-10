@@ -178,6 +178,17 @@
 - (void)insertRow:(JSMStaticRow *)row atIndex:(NSUInteger)index;
 
 /**
+ * Fetch the `JSMStaticRow` with the given key.
+ *
+ * If more than one row exists for the given key, only the first will be returned.
+ *
+ * @param key The key matching the static row you want to retrieve.
+ * @return The key matching the given key, or `nil` if no key is available.
+ */
+
+- (JSMStaticRow *)rowWithKey:(NSString *)key;
+
+/**
  * Fetch the `JSMStaticRow` representing the row at the given index.
  *
  * @param index The location of the row you want to retrieve.

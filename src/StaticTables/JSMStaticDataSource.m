@@ -135,6 +135,10 @@ static Class _staticCellClass = nil;
     }
 }
 
+- (JSMStaticSection *)sectionWithKey:(NSString *)key {
+    return [[self.mutableSections filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"key = %@",key]] firstObject];
+}
+
 - (JSMStaticSection *)sectionAtIndex:(NSUInteger)index {
     // We won't find anything outside the bounds
     if( index >= self.mutableSections.count ) {
@@ -195,6 +199,20 @@ static Class _staticCellClass = nil;
 - (void)insertRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath {
     JSMStaticSection *section = [self sectionAtIndex:(NSUInteger)indexPath.section];
     [section createRowAtIndex:(NSUInteger)indexPath.row];
+}
+
+- (JSMStaticRow *)rowWithKey:(NSString *)key {
+    __block JSMStaticRow *foundRow;
+
+    [self.mutableSections enumerateObjectsUsingBlock:^(JSMStaticSection *section, NSUInteger idx, BOOL *stop) {
+        JSMStaticRow *row = [section rowWithKey:key];
+        if( row != nil ) {
+            foundRow = row;
+            *stop = YES;
+        }
+    }];
+
+    return foundRow;
 }
 
 - (JSMStaticRow *)rowAtIndexPath:(NSIndexPath *)indexPath {

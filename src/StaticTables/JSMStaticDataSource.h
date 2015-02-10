@@ -207,6 +207,17 @@
 - (void)insertSection:(JSMStaticSection *)section atIndex:(NSUInteger)index;
 
 /**
+ * Fetch the `JSMStaticSection` with the given key.
+ *
+ * If more than one section exists for the given key, only the first will be returned.
+ *
+ * @param key The key matching the static section you want to retrieve.
+ * @return The section matching the given key, or `nil` if no section is available.
+ */
+
+- (JSMStaticSection *)sectionWithKey:(NSString *)key;
+
+/**
  * Fetch the `JSMStaticSection` representing the section at the given index.
  *
  * @param index The location of the section you want to retrieve.
@@ -283,6 +294,17 @@
  */
 
 - (void)insertRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ * Fetch the `JSMStaticRow` with the given key.
+ *
+ * If more than one row exists for the given key, only the first will be returned.
+ *
+ * @param key The key matching the static row you want to retrieve.
+ * @return The key matching the given key, or `nil` if no key is available.
+ */
+
+- (JSMStaticRow *)rowWithKey:(NSString *)key;
 
 /**
  * Fetch the `JSMStaticRow` representing the row at the given index path.
