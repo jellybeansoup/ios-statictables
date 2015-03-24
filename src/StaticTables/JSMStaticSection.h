@@ -52,6 +52,41 @@
 
 - (NSArray *)section:(JSMStaticSection *)section rowsDidChange:(NSArray *)rows;
 
+
+/**
+ * Called when the user moves a `row` in edit mode for both the section the row was originally in, and the section
+ * the row was moved to (if the section stays the same, it is only called once).
+ *
+ * For this method to be called, the row's `canBeMoved` flag must be set to `YES`, and the user must then drag the row.
+ * The method is not called if a row is moved programmatically.
+ *
+ * @param section The section that contains the row that was moved (either before or after the move).
+ * @param row The row that was moved by the user.
+ * @param fromIndexPath The original index path of the row within the data source (before it was moved).
+ * @param toIndexPath The new index path of the row within the data source (after it was moved).
+ * @return void
+ */
+
+- (void)section:(JSMStaticSection *)section didMoveRow:(JSMStaticRow *)row fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
+
+/**
+ * Called after the data source deletes a row at the request of the user.
+ *
+ * For this method to be called, the row's `canBeDeleted` flag must be set to `YES`, and the user must then delete the row.
+ * The method is not called if a row is removed programmatically.
+ *
+ * Unlike the repective `JSMStaticDataSourceDelegate` method, this method is called *after* the row is deleted from the
+ * table view. To alter the animation used, or to perform tasks before the animation occurs, you will need to implement
+ * the `JSMStaticDataSourceDelegate` method instead.
+ *
+ * @param section The section that contained the row before it was deleted.
+ * @param row The row that was deleted by the user.
+ * @param indexPath The index path of the row before it was deleted.
+ * @return void
+ */
+
+- (void)section:(JSMStaticSection *)section didDeleteRow:(JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 

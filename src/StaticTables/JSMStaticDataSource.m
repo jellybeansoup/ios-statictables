@@ -345,12 +345,53 @@ static Class _staticCellClass = nil;
 	return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self rowAtIndexPath:indexPath] canBeMoved];
 }
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    // Move the row
+    JSMStaticRow *row = [self rowAtIndexPath:sourceIndexPath];
+    [self insertRow:row atIndexPath:destinationIndexPath];
+    // All we do now is notify the delegate
+    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:didMoveRow:fromIndexPath:toIndexPath:)] ) {
+        [self.delegate dataSource:self didMoveRow:row fromIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    }
+    // And the section delegates as well
+    JSMStaticSection *sourceSection = [self sectionAtIndex:sourceIndexPath.section];
+    if( sourceSection.delegate != nil && [sourceSection.delegate respondsToSelector:@selector(section:didMoveRow:fromIndexPath:toIndexPath:)] ) {
+        [sourceSection.delegate section:sourceSection didMoveRow:row fromIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    }
+    if( sourceIndexPath.section != destinationIndexPath.section ) {
+        JSMStaticSection *destinationSection = [self sectionAtIndex:destinationIndexPath.section];
+        if( destinationSection.delegate != nil && [destinationSection.delegate respondsToSelector:@selector(section:didMoveRow:fromIndexPath:toIndexPath:)] ) {
+            [destinationSection.delegate section:destinationSection didMoveRow:row fromIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+        }
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self rowAtIndexPath:indexPath] canBeDeleted];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if( editingStyle == UITableViewCellEditingStyleDelete ) {
+        // Remove the row
+        JSMStaticRow *row = [self rowAtIndexPath:indexPath];
+        [self removeRow:row];
+        // All we do now is notify the delegate
+        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:didDeleteRow:fromIndexPath:)] ) {
+            [self.delegate dataSource:self didDeleteRow:row fromIndexPath:indexPath];
+        }
+        else {
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        // And the section delegate as well
+        JSMStaticSection *section = [self sectionAtIndex:indexPath.section];
+        if( section.delegate != nil && [section.delegate respondsToSelector:@selector(section:didDeleteRow:fromIndexPath:)] ) {
+            [section.delegate section:section didDeleteRow:row fromIndexPath:indexPath];
+        }
+    }
 }
 
 @end

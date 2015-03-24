@@ -41,8 +41,9 @@
 /**
  * Called when the collection of `JSMStaticSection` object has been modified.
  *
- * The purpose of this method is to allow the delegate to make any modifications desired to the sections
- * array when changes are detected, such as sorting of the array contents.
+ * The purpose of this method is to allow the delegate to make any modifications desired to the sections array
+ * when changes are detected, such as sorting of the array contents. Sections should not be added, removed or altered
+ * within this method, as it will cause an exception.
  *
  * @param dataSource The data source whose sections were modified.
  * @param sections The modified collection of sections contained in the data source.
@@ -76,13 +77,45 @@
  * by the section to reload its contents, and will allow you to make changes without having to perform refreshes throughout
  * your code.
  *
- * @param dataSource The data source that contains the section needing to be reloaded.
+ * @param dataSource The data source that contains the row needing to be reloaded.
  * @param row The row that requested to be reloaded.
- * @param indexPath The index path of the section within the data source.
+ * @param indexPath The index path of the row within the data source.
  * @return void
  */
 
 - (void)dataSource:(JSMStaticDataSource *)dataSource rowNeedsReload:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ * Called when the user moves a `row` in edit mode.
+ *
+ * For this method to be called, the row's `canBeMoved` flag must be set to `YES`, and the user must then drag the row.
+ * The method is not called if a row is moved programmatically.
+ *
+ * @param dataSource The data source that contains the row that was moved.
+ * @param row The row that was moved by the user.
+ * @param fromIndexPath The original index path of the row within the data source (before it was moved).
+ * @param toIndexPath The new index path of the row within the data source (after it was moved).
+ * @return void
+ */
+
+- (void)dataSource:(JSMStaticDataSource *)dataSource didMoveRow:(JSMStaticRow *)row fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
+
+/**
+ * Called after the data source deletes a row at the request of the user.
+ *
+ * For this method to be called, the row's `canBeDeleted` flag must be set to `YES`, and the user must then delete the row.
+ * The method is not called if a row is removed programmatically.
+ *
+ * If implemented, you will need to perform the animation for removing the cell from the tableview using the
+ * `tableView:deleteRowsAtIndexPaths:withRowAnimation:` yourself.
+ *
+ * @param dataSource The data source that contained the row before it was deleted.
+ * @param row The row that was deleted by the user.
+ * @param indexPath The index path of the row before it was deleted.
+ * @return void
+ */
+
+- (void)dataSource:(JSMStaticDataSource *)dataSource didDeleteRow:(JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

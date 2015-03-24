@@ -152,4 +152,25 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableVi
 
 - (void)setNeedsReload;
 
+///---------------------------------------------
+/// @name Manipulating the Row
+///---------------------------------------------
+
+/**
+ * Flag for indicating whether the user can change the position of this row within the table view.
+ *
+ * If set as YES, the parent data source will take care of moving the row to the position selected by the user, and call
+ * the `` method on its delegate on completion.
+ */
+
+@property (nonatomic) BOOL canBeMoved;
+
+/**
+ * Flag for indicating whether the user can delete this row.
+ *
+ * If set as YES, the parent data source will take care of removing the row, and call the `` method on its delegate on completion.
+ */
+
+@property (nonatomic) BOOL canBeDeleted;
+
 @end
