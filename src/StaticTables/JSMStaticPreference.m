@@ -36,6 +36,8 @@
 
 @implementation JSMStaticPreference
 
+@dynamic key;
+
 #pragma mark - Creating Preferences
 
 + (instancetype)preferenceWithKey:(NSString *)key {

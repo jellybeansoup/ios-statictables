@@ -33,6 +33,9 @@
 
 @implementation JSMStaticSelectPreference
 
+@dynamic value;
+@dynamic defaultValue;
+
 #pragma mark - Creating Preferences
 
 - (instancetype)init {

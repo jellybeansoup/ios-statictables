@@ -32,6 +32,9 @@
 
 @implementation JSMStaticTextPreference
 
+@dynamic value;
+@dynamic defaultValue;
+
 #pragma mark - User Interface
 
 @synthesize control = _control;
