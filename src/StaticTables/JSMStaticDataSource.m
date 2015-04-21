@@ -193,12 +193,12 @@ static Class _staticCellClass = nil;
 
 - (JSMStaticRow *)createRowAtIndexPath:(NSIndexPath *)indexPath {
     JSMStaticSection *section = [self sectionAtIndex:(NSUInteger)indexPath.section];
-    return [section createRow];
+    return [section createRowAtIndex:(NSUInteger)indexPath.row];
 }
 
 - (void)insertRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath {
     JSMStaticSection *section = [self sectionAtIndex:(NSUInteger)indexPath.section];
-    [section createRowAtIndex:(NSUInteger)indexPath.row];
+    [section insertRow:row atIndex:(NSUInteger)indexPath.row];
 }
 
 - (JSMStaticRow *)rowWithKey:(NSString *)key {
