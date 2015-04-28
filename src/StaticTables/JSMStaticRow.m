@@ -41,6 +41,21 @@
 
 @implementation JSMStaticRow
 
+- (NSString *)description {
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@",self.class];
+    if( self.key != nil ) {
+        [description appendFormat:@": #%@",self.key];
+    }
+    if( self.text != nil ) {
+        [description appendFormat:@" text='%@';",self.text];
+    }
+    if( self.detailText != nil ) {
+        [description appendFormat:@" detailText='%@';",self.detailText];
+    }
+    [description appendString:@">"];
+    return description;
+}
+
 #pragma mark - Creating Sections
 
 - (instancetype)init {

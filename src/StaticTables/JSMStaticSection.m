@@ -50,6 +50,24 @@
 
 @synthesize mutableRows = _mutableRows;
 
+- (NSString *)description {
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@",self.class];
+    if( self.key != nil ) {
+        [description appendFormat:@": #%@",self.key];
+    }
+    if( self.mutableRows.count > 0 ) {
+        [description appendFormat:@" (\n\t%@\n)",[[self.mutableRows valueForKeyPath:@"description"] componentsJoinedByString:@",\n\t"]];
+    }
+    if( self.headerText != nil ) {
+        [description appendFormat:@" headerText='%@';",self.headerText];
+    }
+    if( self.footerText != nil ) {
+        [description appendFormat:@" footerText='%@';",self.footerText];
+    }
+    [description appendString:@">"];
+    return description;
+}
+
 #pragma mark - Creating Sections
 
 - (instancetype)init {

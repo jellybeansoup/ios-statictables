@@ -58,6 +58,15 @@
     return self;
 }
 
+- (NSString *)description {
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@",self.class];
+    if( self.mutableSections.count > 0 ) {
+        [description appendFormat:@" (\n\t%@\n)",[[[self.mutableSections valueForKeyPath:@"description"] componentsJoinedByString:@",\n"] stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t"]];
+    }
+    [description appendString:@">"];
+    return description;
+}
+
 #pragma mark - Creating Table View Cells
 
 static Class _staticCellClass = nil;
