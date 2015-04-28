@@ -66,6 +66,21 @@
 @property (nonatomic, strong, readonly) id key;
 
 ///---------------------------------------------
+/// @name Comparing Rows
+///---------------------------------------------
+
+/**
+ * Test whether the reciever is equal to another row.
+ *
+ * This method considers two sections to be equal if:
+ * - they are the same object.
+ * - both rows have keys and both keys are equal.
+ * - neither row has a key, but the `text`, `detailText` and `image` are all equal.
+ */
+
+- (BOOL)isEqualToRow:(JSMStaticRow *)row;
+
+///---------------------------------------------
 /// @name Data Structure
 ///---------------------------------------------
 

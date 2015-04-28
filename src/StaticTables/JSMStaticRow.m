@@ -80,6 +80,37 @@
     return [[self alloc] initWithKey:key];
 }
 
+#pragma mark - Comparing Rows
+
+- (BOOL)isEqual:(id)object {
+    if( self == object ) {
+        return YES;
+    }
+
+    if( ! [object isKindOfClass:[JSMStaticRow class]] ) {
+        return NO;
+    }
+
+    return [self isEqualToRow:(JSMStaticRow *)object];
+}
+
+- (BOOL)isEqualToRow:(JSMStaticRow *)row {
+    // Both keys are nil
+    if( self.key == nil && row.key == nil ) {
+        BOOL haveEqualText = ( ! self.text && ! row.text ) || [self.text isEqualToString:row.text];
+        BOOL haveEqualDetailText = ( ! self.detailText && ! row.detailText ) || [self.detailText isEqualToString:row.detailText];
+        BOOL haveEqualImage = ( ! self.image && ! row.image ) || [self.image isEqual:row.image];
+        return haveEqualText && haveEqualDetailText && haveEqualImage;
+    }
+
+    // Otherwise compare the keys
+    return [self.key isEqualToString:row.key];
+}
+
+- (NSUInteger)hash {
+    return self.text.hash ^ self.detailText.hash ^ self.image.hash;
+}
+
 #pragma mark - Data Structure
 
 - (UITableView *)tableView {

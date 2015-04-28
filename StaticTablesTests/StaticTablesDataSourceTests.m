@@ -50,7 +50,26 @@
             [section addRow:row];
         }
     }
+    [dataSource addSection:[self simpleSection]];
     return dataSource;
+}
+
+- (JSMStaticSection *)simpleSection {
+    JSMStaticSection *section = [JSMStaticSection sectionWithKey:@"simpleSection"];
+    for( NSString *rowKey in @[ @"one", @"two" ] ) {
+        JSMStaticRow *row = [JSMStaticRow rowWithKey:rowKey];
+        [section addRow:row];
+    }
+    [section addRow:[self simpleRow]];
+    for( NSString *rowKey in @[ @"three", @"four" ] ) {
+        JSMStaticRow *row = [JSMStaticRow rowWithKey:rowKey];
+        [section addRow:row];
+    }
+    return section;
+}
+
+- (JSMStaticRow *)simpleRow {
+    return [JSMStaticRow rowWithKey:@"simpleRow"];
 }
 
 #pragma mark - Tests
@@ -67,6 +86,24 @@
     XCTAssertNotNil( section, @"Section was not created." );
 }
 
+- (void)testNewRow {
+    JSMStaticRow *row = [JSMStaticRow row];
+
+    XCTAssertNotNil( row, @"Row was not created." );
+}
+
+- (void)testDetectionOfSections {
+    JSMStaticDataSource *dataSource = [self simpleDataSource];
+
+    JSMStaticSection *section = [JSMStaticSection new];
+
+    XCTAssertTrue( [dataSource containsSection:[self simpleSection]], @"Demonstration datasource should contain demonstration section." );
+    XCTAssertFalse( [dataSource containsSection:section], @"Demonstration datasource should not contain section that has not been added." );
+
+    XCTAssertNotNil( [dataSource sectionWithKey:@"simpleSection"], @"Section with key 'simpleSection' should be retrievable from data source." );
+    XCTAssertNil( [dataSource sectionWithKey:@"quack"], @"Section with key 'quack' should not be retrievable from data source." );
+}
+
 - (void)testNewSectionWithKey {
     NSString *key = @"example";
     JSMStaticSection *sectionWithKey = [JSMStaticSection sectionWithKey:key];
@@ -75,10 +112,16 @@
     XCTAssertEqualObjects( sectionWithKey.key, key, @"Section was not given key correctly." );
 }
 
-- (void)testNewRow {
-    JSMStaticRow *row = [JSMStaticRow row];
+- (void)testDetectionOfRows {
+    JSMStaticSection *section = [self simpleSection];
 
-    XCTAssertNotNil( row, @"Row was not created." );
+    JSMStaticRow *row = [JSMStaticRow new];
+
+    XCTAssertTrue( [section containsRow:[self simpleRow]], @"Demonstration section should contain demonstration row." );
+    XCTAssertFalse( [section containsRow:row], @"Demonstration section should not contain section that has not been added." );
+
+    XCTAssertNotNil( [section rowWithKey:@"simpleRow"], @"Row with key 'simpleRow' should be retrievable from section." );
+    XCTAssertNil( [section rowWithKey:@"quack"], @"Row with key 'quack' should not be retrievable from section." );
 }
 
 - (void)testNewRowWithKey {
@@ -132,5 +175,7 @@
     XCTAssertEqualObjects( [dataSource rowAtIndexPath:indexPath], row, @"Row was not inserted at supplied index path." );
     XCTAssertEqualObjects( [dataSource rowWithKey:key], row, @"Row is not retrievable with supplied key." );
 }
+
+
 
 @end

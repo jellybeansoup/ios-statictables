@@ -92,6 +92,37 @@
     return [[self alloc] initWithKey:key];
 }
 
+#pragma mark - Comparing Sections
+
+- (BOOL)isEqual:(id)object {
+    if( self == object ) {
+        return YES;
+    }
+
+    if( ! [object isKindOfClass:[JSMStaticSection class]] ) {
+        return NO;
+    }
+
+    return [self isEqualToSection:(JSMStaticSection *)object];
+}
+
+- (BOOL)isEqualToSection:(JSMStaticSection *)section {
+    // Both keys are nil
+    if( self.key == nil && section.key == nil ) {
+        BOOL haveEqualHeaderText = ( ! self.headerText && ! section.headerText ) || [self.headerText isEqualToString:section.headerText];
+        BOOL haveEqualFooterText = ( ! self.footerText && ! section.footerText ) || [self.footerText isEqualToString:section.footerText];
+        BOOL haveEqualRows = ( ! self.mutableRows && ! section.mutableRows ) || [self.mutableRows isEqualToArray:section.mutableRows];
+        return haveEqualHeaderText && haveEqualFooterText && haveEqualRows;
+    }
+
+    // Otherwise compare the keys
+    return [self.key isEqualToString:section.key];
+}
+
+- (NSUInteger)hash {
+    return self.headerText.hash ^ self.footerText.hash ^ self.mutableRows.hash;
+}
+
 #pragma mark - Predefined content
 
 - (void)setHeaderText:(NSString *)headerText {

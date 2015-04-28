@@ -52,7 +52,6 @@
 
 - (NSArray *)section:(JSMStaticSection *)section rowsDidChange:(NSArray *)rows;
 
-
 /**
  * Called when the user moves a `row` in edit mode for both the section the row was originally in, and the section
  * the row was moved to (if the section stays the same, it is only called once).
@@ -125,6 +124,21 @@
  */
 
 @property (nonatomic, strong, readonly) id key;
+
+///---------------------------------------------
+/// @name Comparing Sections
+///---------------------------------------------
+
+/**
+ * Test whether the reciever is equal to another section.
+ *
+ * This method considers two sections to be equal if:
+ * - they are the same object.
+ * - both sections have keys and both keys are equal.
+ * - neither section has a key, but the `headerText`, `footerText` and `rows` are all equal.
+ */
+
+- (BOOL)isEqualToSection:(JSMStaticSection *)section;
 
 ///---------------------------------------------
 /// @name Managing the Delegate
