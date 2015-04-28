@@ -89,49 +89,6 @@
     XCTAssertEqualObjects( rowWithKey.key, key, @"Row was not given key correctly." );
 }
 
-- (void)testDataSourcesAreEqual {
-}
-
-- (void)testSectionsAreEqual {
-    JSMStaticSection *section1 = [JSMStaticSection sectionWithKey:@"example"];
-    section1.headerText = @"Example";
-
-    JSMStaticSection *section2 = [JSMStaticSection sectionWithKey:@"test"];
-    section2.headerText = @"Example";
-
-    XCTAssertNotEqualObjects( section1, section2, @"Sections with different keys should not be equal." );
-
-    JSMStaticSection *section3 = [JSMStaticSection sectionWithKey:@"example"];
-    section3.headerText = @"Alternate Test";
-
-    XCTAssertNotEqualObjects( section1, section3, @"Sections with different properties should not be equal." );
-
-    JSMStaticSection *section4 = [JSMStaticSection sectionWithKey:@"example"];
-    section4.headerText = @"Example";
-
-    XCTAssertEqualObjects( section1, section4, @"Sections with the same properties should be equal." );
-}
-
-- (void)testRowsAreEqual {
-    JSMStaticRow *row1 = [JSMStaticRow rowWithKey:@"example"];
-    row1.text = @"Example";
-
-    JSMStaticRow *row2 = [JSMStaticRow rowWithKey:@"test"];
-    row2.text = @"Example";
-
-    XCTAssertNotEqualObjects( row1, row2, @"Rows with different keys should not be equal." );
-
-    JSMStaticRow *row3 = [JSMStaticRow rowWithKey:@"example"];
-    row3.text = @"Alternate Test";
-
-    XCTAssertNotEqualObjects( row1, row3, @"Rows with different properties should not be equal." );
-
-    JSMStaticRow *row4 = [JSMStaticRow rowWithKey:@"example"];
-    row4.text = @"Example";
-
-    XCTAssertEqualObjects( row1, row4, @"Rows with the same properties should be equal." );
-}
-
 - (void)testCreateSection {
     JSMStaticDataSource *dataSource = [JSMStaticDataSource new];
     JSMStaticSection *section = [dataSource createSection];
