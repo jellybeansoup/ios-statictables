@@ -1,3 +1,5 @@
 language: objective-c
 xcode_project: StaticTables.xcodeproj
 xcode_scheme: StaticTablesTests
+xcode_sdk:
+  - iphonesimulator
