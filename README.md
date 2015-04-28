@@ -2,6 +2,8 @@
 
 A library for quickly creating programmatic tableviews for display of preferences, or even more dynamic content.
 
+[![Build Status](https://travis-ci.org/jellybeansoup/ios-statictables.svg?branch=master)](https://travis-ci.org/jellybeansoup/ios-statictables)
+
 ##Installation
 
 There are a couple of ways to include StaticTables in your Xcode project.
