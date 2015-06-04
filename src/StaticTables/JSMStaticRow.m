@@ -172,9 +172,13 @@
 
 - (void)prepareCell:(UITableViewCell *)cell {
     self.dirty = NO;
+    [self configureCell:cell];
     if( self.configurationBlock != nil ) {
         self.configurationBlock( self, cell );
     }
+}
+
+- (void)configureCell:(UITableViewCell *)cell {
 }
 
 - (void)configurationForCell:(JSMStaticTableViewCellConfiguration)configurationBlock {

@@ -133,6 +133,17 @@
 typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableViewCell *cell );
 
 /**
+ * Method intended for use by subclasses to configure the given cell. This method is called before any block provided
+ * by `configurationforCell:`, but after the internal configuration has been performed. This makes it excellent for
+ * providing custom default behaviour, but can be overridden.
+ *
+ * @param cell The cell to be configured.
+ * @return void
+ */
+
+- (void)configureCell:(UITableViewCell *)cell;
+
+/**
  * Provide configuration for the row's `UITableViewCell` when it is prepared for view.
  *
  * @param configurationBlock The location of the section you want to retrieve. You are provided with two parameters:
