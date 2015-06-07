@@ -62,12 +62,11 @@
     [self.dataSource addSection:self.section];
 
     // Prepare the section with the preference's options
-    for( NSString *key in self.preference.options.allKeys ) {
-        NSString *label = (NSString *)[self.preference.options valueForKey:key];
+    [self.preference.options enumerateKeysAndObjectsUsingBlock:^( NSString *key, NSString *label, BOOL *stop) {
         JSMStaticRow *row = [self rowForOption:key andLabel:label];
         [self.rows setObject:row forKey:key];
         [self.section addRow:row];
-    }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

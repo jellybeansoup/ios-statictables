@@ -217,11 +217,17 @@ static Class _staticCellClass = nil;
 
 - (JSMStaticRow *)createRowAtIndexPath:(NSIndexPath *)indexPath {
     JSMStaticSection *section = [self sectionAtIndex:(NSUInteger)indexPath.section];
+    if( section == nil ) {
+        return nil;
+    }
     return [section createRowAtIndex:(NSUInteger)indexPath.row];
 }
 
 - (void)insertRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath {
     JSMStaticSection *section = [self sectionAtIndex:(NSUInteger)indexPath.section];
+    if( section == nil ) {
+        return;
+    }
     [section insertRow:row atIndex:(NSUInteger)indexPath.row];
 }
 
@@ -241,6 +247,9 @@ static Class _staticCellClass = nil;
 
 - (JSMStaticRow *)rowAtIndexPath:(NSIndexPath *)indexPath {
     JSMStaticSection *section = [self sectionAtIndex:(NSUInteger)indexPath.section];
+    if( section == nil ) {
+        return nil;
+    }
     return [section rowAtIndex:(NSUInteger)indexPath.row];
 }
 
@@ -251,16 +260,25 @@ static Class _staticCellClass = nil;
     }
     NSInteger sectionIndex = (NSInteger)[self indexForSection:section];
     NSInteger rowIndex = (NSInteger)[section indexForRow:row];
+    if( rowIndex == NSNotFound || rowIndex < 0 ) {
+        return nil;
+    }
     return [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
 }
 
 - (void)removeRowAtIndexPath:(NSIndexPath *)indexPath {
     JSMStaticSection *section = [self sectionAtIndex:(NSUInteger)indexPath.section];
+    if( section == nil ) {
+        return;
+    }
     return [section removeRowAtIndex:(NSUInteger)indexPath.row];
 }
 
 - (void)removeRow:(JSMStaticRow *)row {
     NSIndexPath *indexPath = [self indexPathForRow:row];
+    if( indexPath == nil ) {
+        return;
+    }
     [self removeRowAtIndexPath:indexPath];
 }
 
