@@ -190,6 +190,11 @@
     NSIndexPath *fromIndexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
     [(JSMStaticDataSource *)self.dataSource insertRow:row atIndexPath:indexPath];
 
+    // Already in position
+    if( [indexPath isEqual:fromIndexPath] ) {
+        return;
+    }
+
     // Run the animation
     [self animateRowToIndexPath:indexPath fromIndexPath:fromIndexPath withRowAnimation:animation];
 }
@@ -205,6 +210,11 @@
     [section addRow:row];
     NSIndexPath *toIndexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
 
+    // Already in position
+    if( [toIndexPath isEqual:fromIndexPath] ) {
+        return;
+    }
+
     // Run the animation
     [self animateRowToIndexPath:toIndexPath fromIndexPath:fromIndexPath withRowAnimation:animation];
 }
@@ -219,6 +229,11 @@
     NSIndexPath *fromIndexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
     [section insertRow:row atIndex:index];
     NSIndexPath *toIndexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
+
+    // Already in position
+    if( [toIndexPath isEqual:fromIndexPath] ) {
+        return;
+    }
 
     // Run the animation
     [self animateRowToIndexPath:toIndexPath fromIndexPath:fromIndexPath withRowAnimation:animation];
@@ -238,9 +253,6 @@
         // The idea here is if we're copying from one data source to the other, I guess?
         [self.tableView deleteRowsAtIndexPaths:@[fromIndexPath] withRowAnimation:animation];
     }
-    else {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
 }
 
 - (void)reloadRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation {
@@ -250,7 +262,7 @@
     }
 
     NSIndexPath *indexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
-    if( self.tableView != nil ) {
+    if( indexPath && self.tableView != nil ) {
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
     }
 }
@@ -262,7 +274,7 @@
     }
 
     [(JSMStaticDataSource *)self.dataSource removeRowAtIndexPath:indexPath];
-    if( self.tableView != nil ) {
+    if( indexPath && self.tableView != nil ) {
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
     }
 }
@@ -275,7 +287,7 @@
 
     NSIndexPath *indexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
     [(JSMStaticDataSource *)self.dataSource removeRow:row];
-    if( self.tableView != nil ) {
+    if( indexPath && self.tableView != nil ) {
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
     }
 }

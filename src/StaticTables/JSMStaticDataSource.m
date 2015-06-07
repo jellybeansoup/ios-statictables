@@ -117,6 +117,9 @@ static Class _staticCellClass = nil;
 }
 
 - (void)addSection:(JSMStaticSection *)section {
+    if( [self containsSection:section] ) {
+        return;
+    }
     // Update the section's data source
     section.dataSource = self;
     // Add the section to the end
@@ -128,6 +131,9 @@ static Class _staticCellClass = nil;
 }
 
 - (void)insertSection:(JSMStaticSection *)section atIndex:(NSUInteger)index {
+    if( [self indexForSection:section] == index ) {
+        return;
+    }
     // Update the section's data source
     section.dataSource = self;
     // No inserting outside the bounds, default to the appropriate end
@@ -166,6 +172,9 @@ static Class _staticCellClass = nil;
 }
 
 - (void)removeSectionAtIndex:(NSUInteger)index {
+    if( ! [self sectionAtIndex:index] ) {
+        return;
+    }
     // Update the section's data source
     [self sectionAtIndex:index].dataSource = nil;
     // Remove the section
@@ -177,6 +186,9 @@ static Class _staticCellClass = nil;
 }
 
 - (void)removeSection:(JSMStaticSection *)section {
+    if( ! [self containsSection:section] ) {
+        return;
+    }
     // Update the section's data source
     section.dataSource = nil;
     // Remove the section
@@ -188,6 +200,9 @@ static Class _staticCellClass = nil;
 }
 
 - (void)removeAllSections {
+    if( self.mutableSections.count == 0 ) {
+        return;
+    }
     // Update the sections' datasource
     [self.mutableSections makeObjectsPerformSelector:@selector(setDataSource:) withObject:nil];
     // Remove the sections

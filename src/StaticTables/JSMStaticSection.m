@@ -192,6 +192,9 @@
 }
 
 - (void)addRow:(JSMStaticRow *)row {
+    if( [self containsRow:row] ) {
+        return;
+    }
     // The row can't be in two places at once
     if( row.section != nil ) {
         [row.section removeRow:row];
@@ -207,6 +210,9 @@
 }
 
 - (void)insertRow:(JSMStaticRow *)row atIndex:(NSUInteger)index {
+    if( [self indexForRow:row] == index ) {
+        return;
+    }
     // The row can't be in two places at once
     if( row.section != nil ) {
         [row.section removeRow:row];
@@ -249,6 +255,9 @@
 }
 
 - (void)removeRowAtIndex:(NSUInteger)index {
+    if( ! [self rowAtIndex:index] ) {
+        return;
+    }
     // Update the row's section
     [self rowAtIndex:index].section = nil;
     // Remove the row
@@ -260,6 +269,9 @@
 }
 
 - (void)removeRow:(JSMStaticRow *)row {
+    if( ! [self containsRow:row] ) {
+        return;
+    }
     // Update the row's section
     row.section = nil;
     // Remove the row
@@ -271,6 +283,9 @@
 }
 
 - (void)removeAllRows {
+    if( self.mutableRows.count == 0 ) {
+        return;
+    }
     // Update the rows' sections
     [self.mutableRows makeObjectsPerformSelector:@selector(setSection:) withObject:nil];
     // Remove the rows
