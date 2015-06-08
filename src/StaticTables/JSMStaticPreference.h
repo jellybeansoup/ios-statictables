@@ -24,6 +24,20 @@
 
 #import "JSMStaticRow.h"
 
+@class JSMStaticPreference;
+
+// A protocol for data source observers to be notified
+
+@protocol JSMStaticPreferenceObserver <NSObject>
+
+@optional
+
+- (void)preference:(JSMStaticPreference *)preference willChangeValue:(id)value;
+
+- (void)preference:(JSMStaticPreference *)preference didChangeValue:(id)value;
+
+@end
+
 /**
  * Instances of `JSMStaticPreference` act as a more advanced method of managing settings using
  * `NSUserDefaults` and `UITableView`.
@@ -116,5 +130,35 @@
  */
 
 @property (nonatomic, strong, readonly) UIControl *control;
+
+
+///---------------------------------------------
+/// @name Observers
+///---------------------------------------------
+
+/**
+ * Add an observer of the reciever.
+ *
+ * @param observer An object implementing the `JSMStaticPreferenceObserver` protocol.
+ */
+
+- (void)addObserver:(__weak id <JSMStaticPreferenceObserver>)observer;
+
+/**
+ * Remove an observer from the reciever.
+ *
+ * @param observer An object implementing the `JSMStaticPreferenceObserver` protocol.
+ */
+
+- (void)removeObserver:(__weak id <JSMStaticPreferenceObserver>)observer;
+
+/**
+ * Detect whether an object is observing the reciever.
+ *
+ * @param observer An object implementing the `JSMStaticPreferenceObserver` protocol.
+ * @return Flag indicating if the given object is currently observing the receiver.
+ */
+
+- (BOOL)hasObserver:(__weak id <JSMStaticPreferenceObserver>)observer;
 
 @end

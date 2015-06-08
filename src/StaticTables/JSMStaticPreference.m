@@ -26,6 +26,8 @@
 
 @interface JSMStaticPreference ()
 
+@property (nonatomic, strong) NSMutableDictionary *observers;
+
 @end
 
 @interface JSMStaticRow (JSMStaticDataSource)
@@ -54,7 +56,15 @@
         return;
     }
     // We'll be changing the value
+    [self willChangeValueForKey:@"value"];
     [self valueWillChange];
+    for( NSValue *value in self.observers.allValues ) {
+        id <JSMStaticPreferenceObserver>observer = value.nonretainedObjectValue;
+        if( observer == nil || ! [observer respondsToSelector:@selector(preference:willChangeValue:)] ) {
+            continue;
+        }
+        [observer preference:self willChangeValue:self.value];
+    }
     // Store the value in NSUserDefaults
     if( self.key != nil ) {
         [[NSUserDefaults standardUserDefaults] setValue:value forKey:self.key];
@@ -65,7 +75,15 @@
         _value = value;
     }
     // We've changed the value
+    for( NSValue *value in self.observers.allValues ) {
+        id <JSMStaticPreferenceObserver>observer = value.nonretainedObjectValue;
+        if( observer == nil || ! [observer respondsToSelector:@selector(preference:didChangeValue:)] ) {
+            continue;
+        }
+        [observer preference:self didChangeValue:self.value];
+    }
     [self valueDidChange];
+    [self didChangeValueForKey:@"value"];
 }
 
 - (id)value {
@@ -102,6 +120,50 @@
     }
     // Send the message to the super
     [super prepareCell:cell];
+}
+
+#pragma mark - Observers
+
+- (void)addObserver:(id <JSMStaticPreferenceObserver>)observer {
+    // Observer is nil
+    if( observer == nil ) {
+        return;
+    }
+
+    // Observer is already observing
+    if( [self hasObserver:observer] ) {
+        return;
+    }
+
+    // Add the observers array
+    if( self.observers == nil ) {
+        self.observers = [NSMutableDictionary dictionary];
+    }
+
+    // Add the value
+    NSString *key = [NSString stringWithFormat:@"%@",@(observer.hash)];
+    [self.observers setObject:[NSValue valueWithNonretainedObject:observer] forKey:key];
+}
+
+- (void)removeObserver:(id <JSMStaticPreferenceObserver>)observer {
+    // Observer is nil
+    if( observer == nil ) {
+        return;
+    }
+
+    // Observer isn't observing
+    if( ! [self hasObserver:observer] ) {
+        return;
+    }
+
+    // Add the value
+    NSString *key = [NSString stringWithFormat:@"%@",@(observer.hash)];
+    [self.observers removeObjectForKey:key];
+}
+
+- (BOOL)hasObserver:(id <JSMStaticPreferenceObserver>)observer {
+    NSString *key = [NSString stringWithFormat:@"%@",@(observer.hash)];
+    return ( self.observers != nil && [self.observers objectForKey:key] != nil );
 }
 
 @end
