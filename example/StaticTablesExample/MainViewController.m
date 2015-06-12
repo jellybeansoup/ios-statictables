@@ -42,9 +42,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = @"StaticTables";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"🔧" style:UIBarButtonItemStyleBordered target:self action:@selector(settings)];
-
     // Customers
     self.customers = [JSMStaticSection new];
     self.customers.headerText = @"Customers";
@@ -107,12 +104,6 @@
     kurt.detailText = @"Janitorial";
     kurt.style = UITableViewCellStyleSubtitle;
     [self.employees addRow:kurt];
-}
-
-- (void)settings {
-    SettingsViewController *settingsController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settingsController];
-    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Table view delegate

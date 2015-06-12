@@ -13,12 +13,21 @@
 		A11C057E16FAA51700C44D43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A11C057D16FAA51700C44D43 /* main.m */; };
 		A11C058216FAA51700C44D43 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A11C058116FAA51700C44D43 /* AppDelegate.m */; };
 		A13E85FE1962B59D00878531 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A13E85FD1962B59D00878531 /* SettingsViewController.m */; };
+		A1C0C4C41B2A8200004561C9 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1C0C4C31B2A8200004561C9 /* Launch Screen.xib */; };
+		A1C0C4CA1B2A83B3004561C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1C0C4C91B2A83B3004561C9 /* Main.storyboard */; };
 		A1FCE6D718503BDD00E9362F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1FCE6D618503BDD00E9362F /* Images.xcassets */; };
 		A1FCE6DB18503C8700E9362F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FCE6DA18503C8700E9362F /* MainViewController.m */; };
 		A1FEE5D918AEE0AA00F36186 /* libStaticTables.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1FEE5D618AEDFED00F36186 /* libStaticTables.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A1C0C4C71B2A8204004561C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1FEE5D018AEDFED00F36186 /* StaticTables.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1E0B40D1AE5141D00C7E308;
+			remoteInfo = StaticTablesTests;
+		};
 		A1FEE5D518AEDFED00F36186 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A1FEE5D018AEDFED00F36186 /* StaticTables.xcodeproj */;
@@ -48,6 +57,8 @@
 		A11C059816FAA51700C44D43 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		A13E85FC1962B59D00878531 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		A13E85FD1962B59D00878531 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		A1C0C4C31B2A8200004561C9 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		A1C0C4C91B2A83B3004561C9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A1FCE6D618503BDD00E9362F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A1FCE6D918503C8700E9362F /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		A1FCE6DA18503C8700E9362F /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -106,6 +117,7 @@
 				A1FCE6DA18503C8700E9362F /* MainViewController.m */,
 				A13E85FC1962B59D00878531 /* SettingsViewController.h */,
 				A13E85FD1962B59D00878531 /* SettingsViewController.m */,
+				A1C0C4C91B2A83B3004561C9 /* Main.storyboard */,
 				A11C057816FAA51700C44D43 /* Supporting Files */,
 			);
 			path = StaticTablesExample;
@@ -118,6 +130,7 @@
 				A11C057916FAA51700C44D43 /* StaticTablesExample-Info.plist */,
 				A11C057D16FAA51700C44D43 /* main.m */,
 				A11C057F16FAA51700C44D43 /* StaticTablesExample-Prefix.pch */,
+				A1C0C4C31B2A8200004561C9 /* Launch Screen.xib */,
 				A1FCE6D618503BDD00E9362F /* Images.xcassets */,
 			);
 			name = "Supporting Files";
@@ -127,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				A1FEE5D618AEDFED00F36186 /* libStaticTables.a */,
+				A1C0C4C81B2A8204004561C9 /* StaticTablesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -185,6 +199,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		A1C0C4C81B2A8204004561C9 /* StaticTablesTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = StaticTablesTests.xctest;
+			remoteRef = A1C0C4C71B2A8204004561C9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		A1FEE5D618AEDFED00F36186 /* libStaticTables.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -200,6 +221,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1FCE6D718503BDD00E9362F /* Images.xcassets in Resources */,
+				A1C0C4C41B2A8200004561C9 /* Launch Screen.xib in Resources */,
+				A1C0C4CA1B2A83B3004561C9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

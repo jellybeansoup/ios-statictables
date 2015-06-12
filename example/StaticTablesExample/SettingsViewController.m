@@ -24,7 +24,7 @@
 
 #import "SettingsViewController.h"
 
-@interface SettingsViewController ()
+@interface SettingsViewController () <JSMStaticPreferenceObserver>
 
 @property (nonatomic, strong) NSArray *sections;
 
@@ -37,10 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = @"Settings";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
-    
-    JSMStaticSection *section1 = [JSMStaticSection new];
+    JSMStaticSection *section1 = [JSMStaticSection sectionWithKey:@"storedPreferences"];
     section1.footerText = @"Preferences like this text field can save their value to user defaults automatically by initialising them with a key.";
 
     JSMStaticTextPreference *twitterPreference = [JSMStaticTextPreference preferenceWithKey:@"com.jellystyle.staticTables.twitter"];
@@ -50,35 +47,42 @@
     twitterPreference.textField.returnKeyType = UIReturnKeyDone;
     [section1 addRow:twitterPreference];
 
-    JSMStaticSection *section2 = [JSMStaticSection new];
-    section2.footerText = @"Alternatively, if no key is provided, the value will only be kept for as long as the preference is in memory.\n\nThis is useful for instances where you want to use the value for something now, but not keep it permanently: like an editing or login screen.";
+    JSMStaticSection *section2 = [JSMStaticSection sectionWithKey:@"transientPreferences"];
+    section2.footerText = @"Alternatively, you can create a transient preference, the value for which will only be kept for as long as the preference is in memory.\n\nThis is useful for instances where you want to use the value for something now, but not keep it permanently: like an editing or login screen.";
 
-    JSMStaticTextPreference *urlPreference = [[JSMStaticTextPreference alloc] init];
+    JSMStaticTextPreference *urlPreference = [JSMStaticTextPreference transientPreferenceWithKey:@"transientPreference"];
     urlPreference.text = @"URL";
     urlPreference.textField.keyboardType = UIKeyboardTypeURL;
     urlPreference.textField.delegate = self;
     urlPreference.textField.returnKeyType = UIReturnKeyDone;
     [section2 addRow:urlPreference];
 
-    JSMStaticSection *section3 = [JSMStaticSection new];
-    section3.footerText = @"Boolean preferences and multiple choice preferences are equally easy to implement with the same features.";
+    JSMStaticSection *section3 = [JSMStaticSection sectionWithKey:@"mutableSection"];
+    section3.footerText = @"It's also possible to update your table view dynamically based on the value of a preference. Here we show a slider preference when the toggle is flipped on, and otherwise, we hide the preference completely.";
+
+    JSMStaticBooleanPreference *showPreference = [JSMStaticBooleanPreference preferenceWithKey:@"com.jellystyle.staticTables.mutated"];
+    showPreference.text = @"Show Slider";
+    [showPreference addObserver:self];
+    [section3 addRow:showPreference];
+
+    JSMStaticSection *section4 = [JSMStaticSection sectionWithKey:@"allPreferences"];
+    section4.footerText = @"Other kinds of preferences are equally easy to implement with the same features.";
 
     JSMStaticBooleanPreference *boolPreference = [JSMStaticBooleanPreference preferenceWithKey:@"com.jellystyle.staticTables.bool"];
     boolPreference.text = @"Boolean";
     boolPreference.toggle.onTintColor = [UIColor purpleColor];
-    [section3 addRow:boolPreference];
+    [section4 addRow:boolPreference];
 
     JSMStaticSelectPreference *selectPreference = [JSMStaticSelectPreference preferenceWithKey:@"com.jellystyle.staticTables.select"];
     selectPreference.text = @"Select";
-    selectPreference.options = @{ @"option1": @"Option 1", @"option2": @"Option 2", @"option3": @"Option 3" };
-    [section3 addRow:selectPreference];
-    
-    JSMStaticSliderPreference *sliderPreference = [JSMStaticSliderPreference preferenceWithKey:@"com.jellystyle.staticTables.slider"];
-    sliderPreference.text = @"Slider";
-    sliderPreference.slider.tintColor = [UIColor purpleColor];
-    [section3 addRow:sliderPreference];
+    selectPreference.options = @[
+                                 @{ JSMStaticSelectOptionValue: @"option1", JSMStaticSelectOptionLabel: @"Option 1", JSMStaticSelectOptionImage: @"1" },
+                                 @{ JSMStaticSelectOptionValue: @"option2", JSMStaticSelectOptionLabel: @"Option 2", JSMStaticSelectOptionImage: @"2" },
+                                 @{ JSMStaticSelectOptionValue: @"option3", JSMStaticSelectOptionLabel: @"Option 3", JSMStaticSelectOptionImage: @"3" },
+                                 ];
+    [section4 addRow:selectPreference];
 
-    JSMStaticSection *section4 = [JSMStaticSection new];
+    JSMStaticSection *section5 = [JSMStaticSection new];
 
     JSMStaticRow *reset = [JSMStaticRow new];
     reset.style = UITableViewCellStyleDefault;
@@ -87,15 +91,40 @@
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.textColor = [UIColor colorWithRed:0.6 green:0 blue:0 alpha:1];
     }];
-    [section4 addRow:reset];
+    [section5 addRow:reset];
 
     // Save and load the sections
-    self.sections = @[ section1, section2, section3, section4 ];
+    self.sections = @[ section1, section2, section3, section4, section5 ];
     self.dataSource.sections = self.sections;
+
+    // Set up our parts that can be added and removed.
+    [self updateTableView];
 }
 
-- (void)done {
-    [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+- (void)updateTableView {
+
+    JSMStaticSection *section = [self.dataSource sectionWithKey:@"mutableSection"];
+    JSMStaticBooleanPreference *showPreference = (JSMStaticBooleanPreference *)[section rowWithKey:@"com.jellystyle.staticTables.mutated"];
+    if( showPreference.boolValue ) {
+
+        JSMStaticSliderPreference *sliderPreference = [JSMStaticSliderPreference preferenceWithKey:@"com.jellystyle.staticTables.slider"];
+        sliderPreference.text = @"Slider";
+        [self addRow:sliderPreference toSection:section withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    }
+    else {
+
+        JSMStaticSliderPreference *sliderPreference = (JSMStaticSliderPreference *)[section rowWithKey:@"com.jellystyle.staticTables.slider"];
+        [self removeRow:sliderPreference withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    }
+
+}
+
+#pragma mark - Static preference observer
+
+- (void)preference:(JSMStaticPreference *)preference didChangeValue:(id)value {
+    [self updateTableView];
 }
 
 #pragma mark - Table view delegate
