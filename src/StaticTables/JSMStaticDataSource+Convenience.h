@@ -22,56 +22,14 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <UIKit/UIKit.h>
-
-@class JSMStaticSection;
-@class JSMStaticRow;
+#import "JSMStaticDataSource.h"
 
 /**
- * This category provides a number of convenience methods to `UITableView` to make dealing with
- * an attached `JSMStaticDataSource` easier and cleaner.
- *
- * Many of the methods in this category will throw an exception if the reciever's `dataSource` property
- * does not point to an instance of `JSMStaticDataSource`, but you probably figured that.
+ * This category provides a number of convenience methods to `JSMStaticDataSource` to make dealing with
+ * an attached `UITableView` easier and cleaner.
  */
 
-@interface UITableView (StaticTables)
-
-///---------------------------------------------
-/// @name Preparing for Updates
-///---------------------------------------------
-
-/**
- * A block definition for performing table view updates in a batch.
- */
-
-typedef void(^JSMTableViewUpdatesBlock)(UITableView *tableView);
-
-/**
- * A block definition that is used to handle the completion of a batch of table view updates..
- */
-
-typedef void(^JSMTableViewUpdatesCompletion)(void);
-
-/**
- * Block based alternative to the `beginUpdates` and `endUpdates` methods.
- *
- * @param updates Block for encapsulating all the updates you want to perform on the reciever.
- * @return void
- */
-
-- (void)performUpdates:(JSMTableViewUpdatesBlock)updates;
-
-/**
- * Block based alternative to the `beginUpdates` and `endUpdates` methods, with bonus completion
- * block that runs when the tableview's animations are completed.
- *
- * @param updates Block for encapsulating all the updates you want to perform on the reciever.
- * @param completion Block that is called when the updates have completed their animations.
- * @return void
- */
-
-- (void)performUpdates:(JSMTableViewUpdatesBlock)updates withCompletion:(JSMTableViewUpdatesCompletion)completion;
+@interface JSMStaticDataSource (Convenience)
 
 ///---------------------------------------------
 /// @name Animating the Sections
@@ -80,8 +38,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 /**
  * Creates a new `JSMStaticSection` object and adds it to the end of the observer.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
  * @return The resulting instance of `JSMStaticSection`.
@@ -92,8 +50,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 /**
  * Creates a new `JSMStaticSection` object and inserts it into the observer at the given index.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param index The location at which to insert the section.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
@@ -107,8 +65,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  *
  * If the section exists in a data source already, it will be removed before being added to the observer.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param section A `JSMStaticSection` to add.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
@@ -122,8 +80,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  *
  * If the section exists in a data source already, it will be removed before being inserted into the observer.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param section A `JSMStaticSection` to insert into the content structure.
  * @param index The location at which to insert the section.
@@ -134,46 +92,10 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 - (void)insertSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
- * Fetch the `JSMStaticSection` representing the section at the given index.
- *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
- *
- * @param index The location of the section you want to retrieve.
- * @return The section at the given index, or `nil` if no section is available.
- */
-
-- (JSMStaticSection *)sectionAtIndex:(NSUInteger)index;
-
-/**
- * Fetch the index within the content structure for the given section.
- *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
- *
- * @param section The section you want to find within the content structure.
- * @return The index, or -1 if the section is not present.
- */
-
-- (NSUInteger)indexForSection:(JSMStaticSection *)section;
-
-/**
- * Determine if the given section is within the content structure.
- *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
- *
- * @param section The section you want to find within the content structure.
- * @return Flag indicating if the object is present (true) or not (false).
- */
-
-- (BOOL)containsSection:(JSMStaticSection *)section;
-
-/**
  * Reload the given section if it exists within the reciever's data source.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param section The section you want to reload.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
@@ -185,8 +107,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 /**
  * Remove the section at the given index from the content structure.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param index The location of the section you want to remove.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
@@ -198,8 +120,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 /**
  * Remove the given section from the content structure.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param section The section you want to remove.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
@@ -215,8 +137,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 /**
  * Creates a new `JSMStaticRow` object and inserts it at the given index path.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param indexPath The location at which to insert the row.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
@@ -230,8 +152,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  *
  * If the row exists in a section already, it will be removed before being inserted at the given index path.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param row A `JSMStaticRow` to insert into the content structure.
  * @param indexPath The location at which to insert the row.
@@ -244,8 +166,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 /**
  * Add the given `JSMStaticRow` object to the given `JSMStaticSection`.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param row A `JSMStaticRow` to insert into the content structure.
  * @param section The `JSMStaticSection` you want to add the row to.
@@ -258,8 +180,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 /**
  * Insert the given `JSMStaticRow` object into the given `JSMStaticSection`.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param row A `JSMStaticRow` to insert into the content structure.
  * @param section The `JSMStaticSection` you want to insert the row into.
@@ -271,34 +193,10 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 - (void)insertRow:(JSMStaticRow *)row intoSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
- * Fetch the `JSMStaticRow` representing the row at the given index path.
- *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
- *
- * @param indexPath The location of the row you want to retrieve.
- * @return The row at the given index path, or `nil` if no row is available.
- */
-
-- (JSMStaticRow *)rowAtIndexPath:(NSIndexPath *)indexPath;
-
-/**
- * Fetch the index path within the content structure for the given row.
- *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
- *
- * @param row The row you which to find within the content structure.
- * @return The index path, or `nil` if the row is not present.
- */
-
-- (NSIndexPath *)indexPathForRow:(JSMStaticRow *)row;
-
-/**
  * Reload the given row if it exists within the reciever's data source.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param row The row you want to reload.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
@@ -310,8 +208,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 /**
  * Remove the row at the given index path from the content structure.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param indexPath The location of the row you want to remove.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
@@ -323,8 +221,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 /**
  * Remove the given row from the content structure.
  *
- * If the attached data source is not an instance of `JSMStaticDataSource`, calling this method will
- * throw an "Invalid Data Source" exception.
+ * If a table view is not available, the data source is updated without animations, otherwise the
+ * tableview is updated with the given animation.
  *
  * @param row The row you want to remove.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.

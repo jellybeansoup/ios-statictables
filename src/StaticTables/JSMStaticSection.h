@@ -136,6 +136,9 @@
  * - they are the same object.
  * - both sections have keys and both keys are equal.
  * - neither section has a key, but the `headerText`, `footerText` and `rows` are all equal.
+ *
+ * @param section The section to compare to the reciever.
+ * @return Flag that indicates if the given section is equal to the the reciever (`YES`) or not (`NO`).
  */
 
 - (BOOL)isEqualToSection:(JSMStaticSection *)section;
@@ -159,7 +162,7 @@
 /**
  * The table view the section belongs to.
  * 
- * @see [JSMStaticDataSource tableview]
+ * @see JSMStaticDataSource.tableview
  */
 
 @property (nonatomic, weak, readonly) UITableView *tableView;

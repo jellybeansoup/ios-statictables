@@ -24,6 +24,7 @@
 
 #import "UITableView+StaticTables.h"
 #import "JSMStaticDataSource.h"
+#import "JSMStaticDataSource+Convenience.h"
 #import "JSMStaticSection.h"
 #import "JSMStaticRow.h"
 

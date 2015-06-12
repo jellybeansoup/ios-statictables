@@ -24,6 +24,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JSMStaticDataSource.h"
+#import "JSMStaticDataSource+Convenience.h"
 
 /**
  * The `JSMStaticTableViewController` class creates a view controller object that manages a table view

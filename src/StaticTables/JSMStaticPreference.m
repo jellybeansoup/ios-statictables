@@ -127,8 +127,12 @@
 - (void)prepareCell:(UITableViewCell *)cell {
     // We do our little bit of configuration here
     if( self.control != nil ) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryView = self.control;
+        if( cell.selectionStyle != UITableViewCellSelectionStyleNone ) {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        if( ! [cell.accessoryView isEqual:self.control] ) {
+            cell.accessoryView = self.control;
+        }
     }
     // Send the message to the super
     [super prepareCell:cell];

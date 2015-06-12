@@ -75,6 +75,9 @@
  * - they are the same object.
  * - both rows have keys and both keys are equal.
  * - neither row has a key, but the `text`, `detailText` and `image` are all equal.
+ *
+ * @param row The row to compare to the reciever.
+ * @return Flag that indicates if the given row is equal to the the reciever (`YES`) or not (`NO`).
  */
 
 - (BOOL)isEqualToRow:(JSMStaticRow *)row;
@@ -86,7 +89,7 @@
 /**
  * The table view the row belongs to.
  *
- * @see [JSMStaticDataSource tableview]
+ * @see JSMStaticDataSource.tableview
  */
 
 @property (nonatomic, weak, readonly) UITableView *tableView;
