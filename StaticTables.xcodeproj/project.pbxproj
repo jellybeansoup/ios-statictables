@@ -195,7 +195,8 @@
 				A1E0B4191AE514D800C7E308 /* StaticTablesDataSourceTests.m */,
 				A1E0B40F1AE5141D00C7E308 /* Supporting Files */,
 			);
-			path = StaticTablesTests;
+			name = StaticTablesTests;
+			path = src/StaticTablesTests;
 			sourceTree = "<group>";
 		};
 		A1E0B40F1AE5141D00C7E308 /* Supporting Files */ = {
@@ -490,7 +491,7 @@
 					"$(inherited)",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = StaticTablesTests/Info.plist;
+				INFOPLIST_FILE = src/StaticTablesTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -511,7 +512,7 @@
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = StaticTablesTests/Info.plist;
+				INFOPLIST_FILE = src/StaticTablesTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
