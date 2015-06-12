@@ -31,7 +31,6 @@
 		A14B567C19604EEC00C2A701 /* JSMStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A14B567B19604EEC00C2A701 /* JSMStaticTableViewController.m */; };
 		A1713509185007F800E56C4D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1713508185007F800E56C4D /* Foundation.framework */; };
 		A1713537185009F100E56C4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1713536185009F100E56C4D /* UIKit.framework */; };
-		A171354718500B9400E56C4D /* JSMStaticViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A171353D18500B9400E56C4D /* JSMStaticViewCell.m */; };
 		A19D143019541ACA005146CB /* JSMStaticSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D142F19541ACA005146CB /* JSMStaticSection.m */; };
 		A19D143319541ADC005146CB /* JSMStaticRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D143219541ADC005146CB /* JSMStaticRow.m */; };
 		A19D1436195426A2005146CB /* JSMStaticDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D1435195426A2005146CB /* JSMStaticDataSource.m */; };
@@ -87,8 +86,6 @@
 		A17135311850094B00E56C4D /* StaticTables_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StaticTables_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		A1713536185009F100E56C4D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A171353818500A1A00E56C4D /* StaticTables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticTables.h; sourceTree = "<group>"; };
-		A171353C18500B9400E56C4D /* JSMStaticViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticViewCell.h; sourceTree = "<group>"; };
-		A171353D18500B9400E56C4D /* JSMStaticViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMStaticViewCell.m; sourceTree = "<group>"; };
 		A19D142E19541ACA005146CB /* JSMStaticSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticSection.h; sourceTree = "<group>"; };
 		A19D142F19541ACA005146CB /* JSMStaticSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMStaticSection.m; sourceTree = "<group>"; };
 		A19D143119541ADC005146CB /* JSMStaticRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticRow.h; sourceTree = "<group>"; };
@@ -177,7 +174,6 @@
 				A14B567B19604EEC00C2A701 /* JSMStaticTableViewController.m */,
 				A1486E48195AE6B30017CACD /* Data Structure */,
 				A1FEE5DE18AEE41200F36186 /* Preferences */,
-				A1FEE5DD18AEE3EC00F36186 /* Old Classes */,
 			);
 			name = StaticTables;
 			path = src/StaticTables;
@@ -208,15 +204,6 @@
 				A1E0B4101AE5141D00C7E308 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		A1FEE5DD18AEE3EC00F36186 /* Old Classes */ = {
-			isa = PBXGroup;
-			children = (
-				A171353C18500B9400E56C4D /* JSMStaticViewCell.h */,
-				A171353D18500B9400E56C4D /* JSMStaticViewCell.m */,
-			);
-			name = "Old Classes";
 			sourceTree = "<group>";
 		};
 		A1FEE5DE18AEE41200F36186 /* Preferences */ = {
@@ -344,7 +331,6 @@
 				A19D143319541ADC005146CB /* JSMStaticRow.m in Sources */,
 				A1486E4B195AE6E60017CACD /* JSMStaticPreference.m in Sources */,
 				A1486E4E195DA3580017CACD /* JSMStaticTextPreference.m in Sources */,
-				A171354718500B9400E56C4D /* JSMStaticViewCell.m in Sources */,
 				A1486E571960223F0017CACD /* JSMStaticSelectPreferenceViewController.m in Sources */,
 				A19D143019541ACA005146CB /* JSMStaticSection.m in Sources */,
 				A1486E5419601F550017CACD /* JSMStaticSelectPreference.m in Sources */,
@@ -570,6 +556,7 @@
 				A1E0B4171AE5141D00C7E308 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
