@@ -24,11 +24,11 @@
 
 #import "JSMStaticPreference.h"
 
-NSString *const JSMStaticSelectOptionValue;
+extern NSString *const JSMStaticSelectOptionValue;
 
-NSString *const JSMStaticSelectOptionLabel;
+extern NSString *const JSMStaticSelectOptionLabel;
 
-NSString *const JSMStaticSelectOptionImage;
+extern NSString *const JSMStaticSelectOptionImage;
 
 @class JSMStaticSelectPreferenceViewController;
 
