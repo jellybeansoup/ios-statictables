@@ -25,6 +25,12 @@
 #import "JSMStaticSelectPreference.h"
 #import "JSMStaticSelectPreferenceViewController.h"
 
+NSString *const JSMStaticSelectOptionValue = @"JSMStaticSelectOptionValue";
+
+NSString *const JSMStaticSelectOptionLabel = @"JSMStaticSelectOptionLabel";
+
+NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
+
 @interface JSMStaticRow (JSMStaticDataSource)
 
 - (void)prepareCell:(UITableViewCell *)cell;
@@ -87,16 +93,21 @@
 }
 
 - (id)defaultValue {
-    // If we haven't been given a value, use the first option.
+    // If we haven't been given a value, use the first valid option.
     if( super.defaultValue == nil ) {
-        return self.options.allKeys.firstObject;
+        return [[[self.options filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSDictionary *option, NSDictionary *bindings) {
+            return ( [option isKindOfClass:[NSDictionary class]] && [option objectForKey:JSMStaticSelectOptionValue] != nil );
+        }]] firstObject] objectForKey:JSMStaticSelectOptionValue];
     }
     // Return the value
     return super.defaultValue;
 }
 
 - (NSString *)labelForValue:(NSString *)value {
-    return [self.options objectForKey:value];
+    NSDictionary *option = [[self.options filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSDictionary *option, NSDictionary *bindings) {
+        return ( [option isKindOfClass:[NSDictionary class]] && [[option objectForKey:JSMStaticSelectOptionValue] isEqual:value] );
+    }]] firstObject];
+    return [option objectForKey:JSMStaticSelectOptionLabel] ?: [option objectForKey:JSMStaticSelectOptionValue];
 }
 
 - (void)valueDidChange {

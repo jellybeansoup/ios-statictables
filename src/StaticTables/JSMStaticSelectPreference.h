@@ -24,6 +24,12 @@
 
 #import "JSMStaticPreference.h"
 
+NSString *const JSMStaticSelectOptionValue;
+
+NSString *const JSMStaticSelectOptionLabel;
+
+NSString *const JSMStaticSelectOptionImage;
+
 @class JSMStaticSelectPreferenceViewController;
 
 /**
@@ -65,16 +71,22 @@
 
 @property (nonatomic, strong) NSString *defaultValue;
 
+///---------------------------------------------
+/// @name Options
+///---------------------------------------------
+
 /**
  * A collection of options for the preference.
  *
- * Keys within this dictionary are used as storage values for the option, while the values are used as labels.
- * So, for a dictionary like `@{ @"option1": @"Option 1", @"option2": @"Option 2" }`, the possible values for
- * the preference are either `option1` or `option2`, and the other strings will be displayed to the user to
- * represent their key.
+ * Each option is defined as an `NSDictionary` with up to three entries using the keys `JSMStaticSelectOptionValue`,
+ * `JSMStaticSelectOptionLabel` and `JSMStaticSelectOptionImage`. The `JSMStaticSelectOptionValue` key is required,
+ * and represents the value of the option. The `JSMStaticSelectOptionLabel` key is optional and must be an instance
+ * of `NSString`, which is used for the text label displayed to the user. The `JSMStaticSelectOptionImage` key is
+ * also optional, and should be either an `NSString` with the name of an image, or a `UIImage`, which is displayed
+ * as an icon on the left side of the option's cell.
  */
 
-@property (nonatomic, strong) NSDictionary *options;
+@property (nonatomic, strong) NSArray *options;
 
 ///---------------------------------------------
 /// @name User Interface

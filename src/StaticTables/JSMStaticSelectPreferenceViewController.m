@@ -62,9 +62,42 @@
     [self.dataSource addSection:self.section];
 
     // Prepare the section with the preference's options
-    [self.preference.options enumerateKeysAndObjectsUsingBlock:^( NSString *key, NSString *label, BOOL *stop) {
-        JSMStaticRow *row = [self rowForOption:key andLabel:label];
-        [self.rows setObject:row forKey:key];
+    [self.preference.options enumerateObjectsUsingBlock:^(NSDictionary *option, NSUInteger idx, BOOL *stop) {
+        if( ! [option isKindOfClass:[NSDictionary class]] || [option objectForKey:JSMStaticSelectOptionValue] == nil ) {
+            return;
+        }
+
+        id optionValue = [option objectForKey:JSMStaticSelectOptionValue];
+        JSMStaticRow *row = [JSMStaticRow rowWithKey:[option objectForKey:JSMStaticSelectOptionValue]];
+        row.style = UITableViewCellStyleSubtitle;
+
+        id optionLabel = [option objectForKey:JSMStaticSelectOptionLabel] ?: optionValue;
+        if( [optionLabel isKindOfClass:[NSString class]] ) {
+            row.text = (NSString *)optionLabel;
+        }
+
+        id optionImage = [option objectForKey:JSMStaticSelectOptionImage];
+        if( [optionImage isKindOfClass:[NSString class]] ) {
+            row.image = [UIImage imageNamed:(NSString *)optionImage];
+        }
+        else if( [optionValue isKindOfClass:[UIImage class]] ) {
+            row.image = (UIImage *)optionImage;
+        }
+
+        // We place a checkmark on the selected option
+        JSMStaticSelectPreferenceViewController __weak *weakSelf = self;
+        [row configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
+            JSMStaticSelectPreferenceViewController __strong *strongSelf = weakSelf;
+            if( [strongSelf.preference.value isEqual:row.key] ) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
+            else {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+        }];
+
+        // Add to the section
+        [self.rows setObject:row forKey:optionValue];
         [self.section addRow:row];
     }];
 }
@@ -81,25 +114,6 @@
 
     // Reload the tableview
     [self.preference clearViewController];
-}
-
-- (JSMStaticRow *)rowForOption:(NSString *)option andLabel:(NSString *)label {
-    JSMStaticRow *row = [JSMStaticRow row];
-    row.style = UITableViewCellStyleDefault;
-    row.text = label;
-    row.detailText = option;
-    // We place a checkmark on the selected option
-    JSMStaticSelectPreferenceViewController __weak *weakSelf = self;
-    [row configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
-        JSMStaticSelectPreferenceViewController __strong *strongSelf = weakSelf;
-        if( [strongSelf.preference.value isEqual:row.detailText] ) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }
-        else {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-    }];
-    return row;
 }
 
 #pragma mark - Table view delegate
@@ -119,7 +133,7 @@
     // Find the row that is checked and reload it
     [tableView reloadRowsAtIndexPaths:@[[self.dataSource indexPathForRow:oldRow]] withRowAnimation:UITableViewRowAnimationFade];
     // Fetch the row for the option we are going to select and reload it
-    self.preference.value = newRow.detailText;
+    self.preference.value = newRow.key;
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     // And our updates are complete
     [tableView endUpdates];
