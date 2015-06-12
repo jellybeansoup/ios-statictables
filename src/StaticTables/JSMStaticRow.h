@@ -24,7 +24,6 @@
 
 #import <Foundation/Foundation.h>
 #import "JSMStaticSection.h"
-#import "JSMStaticViewCell.h"
 
 @class JSMStaticSection;
 @class JSMStaticRow;
