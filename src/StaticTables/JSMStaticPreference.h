@@ -47,7 +47,7 @@
  * store the new value in `NSUserDefaults` under the provided key.
  *
  * You should not create and use instances of `JSMStaticPreference` directly, but rather, use one
- * of the subclasses which provide different types of preferences.
+ * of the subclasses (or create your own) which provide different types of preferences.
  */
 
 @interface JSMStaticPreference : JSMStaticRow
@@ -59,11 +59,41 @@
 /**
  * Allocates a new instance of `JSMStaticPreference`, and initialises it with the provided `key`.
  *
- * @param key The string used as a key for storing the reciever's value in user defaults.
+ * This method will also automatically use the given `key` to set the created preference's
+ * `userDefaultsKey`, which is used for storing the value in the user defaults dictionary.
+ *
+ * To create a preference that does not store it's data automatically, you can use the
+ * `transientPreferenceWithKey:` method, or the `preferenceWithKey:andUserDefaultsKey:` method with
+ * a nil value passed to the `userDefaultsKey` parameter.
+ *
+ * @param key The key to use in identifying the preference within the containing section, and for
+ *      storing the value in the user defaults dictionary.
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
 + (instancetype)preferenceWithKey:(NSString *)key;
+
+/**
+ * Allocates a new instance of `JSMStaticPreference`, and initialises it with the provided `key`.
+ *
+ * Preferences created using this method do not store their values in the user defaults dictionary.
+ *
+ * @param key The key to use in identifying the preference within the containing section.
+ * @return A new instance of `JSMStaticPreference` with the given `key`.
+ */
+
++ (instancetype)transientPreferenceWithKey:(NSString *)key;
+
+/**
+ * Allocates a new instance of `JSMStaticPreference`, and initialises it with the provided `key`
+ * and `userDefaultsKey`.
+ *
+ * @param key The key to use in identifying the preference within the containing section.
+ * @param userDefaultsKey The key used for storing the value in the user defaults dictionary.
+ * @return A new instance of `JSMStaticPreference` with the given `key`.
+ */
+
++ (instancetype)preferenceWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey;
 
 ///---------------------------------------------
 /// @name Storage
@@ -76,7 +106,7 @@
  * is in memory.
  */
 
-@property (nonatomic, strong, readonly) NSString *key;
+@property (nonatomic, strong, readonly) NSString *userDefaultsKey;
 
 /**
  * The value of the preference.

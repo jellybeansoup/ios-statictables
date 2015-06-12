@@ -38,15 +38,27 @@
 
 @implementation JSMStaticPreference
 
-@dynamic key;
-
 #pragma mark - Creating Preferences
 
 + (instancetype)preferenceWithKey:(NSString *)key {
-    return [self rowWithKey:key];
+    return [self preferenceWithKey:key andUserDefaultsKey:key];
 }
 
-#pragma mark - Updating the value
++ (instancetype)transientPreferenceWithKey:(NSString *)key {
+    return [self preferenceWithKey:key andUserDefaultsKey:nil];
+}
+
++ (instancetype)preferenceWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey {
+    JSMStaticPreference *preference = [self rowWithKey:key];
+    preference.userDefaultsKey = userDefaultsKey;
+    return preference;
+}
+
+#pragma mark - Storage
+
+- (void)setUserDefaultsKey:(NSString *)userDefaultsKey {
+    _userDefaultsKey = userDefaultsKey;
+}
 
 @synthesize value = _value;
 
@@ -66,8 +78,8 @@
         [observer preference:self willChangeValue:self.value];
     }
     // Store the value in NSUserDefaults
-    if( self.key != nil ) {
-        [[NSUserDefaults standardUserDefaults] setValue:value forKey:self.key];
+    if( self.userDefaultsKey != nil ) {
+        [[NSUserDefaults standardUserDefaults] setValue:value forKey:self.userDefaultsKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     // Or if we have to, in the value property
@@ -89,8 +101,8 @@
 - (id)value {
     id value = nil;
     // Fetch the value from NSUserDefaults
-    if( self.key != nil ) {
-        value = [[NSUserDefaults standardUserDefaults] valueForKey:self.key];
+    if( self.userDefaultsKey != nil ) {
+        value = [[NSUserDefaults standardUserDefaults] valueForKey:self.userDefaultsKey];
     }
     // Or if we have to, from the value property
     else {
