@@ -57,6 +57,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // Set the view title
+    self.title = self.preference.text;
+
     // Add the section
     self.section = [JSMStaticSection section];
     [self.dataSource addSection:self.section];
