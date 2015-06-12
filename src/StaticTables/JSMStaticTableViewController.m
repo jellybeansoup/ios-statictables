@@ -72,223 +72,86 @@
     [self.tableView endUpdates];
 }
 
-#pragma mark - Managing the Sections
+#pragma mark - Animating the Sections
 
 - (JSMStaticSection *)createSectionWithRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    JSMStaticSection *section = [(JSMStaticDataSource *)self.dataSource createSection];
-    NSUInteger sectionIndex = [(JSMStaticDataSource *)self.dataSource indexForSection:section];
-    if( self.tableView != nil ) {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    }
-    return section;
+    [self validateDataSource];
+    return [self.dataSource createSectionWithRowAnimation:animation];
 }
 
 - (JSMStaticSection *)createSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    JSMStaticSection *section = [(JSMStaticDataSource *)self.dataSource createSectionAtIndex:index];
-    NSUInteger sectionIndex = [(JSMStaticDataSource *)self.dataSource indexForSection:section];
-    if( self.tableView != nil ) {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    }
-    return section;
+    [self validateDataSource];
+    return [self.dataSource createSectionAtIndex:index withRowAnimation:animation];
 }
 
 - (void)addSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    [(JSMStaticDataSource *)self.dataSource addSection:section];
-    NSUInteger sectionIndex = [(JSMStaticDataSource *)self.dataSource indexForSection:section];
-    if( self.tableView != nil ) {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    }
+    [self validateDataSource];
+    [self.dataSource addSection:section withRowAnimation:animation];
 }
 
 - (void)insertSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    [(JSMStaticDataSource *)self.dataSource insertSection:section atIndex:index];
-    NSUInteger sectionIndex = [(JSMStaticDataSource *)self.dataSource indexForSection:section];
-    if( self.tableView != nil ) {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    }
+    [self validateDataSource];
+    [self.dataSource insertSection:section atIndex:index withRowAnimation:animation];
 }
 
 - (void)reloadSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    NSUInteger sectionIndex = [(JSMStaticDataSource *)self.dataSource indexForSection:section];
-    if( self.tableView != nil ) {
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    }
+    [self validateDataSource];
+    [self.dataSource reloadSection:section withRowAnimation:animation];
 }
 
 - (void)removeSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    [(JSMStaticDataSource *)self.dataSource removeSectionAtIndex:index];
-    if( self.tableView != nil ) {
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:animation];
-    }
+    [self validateDataSource];
+    [self.dataSource removeSectionAtIndex:index withRowAnimation:animation];
 }
 
 - (void)removeSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    NSUInteger sectionIndex = [(JSMStaticDataSource *)self.dataSource indexForSection:section];
-    [(JSMStaticDataSource *)self.dataSource removeSection:section];
-    if( self.tableView != nil ) {
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    }
+    [self validateDataSource];
+    [self.dataSource removeSection:section withRowAnimation:animation];
 }
 
-#pragma mark - Managing the Rows
+#pragma mark - Animating the Rows
 
 - (JSMStaticRow *)createRowAtIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    JSMStaticRow *row = [(JSMStaticDataSource *)self.dataSource createRowAtIndexPath:indexPath];
-    if( self.tableView != nil ) {
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
-    }
-    return row;
+    [self validateDataSource];
+    return [self.dataSource createRowAtIndexPath:indexPath withRowAnimation:animation];
 }
 
 - (void)insertRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    // Move within the data source and determine the index paths
-    NSIndexPath *fromIndexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
-    [(JSMStaticDataSource *)self.dataSource insertRow:row atIndexPath:indexPath];
-
-    // Already in position
-    if( [indexPath isEqual:fromIndexPath] ) {
-        return;
-    }
-
-    // Run the animation
-    [self animateRowToIndexPath:indexPath fromIndexPath:fromIndexPath withRowAnimation:animation];
+    [self validateDataSource];
+    return [self.dataSource insertRow:row atIndexPath:indexPath withRowAnimation:animation];
 }
 
 - (void)addRow:(JSMStaticRow *)row toSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    // Move within the data source and determine the index paths
-    NSIndexPath *fromIndexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
-    [section addRow:row];
-    NSIndexPath *toIndexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
-
-    // Already in position
-    if( [toIndexPath isEqual:fromIndexPath] ) {
-        return;
-    }
-
-    // Run the animation
-    [self animateRowToIndexPath:toIndexPath fromIndexPath:fromIndexPath withRowAnimation:animation];
+    [self validateDataSource];
+    [self.dataSource addRow:row toSection:section withRowAnimation:animation];
 }
 
 - (void)insertRow:(JSMStaticRow *)row intoSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    // Move within the data source and determine the index paths
-    NSIndexPath *fromIndexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
-    [section insertRow:row atIndex:index];
-    NSIndexPath *toIndexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
-
-    // Already in position
-    if( [toIndexPath isEqual:fromIndexPath] ) {
-        return;
-    }
-
-    // Run the animation
-    [self animateRowToIndexPath:toIndexPath fromIndexPath:fromIndexPath withRowAnimation:animation];
-}
-
-- (void)animateRowToIndexPath:(NSIndexPath *)toIndexPath fromIndexPath:(NSIndexPath *)fromIndexPath withRowAnimation:(UITableViewRowAnimation)animation {
-    if( self.tableView == nil ) {
-        return;
-    }
-    if( toIndexPath != nil && fromIndexPath != nil ) {
-        [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
-    }
-    else if( toIndexPath != nil && fromIndexPath == nil ) {
-        [self.tableView insertRowsAtIndexPaths:@[toIndexPath] withRowAnimation:animation];
-    }
-    else if( toIndexPath == nil && fromIndexPath != nil ) {
-        // The idea here is if we're copying from one data source to the other, I guess?
-        [self.tableView deleteRowsAtIndexPaths:@[fromIndexPath] withRowAnimation:animation];
-    }
+    [self validateDataSource];
+    [self.dataSource insertRow:row intoSection:section atIndex:index withRowAnimation:animation];
 }
 
 - (void)reloadRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    NSIndexPath *indexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
-    if( indexPath && self.tableView != nil ) {
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
-    }
+    [self validateDataSource];
+    [self.dataSource reloadRow:row withRowAnimation:animation];
 }
 
 - (void)removeRowAtIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
-    if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
-        [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    [(JSMStaticDataSource *)self.dataSource removeRowAtIndexPath:indexPath];
-    if( indexPath && self.tableView != nil ) {
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
-    }
+    [self validateDataSource];
+    [self.dataSource removeRowAtIndexPath:indexPath withRowAnimation:animation];
 }
 
 - (void)removeRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation {
-    // Throw an exception if we don't have the right data source
+    [self validateDataSource];
+    [self.dataSource removeRow:row withRowAnimation:animation];
+}
+
+#pragma mark - Utilities
+
+// Throw an exception if we don't have the right data source
+- (void)validateDataSource {
     if( ! [self.dataSource isKindOfClass:[JSMStaticDataSource class]] ) {
         [NSException raise:@"Invalid Data Source" format:@"Table view data source must be an instance of JSMStaticDataSource to use %s",__FUNCTION__];
-    }
-
-    NSIndexPath *indexPath = [(JSMStaticDataSource *)self.dataSource indexPathForRow:row];
-    [(JSMStaticDataSource *)self.dataSource removeRow:row];
-    if( indexPath && self.tableView != nil ) {
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
     }
 }
 
