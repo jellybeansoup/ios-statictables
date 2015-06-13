@@ -33,7 +33,7 @@
 - (JSMStaticSection *)createSectionWithRowAnimation:(UITableViewRowAnimation)animation {
     JSMStaticSection *section = [self createSection];
     NSUInteger sectionIndex = [self indexForSection:section];
-    if( self.tableView != nil && sectionIndex ) {
+    if( self.tableView != nil && sectionIndex != NSNotFound ) {
         [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
     }
     return section;
@@ -41,7 +41,7 @@
 
 - (JSMStaticSection *)createSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation {
     JSMStaticSection *section = [self createSectionAtIndex:index];
-    if( self.tableView != nil && index ) {
+    if( self.tableView != nil && index != NSNotFound ) {
         [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:animation];
     }
     return section;
@@ -50,7 +50,7 @@
 - (void)addSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
     [self addSection:section];
     NSUInteger sectionIndex = [self indexForSection:section];
-    if( self.tableView != nil && sectionIndex ) {
+    if( self.tableView != nil && sectionIndex != NSNotFound ) {
         [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
     }
 }
@@ -58,14 +58,14 @@
 - (void)insertSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation {
     [self insertSection:section atIndex:index];
     NSUInteger sectionIndex = [self indexForSection:section];
-    if( self.tableView != nil ) {
+    if( self.tableView != nil && sectionIndex != NSNotFound ) {
         [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
     }
 }
 
 - (void)reloadSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
     NSUInteger sectionIndex = [self indexForSection:section];
-    if( self.tableView != nil ) {
+    if( self.tableView != nil && sectionIndex != NSNotFound ) {
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
     }
 }
@@ -80,7 +80,7 @@
 - (void)removeSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
     NSUInteger sectionIndex = [self indexForSection:section];
     [self removeSection:section];
-    if( self.tableView != nil ) {
+    if( self.tableView != nil && sectionIndex != NSNotFound ) {
         [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
     }
 }

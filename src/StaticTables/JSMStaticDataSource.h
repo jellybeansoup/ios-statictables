@@ -263,7 +263,7 @@
  * Fetch the index within the content structure for the given section.
  *
  * @param section The section you want to find within the content structure.
- * @return The index, or -1 if the section is not present.
+ * @return The index, or `NSNotFound` if the section is not present.
  */
 
 - (NSUInteger)indexForSection:(JSMStaticSection *)section;

@@ -253,7 +253,7 @@
  * Fetch the index within the content structure for the given row.
  *
  * @param row The row you want to find within the section.
- * @return The index, or -1 if the row is not present.
+ * @return The index, or `NSNotFound` if the row is not present.
  */
 
 - (NSUInteger)indexForRow:(JSMStaticRow *)row;
