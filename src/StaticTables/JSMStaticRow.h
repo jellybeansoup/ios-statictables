@@ -23,6 +23,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "JSMStaticSection.h"
 
 @class JSMStaticSection;

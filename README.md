@@ -14,11 +14,11 @@ This method is demonstrated in the included example project (example/StaticTable
 
 1. Drag the `StaticTables.xcodeproj` file into your Project Navigator (⌘1) from the Finder. This should add StaticTables as a subproject of your own project (denoted by the fact that it appears as in a rectangle and you should be able to browse the project structure).
 
-2. In your Project's target, under the Build Phases tab, add `libStaticTables.a` under 'Link Binary with Libraries'.
+2. In your Project's target, under the Build Phases tab, add `libStaticTables` or `StaticTables` under 'Link Binary with Libraries'. The difference between these two items is that the former is a static library and the latter is a dynamic framework. Dynamic frameworks are not supported on iOS prior to iOS7, while static libraries are not supported by Swift.
 
-3. While you're in the Build Phases tab, add `libStaticTables.a` under 'Target Dependencies'.
+3. While you're in the Build Phases tab, add `libStaticTables.a` or `StaticTables.framework` under 'Target Dependencies'. Choose the option that matches what you selected in the previous step.
 
-4. Under the Build Settings tab of you Project's target, do a search for 'Header Search Paths'. Add the path to the `/src/StaticTables/` folder of the StaticTables project. This should look something like `"$(SRCROOT)/../src/StaticTables/"`, replacing the `..` with the relative path from your project to the StaticTables project.
+4. If you're using the dynamic framework, you'll need to add it under 'Embed Frameworks' as well. This ensures that it's distributed as part of your app bundle. Alternatively, if you're using the static library, do a search for 'Header Search Paths' under the Build Settings tab of you Project's target. Add the path to the `/src/StaticTables/` folder of the StaticTables project. This should look something like `"$(SRCROOT)/Vendor/src/StaticTables/"`, replacing the `Vendor` with the relative path from your project to the StaticTables project.
 
 5. While you're in Build Settings, search for 'Other Linker Flags'. In order to use the included categories on `UITableView`, you'll need to ensure this setting includes the `-ObjC` flag.
 
@@ -50,6 +50,12 @@ At the top of the header file for the view controller you want to implement Stat
 
 ```objc
 #import "StaticTables.h"
+```
+
+The syntax for including the dynamic framework is a little different:
+
+```objc
+#import <StaticTables/StaticTables.h>
 ```
 
 Implementing StaticTables can easily be done by simply subclassing `JSMStaticTableViewController` the same way you would `UITableViewController`. This class contains some default implementation, and you immediately begin building your initial data source in `viewDidLoad`.
