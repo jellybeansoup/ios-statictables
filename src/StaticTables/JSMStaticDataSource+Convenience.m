@@ -138,16 +138,23 @@
 }
 
 - (void)removeRowAtIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
-    [self removeRowAtIndexPath:indexPath];
-    if( indexPath && self.tableView != nil ) {
+    JSMStaticRow *row = [self rowAtIndexPath:indexPath];
+    if( row == nil ) {
+        return;
+    }
+    [self removeRow:row];
+    if( self.tableView != nil ) {
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
     }
 }
 
 - (void)removeRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation {
     NSIndexPath *indexPath = [self indexPathForRow:row];
+    if( indexPath == nil ) {
+        return;
+    }
     [self removeRow:row];
-    if( indexPath && self.tableView != nil ) {
+    if( self.tableView != nil ) {
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
     }
 }
