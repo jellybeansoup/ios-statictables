@@ -1,20 +1,25 @@
-docs
+## Build generated
+build/
+DerivedData
+docs/
 
-# osx noise
-.DS_Store
-profile
-
-# xcode noise
-build/*
-*.mode1
-*.mode1v3
-*.mode2v3
-*.perspective
-*.perspectivev3
+## Various settings
 *.pbxuser
-*.xcworkspace
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
 xcuserdata
 
-# svn & cvs
-.svn
-CVS
+## Other
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
