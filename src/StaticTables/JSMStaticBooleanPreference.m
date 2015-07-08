@@ -47,6 +47,10 @@
     return (UISwitch *)self.control;
 }
 
+- (BOOL)fitControlToCell {
+    return NO;
+}
+
 #pragma mark - Updating the value
 
 - (BOOL)boolValue {

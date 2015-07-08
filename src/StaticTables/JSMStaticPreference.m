@@ -130,8 +130,13 @@
         if( cell.selectionStyle != UITableViewCellSelectionStyleNone ) {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        if( ! [cell.accessoryView isEqual:self.control] ) {
+        if( ! self.fitControlToCell && ! [cell.accessoryView isEqual:self.control] ) {
             cell.accessoryView = self.control;
+        }
+        else if( self.fitControlToCell && ! [self.control.superview isEqual:cell.contentView] ) {
+            self.control.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+            self.control.frame = CGRectMake( cell.separatorInset.left, 0, cell.contentView.frame.size.width - ( cell.separatorInset.left * 2 ), cell.contentView.frame.size.height );
+            [cell.contentView addSubview:self.control];
         }
     }
     // Send the message to the super

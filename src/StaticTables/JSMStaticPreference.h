@@ -161,6 +161,16 @@
 
 @property (nonatomic, strong, readonly) UIControl *control;
 
+/**
+ * Flag which tells the row to configure the cell so that the control is contained in its `contentView`, and
+ * so that the control fills the cell.
+ *
+ * Because the frame of some controls cannot be altered, this property will have no effect on preferences using
+ * those controls. As an example, the `JSMStaticBooleanPreference`'s `UISwitch` control does not respond to this
+ * property.
+ */
+
+@property (nonatomic) BOOL fitControlToCell;
 
 ///---------------------------------------------
 /// @name Observers

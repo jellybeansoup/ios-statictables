@@ -85,6 +85,10 @@ NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
     _viewController = nil;
 }
 
+- (BOOL)fitControlToCell {
+    return NO;
+}
+
 #pragma mark - Updating the value
 
 - (void)setValue:(NSString *)value {
