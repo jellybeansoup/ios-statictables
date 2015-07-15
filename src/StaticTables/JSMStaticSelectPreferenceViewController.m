@@ -134,7 +134,9 @@
     // We're going to perform some updates
     [tableView beginUpdates];
     // Find the row that is checked and reload it
-    [tableView reloadRowsAtIndexPaths:@[[self.dataSource indexPathForRow:oldRow]] withRowAnimation:UITableViewRowAnimationFade];
+    if( oldRow != nil ) {
+        [tableView reloadRowsAtIndexPaths:@[[self.dataSource indexPathForRow:oldRow]] withRowAnimation:UITableViewRowAnimationFade];
+    }
     // Fetch the row for the option we are going to select and reload it
     self.preference.value = newRow.key;
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
