@@ -54,6 +54,10 @@
     return preference;
 }
 
+- (void)dealloc {
+    [self.control removeFromSuperview];
+}
+
 #pragma mark - Storage
 
 - (void)setUserDefaultsKey:(NSString *)userDefaultsKey {
