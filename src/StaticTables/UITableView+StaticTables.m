@@ -121,7 +121,7 @@
     [(JSMStaticDataSource *)self.dataSource insertRow:row intoSection:section atIndex:index withRowAnimation:animation];
 }
 
-- (JSMStaticRow *)rowAtIndexPath:(NSIndexPath *)indexPath {
+- (__kindof JSMStaticRow *)rowAtIndexPath:(NSIndexPath *)indexPath {
     [self validateDataSource];
     return [(JSMStaticDataSource *)self.dataSource rowAtIndexPath:indexPath];
 }

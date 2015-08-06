@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
  *      required modifications performed on it.
  */
 
-- (NSArray *)dataSource:(JSMStaticDataSource *)dataSource sectionsDidChange:(NSArray <JSMStaticSection *> *)sections;
+- (NSArray <JSMStaticSection *> *)dataSource:(JSMStaticDataSource *)dataSource sectionsDidChange:(NSArray <JSMStaticSection *> *)sections;
 
 /**
  * Called when a `section` requests a reload using its `setNeedsReload` method.
@@ -329,7 +329,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)insertRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
+- (void)insertRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  * Fetch the `JSMStaticRow` with the given key.
@@ -340,7 +340,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The key matching the given key, or `nil` if no key is available.
  */
 
-- (JSMStaticRow * _Nullable)rowWithKey:(NSString *)key;
+- (__kindof JSMStaticRow * _Nullable)rowWithKey:(NSString *)key;
 
 /**
  * Fetch the `JSMStaticRow` representing the row at the given index path.
@@ -349,7 +349,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The row at the given index path, or `nil` if no row is available.
  */
 
-- (JSMStaticRow * _Nullable)rowAtIndexPath:(NSIndexPath *)indexPath;
+- (__kindof JSMStaticRow * _Nullable)rowAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  * Fetch the index path within the content structure for the given row.
@@ -358,7 +358,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The index path, or `nil` if the row is not present.
  */
 
-- (NSIndexPath * _Nullable)indexPathForRow:(JSMStaticRow *)row;
+- (NSIndexPath * _Nullable)indexPathForRow:(__kindof JSMStaticRow *)row;
 
 /**
  * Remove the row at the given index path from the content structure.
@@ -376,7 +376,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)removeRow:(JSMStaticRow *)row;
+- (void)removeRow:(__kindof JSMStaticRow *)row;
 
 @end
 NS_ASSUME_NONNULL_END

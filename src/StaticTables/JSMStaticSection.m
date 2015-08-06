@@ -28,7 +28,7 @@
 
 @interface JSMStaticSection ()
 
-@property (nonatomic, strong) NSMutableArray <JSMStaticRow *> *mutableRows;
+@property (nonatomic, strong) NSMutableArray <__kindof JSMStaticRow *> *mutableRows;
 
 @property (nonatomic, getter=isDirty) BOOL dirty;
 
@@ -159,11 +159,11 @@
 
 #pragma mark - Managing the Section's Content
 
-- (NSArray *)rows {
+- (NSArray <JSMStaticRow *> *)rows {
     return self.mutableRows.copy;
 }
 
-- (void)setRows:(NSArray *)rows {
+- (void)setRows:(NSArray <JSMStaticRow *> *)rows {
     _mutableRows = rows.mutableCopy;
     // Update the section for all the added rows
     for( NSInteger i=0; i<_mutableRows.count; i++ ) {
@@ -233,11 +233,11 @@
     }
 }
 
-- (JSMStaticRow *)rowWithKey:(NSString *)key {
+- (__kindof JSMStaticRow *)rowWithKey:(NSString *)key {
     return [[self.mutableRows filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"key = %@",key]] firstObject];
 }
 
-- (JSMStaticRow *)rowAtIndex:(NSUInteger)index {
+- (__kindof JSMStaticRow *)rowAtIndex:(NSUInteger)index {
     // We won't find anything outside the bounds
     if( index >= self.mutableRows.count ) {
         return nil;

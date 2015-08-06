@@ -231,7 +231,7 @@ static Class _staticCellClass = nil;
     [section insertRow:row atIndex:(NSUInteger)indexPath.row];
 }
 
-- (JSMStaticRow *)rowWithKey:(NSString *)key {
+- (__kindof JSMStaticRow *)rowWithKey:(NSString *)key {
     __block JSMStaticRow *foundRow;
 
     [self.mutableSections enumerateObjectsUsingBlock:^(JSMStaticSection *section, NSUInteger idx, BOOL *stop) {
@@ -245,7 +245,7 @@ static Class _staticCellClass = nil;
     return foundRow;
 }
 
-- (JSMStaticRow *)rowAtIndexPath:(NSIndexPath *)indexPath {
+- (__kindof JSMStaticRow *)rowAtIndexPath:(NSIndexPath *)indexPath {
     JSMStaticSection *section = [self sectionAtIndex:(NSUInteger)indexPath.section];
     if( section == nil ) {
         return nil;

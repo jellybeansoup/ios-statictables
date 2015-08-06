@@ -200,7 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)insertRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Add the given `JSMStaticRow` object to the given `JSMStaticSection`.
@@ -214,7 +214,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)addRow:(JSMStaticRow *)row toSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)addRow:(__kindof JSMStaticRow *)row toSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Insert the given `JSMStaticRow` object into the given `JSMStaticSection`.
@@ -229,7 +229,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)insertRow:(JSMStaticRow *)row intoSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertRow:(__kindof JSMStaticRow *)row intoSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Reload the given row if it exists within the reciever's data source.
@@ -242,7 +242,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)reloadRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)reloadRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Remove the row at the given index path from the content structure.
@@ -268,7 +268,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)removeRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
 
 @end
 NS_ASSUME_NONNULL_END

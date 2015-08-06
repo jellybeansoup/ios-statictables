@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return Flag that indicates if the given row is equal to the the reciever (`YES`) or not (`NO`).
  */
 
-- (BOOL)isEqualToRow:(JSMStaticRow *)row;
+- (BOOL)isEqualToRow:(__kindof JSMStaticRow *)row;
 
 ///---------------------------------------------
 /// @name Data Structure

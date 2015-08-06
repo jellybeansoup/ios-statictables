@@ -67,7 +67,7 @@
     return section;
 }
 
-- (JSMStaticRow *)simpleRow {
+- (__kindof JSMStaticRow *)simpleRow {
     return [JSMStaticRow rowWithKey:@"simpleRow"];
 }
 

@@ -55,7 +55,9 @@
 }
 
 - (void)dealloc {
-    [self.control removeFromSuperview];
+    if( _control != nil ) {
+        [_control removeFromSuperview];
+    }
 }
 
 #pragma mark - Storage

@@ -116,22 +116,22 @@
     return [self.dataSource createRowAtIndexPath:indexPath withRowAnimation:animation];
 }
 
-- (void)insertRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
+- (void)insertRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
     [self validateDataSource];
     return [self.dataSource insertRow:row atIndexPath:indexPath withRowAnimation:animation];
 }
 
-- (void)addRow:(JSMStaticRow *)row toSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
+- (void)addRow:(__kindof JSMStaticRow *)row toSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
     [self validateDataSource];
     [self.dataSource addRow:row toSection:section withRowAnimation:animation];
 }
 
-- (void)insertRow:(JSMStaticRow *)row intoSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation {
+- (void)insertRow:(__kindof JSMStaticRow *)row intoSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation {
     [self validateDataSource];
     [self.dataSource insertRow:row intoSection:section atIndex:index withRowAnimation:animation];
 }
 
-- (void)reloadRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation {
+- (void)reloadRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation {
     [self validateDataSource];
     [self.dataSource reloadRow:row withRowAnimation:animation];
 }
@@ -141,7 +141,7 @@
     [self.dataSource removeRowAtIndexPath:indexPath withRowAnimation:animation];
 }
 
-- (void)removeRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation {
+- (void)removeRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation {
     [self validateDataSource];
     [self.dataSource removeRow:row withRowAnimation:animation];
 }
