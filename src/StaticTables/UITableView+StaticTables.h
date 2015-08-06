@@ -28,6 +28,8 @@
 @class JSMStaticSection;
 @class JSMStaticRow;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * This category provides a number of convenience methods to `UITableView` to make dealing with
  * an attached `JSMStaticDataSource` easier and cleaner.
@@ -144,7 +146,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return The section at the given index, or `nil` if no section is available.
  */
 
-- (JSMStaticSection *)sectionAtIndex:(NSUInteger)index;
+- (JSMStaticSection * _Nullable)sectionAtIndex:(NSUInteger)index;
 
 /**
  * Fetch the index within the content structure for the given section.
@@ -281,7 +283,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return The row at the given index path, or `nil` if no row is available.
  */
 
-- (JSMStaticRow *)rowAtIndexPath:(NSIndexPath *)indexPath;
+- (JSMStaticRow * _Nullable)rowAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  * Fetch the index path within the content structure for the given row.
@@ -293,7 +295,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return The index path, or `nil` if the row is not present.
  */
 
-- (NSIndexPath *)indexPathForRow:(JSMStaticRow *)row;
+- (NSIndexPath * _Nullable)indexPathForRow:(JSMStaticRow *)row;
 
 /**
  * Reload the given row if it exists within the reciever's data source.
@@ -335,3 +337,4 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
 - (void)removeRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
 
 @end
+NS_ASSUME_NONNULL_END

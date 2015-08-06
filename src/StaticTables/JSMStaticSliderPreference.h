@@ -24,6 +24,8 @@
 
 #import "JSMStaticPreference.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Instances of `JSMStaticSliderPreference` act as an interface for a preference
  * with a bounded numeric value, such as a volume setting.
@@ -45,7 +47,7 @@
  * This will return the `defaultValue` if it is set to nil, or if no value has been provided yet.
  */
 
-@property (nonatomic, strong) NSNumber *value;
+@property (nonatomic, strong, nullable) NSNumber *value;
 
 /**
  * The value of the preference.
@@ -61,7 +63,7 @@
  * This is not stored as part of the user defaults, but will be provided as the `value` if none is available.
  */
 
-@property (nonatomic, strong) NSNumber *defaultValue;
+@property (nonatomic, strong, nullable) NSNumber *defaultValue;
 
 /**
  * The value of the preference.
@@ -84,3 +86,4 @@
 @property (nonatomic, weak, readonly) UISlider *slider;
 
 @end
+NS_ASSUME_NONNULL_END

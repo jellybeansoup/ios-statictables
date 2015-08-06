@@ -29,6 +29,8 @@
 @class JSMStaticSection;
 @class JSMStaticRow;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Objects can adopt the `JSMStaticDataSourceDelegate` protocol to recieve notifications on changes
  * to the data source, allowing them to react accordingly, as well as make additional changes (like sorting
@@ -116,7 +118,7 @@
  * @return The new instance of `JSMStaticSection` with the given key.
  */
 
-+ (instancetype)sectionWithKey:(NSString *)key;
++ (instancetype)sectionWithKey:(NSString * _Nullable)key;
 
 /**
  * An identifier for the reciever.
@@ -124,7 +126,7 @@
  * This identifier is provided as part of `rowWithKey:` and cannot be changed.
  */
 
-@property (nonatomic, copy, readonly) NSString * key;
+@property (nonatomic, copy, readonly, nullable) NSString * key;
 
 ///---------------------------------------------
 /// @name Comparing Sections
@@ -154,7 +156,7 @@
  * The delegate must adopt the JSMStaticSectionDelegate protocol. The delegate is not retained.
  */
 
-@property (nonatomic, weak) id <JSMStaticSectionDelegate> delegate;
+@property (nonatomic, weak, nullable) id <JSMStaticSectionDelegate> delegate;
 
 ///---------------------------------------------
 /// @name Data Structure
@@ -166,13 +168,13 @@
  * @see JSMStaticDataSource.tableview
  */
 
-@property (nonatomic, weak, readonly) UITableView *tableView;
+@property (nonatomic, weak, readonly, nullable) UITableView *tableView;
 
 /**
  * The `JSMStaticDataSource` that the section belongs to.
  */
 
-@property (nonatomic, weak, readonly) JSMStaticDataSource *dataSource;
+@property (nonatomic, weak, readonly, nullable) JSMStaticDataSource *dataSource;
 
 ///---------------------------------------------
 /// @name Managing the Section's Content
@@ -239,7 +241,7 @@
  * @return The key matching the given key, or `nil` if no key is available.
  */
 
-- (JSMStaticRow *)rowWithKey:(NSString *)key;
+- (JSMStaticRow * _Nullable)rowWithKey:(NSString *)key;
 
 /**
  * Fetch the `JSMStaticRow` representing the row at the given index.
@@ -248,7 +250,7 @@
  * @return The row at the given index, or `nil` if no row is available.
  */
 
-- (JSMStaticRow *)rowAtIndex:(NSUInteger)index;
+- (JSMStaticRow * _Nullable)rowAtIndex:(NSUInteger)index;
 
 /**
  * Fetch the index within the content structure for the given row.
@@ -302,13 +304,13 @@
  * The text used in the section header.
  */
 
-@property (nonatomic, copy) NSString *headerText;
+@property (nonatomic, copy, nullable) NSString *headerText;
 
 /**
  * The text used in the section footer.
  */
 
-@property (nonatomic, copy) NSString *footerText;
+@property (nonatomic, copy, nullable) NSString *footerText;
 
 ///---------------------------------------------
 /// @name Refreshing the Section
@@ -335,3 +337,4 @@
 - (void)setNeedsReload;
 
 @end
+NS_ASSUME_NONNULL_END

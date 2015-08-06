@@ -29,6 +29,8 @@
 @class JSMStaticSelectPreference;
 @class JSMStaticDataSource;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Instances of `JSMStaticSelectPreferenceViewController` are used as the interface for selecting a
  * value for a `JSMStaticSelectPreference` instance from a preconfigured collection of options.
@@ -60,3 +62,4 @@
 @property (nonatomic, weak) JSMStaticSelectPreference *preference;
 
 @end
+NS_ASSUME_NONNULL_END

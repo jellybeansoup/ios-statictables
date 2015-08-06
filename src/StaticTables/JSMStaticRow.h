@@ -29,6 +29,8 @@
 @class JSMStaticSection;
 @class JSMStaticRow;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * A `JSMStaticRow` objects acts as a data source for a single `UITableViewCell`.
  * It defines the basic structure such as the number of rows and any header or footer text.
@@ -55,7 +57,7 @@
  * @return The new instance of `JSMStaticRow` with the given key.
  */
 
-+ (instancetype)rowWithKey:(NSString *)key;
++ (instancetype)rowWithKey:(NSString * _Nullable)key;
 
 /**
  * An identifier for the reciever.
@@ -63,7 +65,7 @@
  * This identifier is provided as part of `rowWithKey:` and cannot be changed.
  */
 
-@property (nonatomic, copy, readonly) NSString * key;
+@property (nonatomic, copy, readonly, nullable) NSString * key;
 
 ///---------------------------------------------
 /// @name Comparing Rows
@@ -93,13 +95,13 @@
  * @see JSMStaticDataSource.tableview
  */
 
-@property (nonatomic, weak, readonly) UITableView *tableView;
+@property (nonatomic, weak, readonly, nullable) UITableView *tableView;
 
 /**
  * The section that the row belongs to.
  */
 
-@property (nonatomic, weak, readonly) JSMStaticSection *section;
+@property (nonatomic, weak, readonly, nullable) JSMStaticSection *section;
 
 ///---------------------------------------------
 /// @name Predefined content
@@ -109,19 +111,19 @@
  * The string used for the `UITableViewCell`'s `textLabel` content.
  */
 
-@property (nonatomic, copy) NSString *text;
+@property (nonatomic, copy, nullable) NSString *text;
 
 /**
  * The string used for the `UITableViewCell`'s `detailTextLabel` content.
  */
 
-@property (nonatomic, copy) NSString *detailText;
+@property (nonatomic, copy, nullable) NSString *detailText;
 
 /**
  * The image used for the `UITableViewCell`'s `imageView` content.
  */
 
-@property (nonatomic, copy) UIImage *image;
+@property (nonatomic, copy, nullable) UIImage *image;
 
 /**
  * The cell style used for the `UITableViewCell` instance.
@@ -203,3 +205,4 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableVi
 @property (nonatomic) BOOL canBeDeleted;
 
 @end
+NS_ASSUME_NONNULL_END

@@ -29,6 +29,8 @@
 @class JSMStaticSection;
 @class JSMStaticRow;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Objects can adopt the `JSMStaticDataSourceDelegate` protocol to recieve notifications on changes
  * to the data source, allowing them to react accordingly, as well as make additional changes (like sorting
@@ -137,7 +139,7 @@
  * this property will be the most recently updated table view.
  */
 
-@property (nonatomic, weak, readonly) UITableView *tableView;
+@property (nonatomic, weak, readonly, nullable) UITableView *tableView;
 
 ///---------------------------------------------
 /// @name Managing the Delegate
@@ -149,7 +151,7 @@
  * The delegate must adopt the JSMStaticDataSourceDelegate protocol. The delegate is not retained.
  */
 
-@property (nonatomic, weak) id <JSMStaticDataSourceDelegate> delegate;
+@property (nonatomic, weak, nullable) id <JSMStaticDataSourceDelegate> delegate;
 
 ///---------------------------------------------
 /// @name Creating Table View Cells
@@ -249,7 +251,7 @@
  * @return The section matching the given key, or `nil` if no section is available.
  */
 
-- (JSMStaticSection *)sectionWithKey:(NSString *)key;
+- (JSMStaticSection * _Nullable)sectionWithKey:(NSString *)key;
 
 /**
  * Fetch the `JSMStaticSection` representing the section at the given index.
@@ -258,7 +260,7 @@
  * @return The section at the given index, or `nil` if no section is available.
  */
 
-- (JSMStaticSection *)sectionAtIndex:(NSUInteger)index;
+- (JSMStaticSection * _Nullable)sectionAtIndex:(NSUInteger)index;
 
 /**
  * Fetch the index within the content structure for the given section.
@@ -338,7 +340,7 @@
  * @return The key matching the given key, or `nil` if no key is available.
  */
 
-- (JSMStaticRow *)rowWithKey:(NSString *)key;
+- (JSMStaticRow * _Nullable)rowWithKey:(NSString *)key;
 
 /**
  * Fetch the `JSMStaticRow` representing the row at the given index path.
@@ -347,7 +349,7 @@
  * @return The row at the given index path, or `nil` if no row is available.
  */
 
-- (JSMStaticRow *)rowAtIndexPath:(NSIndexPath *)indexPath;
+- (JSMStaticRow * _Nullable)rowAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  * Fetch the index path within the content structure for the given row.
@@ -356,7 +358,7 @@
  * @return The index path, or `nil` if the row is not present.
  */
 
-- (NSIndexPath *)indexPathForRow:(JSMStaticRow *)row;
+- (NSIndexPath * _Nullable)indexPathForRow:(JSMStaticRow *)row;
 
 /**
  * Remove the row at the given index path from the content structure.
@@ -375,4 +377,6 @@
  */
 
 - (void)removeRow:(JSMStaticRow *)row;
+
 @end
+NS_ASSUME_NONNULL_END

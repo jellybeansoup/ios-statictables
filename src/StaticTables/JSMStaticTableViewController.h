@@ -27,6 +27,8 @@
 #import "JSMStaticDataSource.h"
 #import "JSMStaticDataSource+Convenience.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * The `JSMStaticTableViewController` class creates a view controller object that manages a table view
  * using a `JSMStaticDataSource` as the data source for the table view. It's purpose it to implement
@@ -269,3 +271,4 @@
 - (void)removeRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
 
 @end
+NS_ASSUME_NONNULL_END

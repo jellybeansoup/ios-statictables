@@ -26,6 +26,8 @@
 
 @class JSMStaticPreference;
 
+NS_ASSUME_NONNULL_BEGIN
+
 // A protocol for data source observers to be notified
 
 @protocol JSMStaticPreferenceObserver <NSObject>
@@ -39,7 +41,7 @@
  * @param value The original value of the preference.
  */
 
-- (void)preference:(JSMStaticPreference *)preference willChangeValue:(id)value;
+- (void)preference:(JSMStaticPreference *)preference willChangeValue:(id _Nullable)value;
 
 /**
  * Tells your observer when the given `JSMStaticPreference` has changed its value.
@@ -48,7 +50,7 @@
  * @param value The new value of the preference.
  */
 
-- (void)preference:(JSMStaticPreference *)preference didChangeValue:(id)value;
+- (void)preference:(JSMStaticPreference *)preference didChangeValue:(id _Nullable)value;
 
 @end
 
@@ -85,7 +87,7 @@
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-+ (instancetype)preferenceWithKey:(NSString *)key;
++ (instancetype)preferenceWithKey:(NSString * _Nullable)key;
 
 /**
  * Allocates a new instance of `JSMStaticPreference`, and initialises it with the provided `key`.
@@ -96,7 +98,7 @@
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-+ (instancetype)transientPreferenceWithKey:(NSString *)key;
++ (instancetype)transientPreferenceWithKey:(NSString * _Nullable)key;
 
 /**
  * Allocates a new instance of `JSMStaticPreference`, and initialises it with the provided `key`
@@ -107,7 +109,7 @@
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-+ (instancetype)preferenceWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey;
++ (instancetype)preferenceWithKey:(NSString * _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey;
 
 ///---------------------------------------------
 /// @name Storage
@@ -120,7 +122,7 @@
  * is in memory.
  */
 
-@property (nonatomic, strong, readonly) NSString *userDefaultsKey;
+@property (nonatomic, strong, readonly, nullable) NSString *userDefaultsKey;
 
 /**
  * The value of the preference.
@@ -128,7 +130,7 @@
  * This will return the `defaultValue` if it is set to nil, or if no value has been provided yet.
  */
 
-@property (nonatomic, strong) id value;
+@property (nonatomic, strong, nullable) id value;
 
 /**
  * The default value for the preference.
@@ -136,7 +138,7 @@
  * This is not stored as part of the user defaults, but will be provided as the `value` if none is available.
  */
 
-@property (nonatomic, strong) id defaultValue;
+@property (nonatomic, strong, nullable) id defaultValue;
 
 /**
  * Method for subclasses that is called just before the value is changed.
@@ -196,7 +198,7 @@
  * @param observer An object implementing the `JSMStaticPreferenceObserver` protocol.
  */
 
-- (void)addObserver:(__weak id <JSMStaticPreferenceObserver>)observer;
+- (void)addObserver:(__weak id <JSMStaticPreferenceObserver> _Nonnull)observer;
 
 /**
  * Remove an observer from the reciever.
@@ -204,7 +206,7 @@
  * @param observer An object implementing the `JSMStaticPreferenceObserver` protocol.
  */
 
-- (void)removeObserver:(__weak id <JSMStaticPreferenceObserver>)observer;
+- (void)removeObserver:(__weak id <JSMStaticPreferenceObserver> _Nonnull)observer;
 
 /**
  * Detect whether an object is observing the reciever.
@@ -213,6 +215,7 @@
  * @return Flag indicating if the given object is currently observing the receiver.
  */
 
-- (BOOL)hasObserver:(__weak id <JSMStaticPreferenceObserver>)observer;
+- (BOOL)hasObserver:(__weak id <JSMStaticPreferenceObserver> _Nonnull)observer;
 
 @end
+NS_ASSUME_NONNULL_END

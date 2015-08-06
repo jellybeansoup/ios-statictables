@@ -24,6 +24,8 @@
 
 #import "JSMStaticPreference.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Instances of `JSMStaticTextPreference` act as an interface for a text based preference,
  * such as a user defined string, or a URL.
@@ -45,7 +47,7 @@
  * This will return the `defaultValue` if it is set to nil, or if no value has been provided yet.
  */
 
-@property (nonatomic, strong) NSString *value;
+@property (nonatomic, strong, nullable) NSString *value;
 
 /**
  * The default value for the preference.
@@ -53,7 +55,7 @@
  * This is not stored as part of the user defaults, but will be provided as the `value` if none is available.
  */
 
-@property (nonatomic, strong) NSString *defaultValue;
+@property (nonatomic, strong, nullable) NSString *defaultValue;
 
 ///---------------------------------------------
 /// @name User Interface
@@ -68,3 +70,4 @@
 @property (nonatomic, weak, readonly) UITextField *textField;
 
 @end
+NS_ASSUME_NONNULL_END

@@ -24,6 +24,8 @@
 
 #import "JSMStaticDataSource.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * This category provides a number of convenience methods to `JSMStaticDataSource` to make dealing with
  * an attached `UITableView` easier and cleaner.
@@ -232,3 +234,4 @@
 - (void)removeRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
 
 @end
+NS_ASSUME_NONNULL_END
