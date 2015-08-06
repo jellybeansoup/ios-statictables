@@ -28,7 +28,7 @@
 
 @interface JSMStaticSection ()
 
-@property (nonatomic, strong) NSMutableArray *mutableRows;
+@property (nonatomic, strong) NSMutableArray <JSMStaticRow *> *mutableRows;
 
 @property (nonatomic, getter=isDirty) BOOL dirty;
 
@@ -77,7 +77,7 @@
     return self;
 }
 
-- (instancetype)initWithKey:(id)key {
+- (instancetype)initWithKey:(NSString *)key {
     if( ( self = [self init] ) ) {
         _key = key;
     }
@@ -88,7 +88,7 @@
     return [[self alloc] initWithKey:nil];
 }
 
-+ (instancetype)sectionWithKey:(id)key {
++ (instancetype)sectionWithKey:(NSString *)key {
     return [[self alloc] initWithKey:key];
 }
 
@@ -116,7 +116,7 @@
     }
 
     // Otherwise compare the keys
-    return [self.key isEqualToString:section.key];
+    return [self.key isEqual:section.key];
 }
 
 - (NSUInteger)hash {
@@ -167,7 +167,7 @@
     _mutableRows = rows.mutableCopy;
     // Update the section for all the added rows
     for( NSInteger i=0; i<_mutableRows.count; i++ ) {
-        [(JSMStaticRow *)[_mutableRows objectAtIndex:i] setSection:self];
+        [[_mutableRows objectAtIndex:i] setSection:self];
     }
     // Notify the delegate
     if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {

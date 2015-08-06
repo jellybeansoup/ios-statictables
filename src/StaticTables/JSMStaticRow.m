@@ -65,7 +65,7 @@
     return self;
 }
 
-- (instancetype)initWithKey:(id)key {
+- (instancetype)initWithKey:(NSString *)key {
     if( ( self = [self init] ) ) {
         _key = key;
     }
@@ -76,7 +76,7 @@
     return [[self alloc] init];
 }
 
-+ (instancetype)rowWithKey:(id)key {
++ (instancetype)rowWithKey:(NSString *)key {
     return [[self alloc] initWithKey:key];
 }
 
@@ -104,7 +104,7 @@
     }
 
     // Otherwise compare the keys
-    return [self.key isEqualToString:row.key];
+    return [self.key isEqual:row.key];
 }
 
 - (NSUInteger)hash {

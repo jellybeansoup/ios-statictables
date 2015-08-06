@@ -52,7 +52,7 @@
  *      required modifications performed on it.
  */
 
-- (NSArray *)dataSource:(JSMStaticDataSource *)dataSource sectionsDidChange:(NSArray *)sections;
+- (NSArray *)dataSource:(JSMStaticDataSource *)dataSource sectionsDidChange:(NSArray <JSMStaticSection *> *)sections;
 
 /**
  * Called when a `section` requests a reload using its `setNeedsReload` method.
@@ -192,7 +192,7 @@
  * A collection of `JSMStaticSection` objects contained in the reciever.
  */
 
-@property (nonatomic, weak) NSArray *sections;
+@property (nonatomic, weak) NSArray <JSMStaticSection *> *sections;
 
 /**
  * The number of `JSMStaticSection` objects contained in the reciever.

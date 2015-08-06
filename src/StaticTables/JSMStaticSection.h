@@ -51,7 +51,7 @@
  *      required modifications performed on it.
  */
 
-- (NSArray *)section:(JSMStaticSection *)section rowsDidChange:(NSArray *)rows;
+- (NSArray *)section:(JSMStaticSection *)section rowsDidChange:(NSArray <JSMStaticRow *> *)rows;
 
 /**
  * Called when the user moves a `row` in edit mode for both the section the row was originally in, and the section
@@ -116,7 +116,7 @@
  * @return The new instance of `JSMStaticSection` with the given key.
  */
 
-+ (instancetype)sectionWithKey:(id)key;
++ (instancetype)sectionWithKey:(NSString *)key;
 
 /**
  * An identifier for the reciever.
@@ -124,7 +124,7 @@
  * This identifier is provided as part of `rowWithKey:` and cannot be changed.
  */
 
-@property (nonatomic, strong, readonly) id key;
+@property (nonatomic, copy, readonly) NSString * key;
 
 ///---------------------------------------------
 /// @name Comparing Sections
@@ -182,7 +182,7 @@
  * A collection of `JSMStaticRow` objects used to define the content of this section.
  */
 
-@property (nonatomic, weak) NSArray *rows;
+@property (nonatomic, weak) NSArray <JSMStaticRow *> *rows;
 
 /**
  * The number of `JSMStaticRow` objects in this section.

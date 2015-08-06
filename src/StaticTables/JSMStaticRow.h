@@ -55,7 +55,7 @@
  * @return The new instance of `JSMStaticRow` with the given key.
  */
 
-+ (instancetype)rowWithKey:(id)key;
++ (instancetype)rowWithKey:(NSString *)key;
 
 /**
  * An identifier for the reciever.
@@ -63,7 +63,7 @@
  * This identifier is provided as part of `rowWithKey:` and cannot be changed.
  */
 
-@property (nonatomic, strong, readonly) id key;
+@property (nonatomic, copy, readonly) NSString * key;
 
 ///---------------------------------------------
 /// @name Comparing Rows

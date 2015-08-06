@@ -28,7 +28,7 @@
 
 @interface JSMStaticDataSource ()
 
-@property (nonatomic, strong) NSMutableArray *mutableSections;
+@property (nonatomic, strong) NSMutableArray <JSMStaticSection *> *mutableSections;
 
 @end
 
@@ -50,7 +50,7 @@
 
 @synthesize mutableSections = _mutableSections;
 
-- (id)init {
+- (instancetype)init {
     if( ( self = [super init] ) ) {
         self.cellClass = [JSMStaticDataSource cellClass];
         self.mutableSections = [NSMutableArray array];
@@ -84,15 +84,15 @@ static Class _staticCellClass = nil;
 
 #pragma mark - Managing the Sections
 
-- (NSArray *)sections {
+- (NSArray <JSMStaticSection *> *)sections {
     return self.mutableSections.copy;
 }
 
-- (void)setSections:(NSArray *)sections {
+- (void)setSections:(NSArray <JSMStaticSection *> *)sections {
     _mutableSections = sections.mutableCopy;
     // Update the data source for all the added sections
     for( NSInteger i=0; i<_mutableSections.count; i++ ) {
-        [(JSMStaticSection *)[_mutableSections objectAtIndex:i] setDataSource:self];
+        [[_mutableSections objectAtIndex:i] setDataSource:self];
     }
     // Notify the delegate
     if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:sectionsDidChange:)] ) {

@@ -86,7 +86,7 @@ extern NSString *const JSMStaticSelectOptionImage;
  * as an icon on the left side of the option's cell.
  */
 
-@property (nonatomic, strong) NSArray *options;
+@property (nonatomic, strong) NSArray <NSDictionary *> *options;
 
 ///---------------------------------------------
 /// @name User Interface
