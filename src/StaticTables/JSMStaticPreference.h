@@ -32,7 +32,21 @@
 
 @optional
 
+/**
+ * Tells your observer when the given `JSMStaticPreference` will change its value.
+ *
+ * @param preference The preference which will change its value.
+ * @param value The original value of the preference.
+ */
+
 - (void)preference:(JSMStaticPreference *)preference willChangeValue:(id)value;
+
+/**
+ * Tells your observer when the given `JSMStaticPreference` has changed its value.
+ *
+ * @param preference The preference which changed its value.
+ * @param value The new value of the preference.
+ */
 
 - (void)preference:(JSMStaticPreference *)preference didChangeValue:(id)value;
 
