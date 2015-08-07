@@ -135,6 +135,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @name Configuring the cell
 ///---------------------------------------------
 
+/**
+ * Block type accepted by `configurationForCell:` for handling custom cell configuration.
+ *
+ * @param row The row being configured.
+ * @param cell The cell being configured.
+ * @return void
+ */
+
 typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableViewCell *cell );
 
 /**

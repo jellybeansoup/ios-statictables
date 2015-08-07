@@ -28,7 +28,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// A protocol for data source observers to be notified
+/**
+ * A protocol for data source observers to be notified when the preference being observed
+ * changes its underlying value, allowing the user to handle storing the value externally,
+ * or altering the display or behaviour of other parts of the UI.
+ */
 
 @protocol JSMStaticPreferenceObserver <NSObject>
 
