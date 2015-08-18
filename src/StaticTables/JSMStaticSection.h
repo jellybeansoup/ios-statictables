@@ -104,6 +104,23 @@ NS_ASSUME_NONNULL_BEGIN
 ///---------------------------------------------
 
 /**
+ * Initialises an instance of `JSMStaticSection`.
+ *
+ * @return The new instance of `JSMStaticSection`.
+ */
+
+- (instancetype)init;
+
+/**
+ * Initialises an instance of `JSMStaticSection` with the given key.
+ *
+ * @param key The key to use in identifying the section.
+ * @return The new instance of `JSMStaticSection` with the given key.
+ */
+
+- (instancetype)initWithKey:(NSString * _Nullable)key;
+
+/**
  * Allocates and initialises an instance of `JSMStaticSection`.
  *
  * @return The new instance of `JSMStaticSection`.

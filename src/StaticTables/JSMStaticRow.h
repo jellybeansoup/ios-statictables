@@ -43,6 +43,23 @@ NS_ASSUME_NONNULL_BEGIN
 ///---------------------------------------------
 
 /**
+ * Initialises an instance of `JSMStaticRow`.
+ *
+ * @return The new instance of `JSMStaticRow`.
+ */
+
+- (instancetype)init;
+
+/**
+ * Initialises an instance of `JSMStaticRow` with the given key.
+ *
+ * @param key The key to use in identifying the row.
+ * @return The new instance of `JSMStaticRow` with the given key.
+ */
+
+- (instancetype)initWithKey:(NSString * _Nullable)key;
+
+/**
  * Allocates and initialises an instance of `JSMStaticRow`.
  *
  * @return The new instance of `JSMStaticRow`.
