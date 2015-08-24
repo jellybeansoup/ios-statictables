@@ -89,8 +89,41 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)section:(JSMStaticSection *)section didDeleteRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath;
 
-@end
+/**
+ * Notifies the receiver that the section is about to start processing of one or more changes due to an add, remove, or move.
+ *
+ * This method is called before all calls to `section:didChangeRow:atIndex:newIndex:` have been sent for a given change event.
+ *
+ * @param section The section whose rows were modified.
+ */
 
+- (void)sectionWillPerformChanges:(JSMStaticSection *)section;
+
+/**
+ * Notifies the receiver that a row has been changed due to an add, remove or move.
+ *
+ * This method is called once for each change detected by the section.
+ *
+ * @param section The section whose rows were modified.
+ * @param row The row in the sections `rows` collection which changed.
+ * @param index The original index for the changed row (or `NSNotFound` for insertions).
+ * @param newIndex The new index for the changed row (or `NSNotFound` for deletions).
+ */
+
+- (void)section:(JSMStaticSection *)section didChangeRow:(__kindof JSMStaticRow *)row atIndex:(NSUInteger)index newIndex:(NSUInteger)newIndex;
+
+/**
+ * Notifies the receiver that the section has completed processing of one or more changes due to an add, remove, or move.
+ *
+ * The section performs an analysis of the changes made, and will call `sectionWillChangeRows:` once, then
+ * `section:didChangeRow:atIndex:newIndex:` once per change, and finally call `sectionDidChangeRows:` upon completion.
+ *
+ * @param section The section whose rows were modified.
+ */
+
+- (void)sectionDidPerformChanges:(JSMStaticSection *)section;
+
+@end
 
 /**
  * A `JSMStaticSection` objects acts as a data source for a single `JSMStaticViewController` section.
@@ -352,6 +385,46 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 - (void)setNeedsReload;
+
+///---------------------------------------------
+/// @name Responding to changes
+///---------------------------------------------
+
+/**
+ * Method called when the section is about to start processing of one or more changes due to an add, remove, or move.
+ * It is intended to be used by subclasses of `JSMStaticSection` to respond internally to changes performed on the
+ * section's rows. It is equivalent to the section delegate's `sectionWillPerformChanges` method, but is called after
+ * the delegate's implementation.
+ *
+ * This method is called before all calls to `didChangeRow:atIndex:newIndex:` have been sent for a given change event.
+ */
+
+- (void)willPerformChanges;
+
+/**
+ * Method called when a row has been changed due to an add, remove or move. It is intended to be used by subclasses
+ * of `JSMStaticSection` to respond internally to changes performed on the section's rows. It is equivalent to the
+ * section delegate's `section:didChangeRow:atIndex:newIndex:` method, but is called after the delegate's implementation.
+ *
+ * This method is called once for each change detected by the section.
+ *
+ * @param row The row in the sections `rows` collection which changed.
+ * @param index The original index for the changed row (or `NSNotFound` for insertions).
+ * @param newIndex The new index for the changed row (or `NSNotFound` for deletions).
+ */
+
+- (void)didChangeRow:(__kindof JSMStaticRow *)row atIndex:(NSUInteger)index newIndex:(NSUInteger)newIndex;
+
+/**
+ * Method called when the section has completed processing of one or more changes due to an add, remove, or move.
+ * It is intended to be used by subclasses of `JSMStaticSection` to respond internally to changes performed on the
+ * section's rows. It is equivalent to the section delegate's `sectionWillPerformChanges` method, but is called after
+ * the delegate's implementation.
+ *
+ * This method is called after all calls to `didChangeRow:atIndex:newIndex:` have been sent for a given change event.
+ */
+
+- (void)didPerformChanges;
 
 @end
 NS_ASSUME_NONNULL_END

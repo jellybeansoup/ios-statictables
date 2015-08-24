@@ -120,6 +120,54 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dataSource:(JSMStaticDataSource *)dataSource didDeleteRow:(JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath;
 
+/**
+ * Notifies the receiver that the data source is about to start processing of one or more changes due to an add, remove, or move.
+ *
+ * This method is called before all calls to `dataSource:didChangeRow:atIndexPath:newIndexPath:` and
+ * `dataSource:didChangeSection:atIndex:newIndex:` have been sent for a given change event.
+ *
+ * @param dataSource The data source that was changed.
+ */
+
+- (void)dataSourceWillPerformChanges:(JSMStaticDataSource *)dataSource;
+
+/**
+ * Notifies the receiver that a section has been changed due to an add, remove or move.
+ *
+ * This method is called once for each changed section detected by the data source.
+ *
+ * @param dataSource The data source that was changed.
+ * @param section The section that changed.
+ * @param index The original index for the changed section (or `NSNotFound` for insertions).
+ * @param newIndex The new index for the changed section (or `NSNotFound` for deletions).
+ */
+
+- (void)dataSource:(JSMStaticDataSource *)dataSource didChangeSection:(JSMStaticSection *)section atIndex:(NSUInteger)index newIndex:(NSUInteger)newIndex;
+
+/**
+ * Notifies the receiver that a row has been changed due to an add, remove or move.
+ *
+ * This method is called once for each changed row detected by the data source.
+ *
+ * @param dataSource The data source that was changed.
+ * @param row The row that changed.
+ * @param indexPath The original index path for the changed row (or `nil` for insertions).
+ * @param newIndexPath The new index path for the changed row (or `nil` for deletions).
+ */
+
+- (void)dataSource:(JSMStaticDataSource *)dataSource didChangeRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath newIndexPath:(NSIndexPath *)newIndexPath;
+
+/**
+ * Notifies the receiver that the data source has completed processing of one or more changes due to an add, remove, or move.
+ *
+ * This method is called after all calls to `dataSource:didChangeRow:atIndexPath:newIndexPath:` and
+ * `dataSource:didChangeSection:atIndex:newIndex:` have been sent for a given change event.
+ *
+ * @param dataSource The data source that was changed.
+ */
+
+- (void)dataSourceDidPerformChanges:(JSMStaticDataSource *)dataSource;
+
 @end
 
 /**
@@ -377,6 +425,60 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 - (void)removeRow:(__kindof JSMStaticRow *)row;
+
+///---------------------------------------------
+/// @name Responding to changes
+///---------------------------------------------
+
+/**
+ * Method called when the section is about to start processing of one or more changes due to an add, remove, or move.
+ * It is intended to be used by subclasses of `JSMStaticSection` to respond internally to changes performed on the
+ * section's rows. It is equivalent to the section delegate's `sectionWillPerformChanges` method, but is called after
+ * the delegate's implementation.
+ *
+ * This method is called before all calls to `didChangeRow:atIndex:newIndex:` have been sent for a given change event.
+ */
+
+- (void)willPerformChanges;
+
+/**
+ * Method called when a row has been changed due to an add, remove or move. It is intended to be used by subclasses
+ * of `JSMStaticSection` to respond internally to changes performed on the section's rows. It is equivalent to the
+ * section delegate's `section:didChangeRow:atIndex:newIndex:` method, but is called after the delegate's implementation.
+ *
+ * This method is called once for each change detected by the section.
+ *
+ * @param row The row in the sections `rows` collection which changed.
+ * @param index The original index for the changed row (or `NSNotFound` for insertions).
+ * @param newIndex The new index for the changed row (or `NSNotFound` for deletions).
+ */
+
+- (void)didChangeSection:(JSMStaticSection *)row atIndex:(NSUInteger)index newIndex:(NSUInteger)newIndex;
+
+/**
+ * Method called when a row has been changed due to an add, remove or move. It is intended to be used by subclasses
+ * of `JSMStaticSection` to respond internally to changes performed on the section's rows. It is equivalent to the
+ * section delegate's `section:didChangeRow:atIndex:newIndex:` method, but is called after the delegate's implementation.
+ *
+ * This method is called once for each change detected by the section.
+ *
+ * @param row The row in the sections `rows` collection which changed.
+ * @param index The original index for the changed row (or `NSNotFound` for insertions).
+ * @param newIndex The new index for the changed row (or `NSNotFound` for deletions).
+ */
+
+- (void)didChangeRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath newIndexPath:(NSIndexPath *)newIndexPath;
+
+/**
+ * Method called when the section has completed processing of one or more changes due to an add, remove, or move.
+ * It is intended to be used by subclasses of `JSMStaticSection` to respond internally to changes performed on the
+ * section's rows. It is equivalent to the section delegate's `sectionWillPerformChanges` method, but is called after
+ * the delegate's implementation.
+ *
+ * This method is called after all calls to `didChangeRow:atIndex:newIndex:` have been sent for a given change event.
+ */
+
+- (void)didPerformChanges;
 
 @end
 NS_ASSUME_NONNULL_END
