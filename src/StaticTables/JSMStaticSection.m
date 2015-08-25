@@ -361,25 +361,22 @@
             return;
         }
 
-        // Process the changes on the main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(sectionWillPerformChanges:)] ) {
-                [self.delegate sectionWillPerformChanges:self];
-            }
-            [self willPerformChanges];
+        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(sectionWillPerformChanges:)] ) {
+            [self.delegate sectionWillPerformChanges:self];
+        }
+        [self willPerformChanges];
 
-            [old jsm_compareToArray:new usingBlock:^(JSMStaticRow *row, NSUInteger fromIndex, NSUInteger toIndex) {
-                if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:didChangeRow:atIndex:newIndex:)] ) {
-                    [self.delegate section:self didChangeRow:row atIndex:fromIndex newIndex:toIndex];
-                }
-                [self didChangeRow:row atIndex:fromIndex newIndex:toIndex];
-            }];
-
-            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(sectionDidPerformChanges:)] ) {
-                [self.delegate sectionDidPerformChanges:self];
+        [old jsm_compareToArray:new usingBlock:^(JSMStaticRow *row, NSUInteger fromIndex, NSUInteger toIndex) {
+            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:didChangeRow:atIndex:newIndex:)] ) {
+                [self.delegate section:self didChangeRow:row atIndex:fromIndex newIndex:toIndex];
             }
-            [self didPerformChanges];
-        });
+            [self didChangeRow:row atIndex:fromIndex newIndex:toIndex];
+        }];
+
+        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(sectionDidPerformChanges:)] ) {
+            [self.delegate sectionDidPerformChanges:self];
+        }
+        [self didPerformChanges];
 
     }
 }

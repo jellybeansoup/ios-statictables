@@ -493,25 +493,23 @@ static Class _staticCellClass = nil;
             return;
         }
 
-        // Process the changes on the main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceWillPerformChanges:)] ) {
-                [self.delegate dataSourceWillPerformChanges:self];
-            }
-            [self willPerformChanges];
+        // Process the changes
+        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceWillPerformChanges:)] ) {
+            [self.delegate dataSourceWillPerformChanges:self];
+        }
+        [self willPerformChanges];
 
-            [old jsm_compareToArray:new usingBlock:^(JSMStaticSection *section, NSUInteger fromIndex, NSUInteger toIndex) {
-                if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:didChangeSection:atIndex:newIndex:)] ) {
-                    [self.delegate dataSource:self didChangeSection:object atIndex:fromIndex newIndex:toIndex];
-                }
-                [self didChangeSection:object atIndex:fromIndex newIndex:toIndex];
-            }];
-
-            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceDidPerformChanges:)] ) {
-                [self.delegate dataSourceDidPerformChanges:self];
+        [old jsm_compareToArray:new usingBlock:^(JSMStaticSection *section, NSUInteger fromIndex, NSUInteger toIndex) {
+            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:didChangeSection:atIndex:newIndex:)] ) {
+                [self.delegate dataSource:self didChangeSection:object atIndex:fromIndex newIndex:toIndex];
             }
-            [self didPerformChanges];
-        });
+            [self didChangeSection:object atIndex:fromIndex newIndex:toIndex];
+        }];
+
+        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceDidPerformChanges:)] ) {
+            [self.delegate dataSourceDidPerformChanges:self];
+        }
+        [self didPerformChanges];
     }
     else if( [object isKindOfClass:[JSMStaticSection class]] && [keyPath isEqualToString:NSStringFromSelector(@selector(rows))] ) {
         // Make sure the section exists in the data source
@@ -528,26 +526,24 @@ static Class _staticCellClass = nil;
         }
 
         // Process the changes on the main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceWillPerformChanges:)] ) {
-                [self.delegate dataSourceWillPerformChanges:self];
-            }
-            [self willPerformChanges];
+        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceWillPerformChanges:)] ) {
+            [self.delegate dataSourceWillPerformChanges:self];
+        }
+        [self willPerformChanges];
 
-            [old jsm_compareToArray:new usingBlock:^(JSMStaticRow *row, NSUInteger fromIndex, NSUInteger toIndex) {
-                NSIndexPath *fromIndexPath = [NSIndexPath indexPathForRow:fromIndex inSection:sectionIndex];
-                NSIndexPath *toIndexPath = [NSIndexPath indexPathForRow:toIndex inSection:sectionIndex];
-                if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:didChangeRow:atIndexPath:newIndexPath:)] ) {
-                    [self.delegate dataSource:self didChangeRow:row atIndexPath:fromIndexPath newIndexPath:toIndexPath];
-                }
-                [self didChangeRow:row atIndexPath:fromIndexPath newIndexPath:toIndexPath];
-            }];
-
-            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceDidPerformChanges:)] ) {
-                [self.delegate dataSourceDidPerformChanges:self];
+        [old jsm_compareToArray:new usingBlock:^(JSMStaticRow *row, NSUInteger fromIndex, NSUInteger toIndex) {
+            NSIndexPath *fromIndexPath = [NSIndexPath indexPathForRow:fromIndex inSection:sectionIndex];
+            NSIndexPath *toIndexPath = [NSIndexPath indexPathForRow:toIndex inSection:sectionIndex];
+            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:didChangeRow:atIndexPath:newIndexPath:)] ) {
+                [self.delegate dataSource:self didChangeRow:row atIndexPath:fromIndexPath newIndexPath:toIndexPath];
             }
-            [self didPerformChanges];
-        });
+            [self didChangeRow:row atIndexPath:fromIndexPath newIndexPath:toIndexPath];
+        }];
+
+        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceDidPerformChanges:)] ) {
+            [self.delegate dataSourceDidPerformChanges:self];
+        }
+        [self didPerformChanges];
     }
 }
 
