@@ -184,13 +184,16 @@
 
     // Detach the rows that are being removed.
     for( JSMStaticRow *row in _mutableRows ) {
-        if( [mutableRows containsObject:row] ) continue;
+        if( row.section != self ) continue;
         row.section = nil;
     }
 
     // Attach the rows that are being inserted.
     for( JSMStaticRow *row in mutableRows ) {
-        if( [_mutableRows containsObject:row] ) continue;
+        if( row.section == self ) continue;
+        else if( row.section != nil ) {
+            [row.section removeRow:row];
+        }
         row.section = self;
     }
 

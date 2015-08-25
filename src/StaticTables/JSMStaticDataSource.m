@@ -107,14 +107,17 @@ static Class _staticCellClass = nil;
 
     // Detach the sections that are being removed.
     for( JSMStaticSection *section in _mutableSections ) {
-        if( [mutableSections containsObject:section] ) continue;
+        if( section.dataSource != self ) continue;
         [section removeObserver:self forKeyPath:NSStringFromSelector(@selector(rows))];
         section.dataSource = nil;
     }
 
     // Attach the sections that are being inserted.
     for( JSMStaticSection *section in mutableSections ) {
-        if( [_mutableSections containsObject:section] ) continue;
+        if( section.dataSource == self ) continue;
+        else if( section.dataSource != nil ) {
+            [section.dataSource removeSection:section];
+        }
         section.dataSource = self;
         [section addObserver:self forKeyPath:NSStringFromSelector(@selector(rows)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:NULL];
     }
