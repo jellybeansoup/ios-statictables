@@ -140,7 +140,7 @@
     NSUInteger afterLastInRight = array.count - right_i;
     if( afterLastInRight > afterLastInLeft ) {
         NSUInteger length = afterLastInRight - afterLastInLeft;
-        NSUInteger pos = left_i + totalOffset;
+        NSUInteger pos = right_i + totalOffset;
         for( NSUInteger i = 0; i < length; i++ ) {
             id object = [array objectAtIndex:pos + i];
             NSUInteger rpos = [self indexOfObject:object];
