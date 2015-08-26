@@ -467,19 +467,19 @@ static Class _staticCellClass = nil;
 #pragma mark - Responding to changes
 
 - (void)willPerformChanges {
-
+    // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
 - (void)didChangeSection:(JSMStaticSection *)row atIndex:(NSUInteger)index newIndex:(NSUInteger)newIndex {
-
+    // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
 - (void)didChangeRow:(__kindof JSMStaticRow *)row atIndexPath:(nonnull NSIndexPath *)indexPath newIndexPath:(nonnull NSIndexPath *)newIndexPath {
-
+    // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
 - (void)didPerformChanges {
-    
+    // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
 #pragma mark - Key-value observing

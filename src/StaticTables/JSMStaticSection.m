@@ -200,7 +200,7 @@
     // Update the rows
     _mutableRows = mutableRows;
 
-    [self rowsDidChange];
+    [self filterRows];
     // We don't call KVO methods in the setter, as it appears to be done for us.
 }
 
@@ -249,7 +249,7 @@
     row.section = self;
     [self.mutableRows insertObject:row atIndex:index];
 
-    [self rowsDidChange];
+    [self filterRows];
     [self didChangeValueForKey:@"rows"];
 }
 
@@ -290,7 +290,7 @@
     row.section = nil;
     [self.mutableRows removeObject:row];
 
-    [self rowsDidChange];
+    [self filterRows];
     [self didChangeValueForKey:@"rows"];
 }
 
@@ -302,6 +302,16 @@
 
     // Assign an empty array
     self.rows = [NSArray array];
+}
+
+- (void)filterRows {
+    NSArray *filteredRows = self.mutableRows.copy;
+    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
+        filteredRows = [self.delegate section:self rowsDidChange:filteredRows];
+    }
+    if( ! [self.mutableRows isEqualToArray:filteredRows] ) {
+        _mutableRows = filteredRows.mutableCopy;
+    }
 }
 
 #pragma mark - Refreshing the Row
@@ -322,25 +332,15 @@
 #pragma mark - Responding to changes
 
 - (void)willPerformChanges {
-
+    // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
 - (void)didChangeRow:(__kindof JSMStaticRow *)row atIndex:(NSUInteger)index newIndex:(NSUInteger)newIndex {
-
+    // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
 - (void)didPerformChanges {
-
-}
-
-- (void)rowsDidChange {
-    NSArray *filteredRows = self.mutableRows.copy;
-    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
-        filteredRows = [self.delegate section:self rowsDidChange:filteredRows];
-    }
-    if( ! [self.mutableRows isEqualToArray:filteredRows] ) {
-        _mutableRows = filteredRows.mutableCopy;
-    }
+    // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
 - (void)userDidDeleteRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath {
