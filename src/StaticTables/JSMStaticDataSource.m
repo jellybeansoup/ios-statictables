@@ -450,6 +450,7 @@ static Class _staticCellClass = nil;
     if( editingStyle == UITableViewCellEditingStyleDelete ) {
         // Remove the row
         JSMStaticRow *row = [self rowAtIndexPath:indexPath];
+        JSMStaticSection *section = row.section;
         [self removeRow:row];
         // All we do now is notify the delegate
         if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:didDeleteRow:fromIndexPath:)] ) {
@@ -459,8 +460,9 @@ static Class _staticCellClass = nil;
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
         // Tell the section
-        JSMStaticSection *section = [self sectionAtIndex:indexPath.section];
-        [section userDidDeleteRow:row fromIndexPath:indexPath];
+        if( section.delegate != nil && [section.delegate respondsToSelector:@selector(section:didDeleteRow:fromIndexPath:)] ) {
+            [section.delegate section:section didDeleteRow:row fromIndexPath:indexPath];
+        }
     }
 }
 

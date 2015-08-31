@@ -343,12 +343,6 @@
     // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
-- (void)userDidDeleteRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath {
-    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:didDeleteRow:fromIndexPath:)] ) {
-        [self.delegate section:self didDeleteRow:row fromIndexPath:indexPath];
-    }
-}
-
 #pragma mark - Key-value observing
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
