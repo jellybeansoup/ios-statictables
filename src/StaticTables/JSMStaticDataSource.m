@@ -409,8 +409,11 @@ static Class _staticCellClass = nil;
     cell.detailTextLabel.text = row.detailText;
     cell.imageView.image = row.image;
     // Reset some basics
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.accessoryView = nil;
+    cell.selectionStyle = row.selectionStyle;
+    cell.accessoryType = row.accessoryType;
+    cell.accessoryView = row.accessoryView;
+    cell.editingAccessoryType = row.editingAccessoryType;
+    cell.editingAccessoryView = row.editingAccessoryView;
     // Configure the cell using the row's configuration block
     [row prepareCell:cell];
     // Return the cell

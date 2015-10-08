@@ -148,6 +148,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) UITableViewCellStyle style;
 
+/**
+ * The selection used for the `UITableViewCell` instance.
+ */
+
+@property(nonatomic) UITableViewCellSelectionStyle selectionStyle;
+
+/**
+ * The accessory type used for the `UITableViewCell` instance. Defaults to `UITableViewCellAccessoryNone`.
+ */
+
+@property (nonatomic) UITableViewCellAccessoryType accessoryType;
+
+/**
+ * The accessory view used for the `UITableViewCell` instance. Setting this causes `accessoryType` to be ignored.
+ */
+
+@property (nonatomic, strong, nullable) UIView *accessoryView;
+
+/**
+ * The accessory type used for the `UITableViewCell` instance in an editing state. Defaults to `UITableViewCellAccessoryNone`.
+ */
+
+@property (nonatomic) UITableViewCellAccessoryType editingAccessoryType;
+
+/**
+ * The accessory view used for the `UITableViewCell` instance in an editing state. Setting this causes `editingAccessoryType` to be ignored.
+ */
+
+@property (nonatomic, strong, nullable) UIView *editingAccessoryView;
+
 ///---------------------------------------------
 /// @name Configuring the cell
 ///---------------------------------------------
