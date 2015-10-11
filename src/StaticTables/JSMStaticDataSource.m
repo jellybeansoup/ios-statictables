@@ -31,6 +31,14 @@
 
 @property (nonatomic, strong) NSMutableArray <JSMStaticSection *> *mutableSections;
 
+@property (nonatomic, copy, readonly) NSArray<JSMStaticChange *> *differences;
+
+@property (nonatomic, readonly) NSUInteger changesBeingProcessed;
+
+@property (nonatomic, readonly) BOOL informDelegate;
+
+@property (nonatomic, readonly) BOOL informDataSource;
+
 @end
 
 @interface JSMStaticSection (JSMStaticDataSource)
@@ -38,6 +46,8 @@
 - (void)setDataSource:dataSource;
 
 - (void)setDirty:(BOOL)dirty;
+
+@property (nonatomic, copy, readonly) NSArray<JSMStaticChange *> *differences;
 
 @end
 
@@ -55,16 +65,11 @@
     if( ( self = [super init] ) ) {
         _cellClass = [JSMStaticDataSource cellClass];
         _mutableSections = [NSMutableArray array];
-        [self addObserver:self forKeyPath:NSStringFromSelector(@selector(sections)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
 
 - (void)dealloc {
-    for( JSMStaticSection *section in self.mutableSections ) {
-        [section removeObserver:self forKeyPath:NSStringFromSelector(@selector(rows))];
-    }
-    [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(sections))];
 }
 
 - (NSString *)description {
@@ -105,10 +110,11 @@ static Class _staticCellClass = nil;
         return;
     }
 
+    NSArray *oldSections = self.sections;
+
     // Detach the sections that are being removed.
     for( JSMStaticSection *section in _mutableSections ) {
         if( section.dataSource != self ) continue;
-        [section removeObserver:self forKeyPath:NSStringFromSelector(@selector(rows))];
         section.dataSource = nil;
     }
 
@@ -119,7 +125,6 @@ static Class _staticCellClass = nil;
             [section.dataSource removeSection:section];
         }
         section.dataSource = self;
-        [section addObserver:self forKeyPath:NSStringFromSelector(@selector(rows)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:NULL];
     }
 
     // Update the sections
@@ -129,6 +134,7 @@ static Class _staticCellClass = nil;
     if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:sectionsDidChange:)] ) {
         _mutableSections = [[self.delegate dataSource:self sectionsDidChange:_mutableSections.copy] mutableCopy];
     }
+    [self jst_sectionsDidChange:oldSections];
     // We don't call KVO methods in the setter, as it appears to be done for us.
 }
 
@@ -172,10 +178,10 @@ static Class _staticCellClass = nil;
     }
 
     [self willChangeValueForKey:@"sections"];
+    NSArray *oldSections = self.sections;
 
     // Insert the row
     section.dataSource = self;
-    [section addObserver:self forKeyPath:NSStringFromSelector(@selector(rows)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:NULL];
     [self.mutableSections insertObject:section atIndex:index];
 
     // Notify the delegate
@@ -183,6 +189,7 @@ static Class _staticCellClass = nil;
         self.mutableSections = [[self.delegate dataSource:self sectionsDidChange:self.mutableSections.copy] mutableCopy];
     }
     [self didChangeValueForKey:@"sections"];
+    [self jst_sectionsDidChange:oldSections];
 }
 
 - (JSMStaticSection *)sectionWithKey:(NSString *)key {
@@ -220,9 +227,9 @@ static Class _staticCellClass = nil;
     }
 
     [self willChangeValueForKey:@"rows"];
+    NSArray *oldSections = self.sections;
 
     // Remove the row
-    [section removeObserver:self forKeyPath:NSStringFromSelector(@selector(rows))];
     section.dataSource = nil;
     [self.mutableSections removeObject:section];
 
@@ -231,6 +238,7 @@ static Class _staticCellClass = nil;
         self.mutableSections = [[self.delegate dataSource:self sectionsDidChange:self.mutableSections.copy] mutableCopy];
     }
     [self didChangeValueForKey:@"rows"];
+    [self jst_sectionsDidChange:oldSections];
 }
 
 - (void)removeAllSections {
@@ -315,6 +323,7 @@ static Class _staticCellClass = nil;
 #pragma mark - Refreshing the Contents
 
 - (void)requestReloadForSection:(JSMStaticSection *)section {
+    [self jst_sectionsDidChange:self.sections];
     // Ensure we own the section first
     if( ! [self containsSection:section] ) {
         return;
@@ -471,7 +480,8 @@ static Class _staticCellClass = nil;
 
 #pragma mark - Responding to changes
 
-- (void)willPerformChanges {
+- (BOOL)shouldPerformChanges {
+    return YES;
     // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
@@ -487,68 +497,79 @@ static Class _staticCellClass = nil;
     // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
-#pragma mark - Key-value observing
+- (void)jst_sectionsDidChange:(NSArray<__kindof JSMStaticSection *> *)old {
+    NSArray<__kindof JSMStaticSection *> *new = self.sections.copy;
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    if( [object isEqual:self] && [keyPath isEqualToString:NSStringFromSelector(@selector(sections))] ) {
-        // Get the old and new values
-        NSArray *old = [change objectForKey:@"old"] ?: @[];
-        NSArray *new = [change objectForKey:@"new"] ?: @[];
-        if( [old isEqualToArray:new] ) {
-            return;
-        }
+    // We're going to find all the differences
+    _differences = [old jst_changesRequiredToMatchArray:new];
 
-        // Process the changes
-        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceWillPerformChanges:)] ) {
-            [self.delegate dataSourceWillPerformChanges:self];
-        }
-        [self willPerformChanges];
+    // After all that, we don't have anything to change, apparently?
+    if( _differences.count == 0 ) return;
 
-        [old jsm_compareToArray:new usingBlock:^(JSMStaticSection *section, NSUInteger fromIndex, NSUInteger toIndex) {
-            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:didChangeSection:atIndex:newIndex:)] ) {
-                [self.delegate dataSource:self didChangeSection:object atIndex:fromIndex newIndex:toIndex];
-            }
-            [self didChangeSection:object atIndex:fromIndex newIndex:toIndex];
-        }];
-
-        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceDidPerformChanges:)] ) {
-            [self.delegate dataSourceDidPerformChanges:self];
-        }
-        [self didPerformChanges];
+    // Inform the people of the differences
+    id<JSMStaticDataSourceDelegate> delegate = self.delegate;
+    if( _changesBeingProcessed <= 0 ) {
+        _informDelegate = [delegate respondsToSelector:@selector(dataSourceShouldPerformChanges:)] ? [delegate dataSourceShouldPerformChanges:self] : YES;
+        _informDataSource = [self respondsToSelector:@selector(shouldPerformChanges)] ? [self shouldPerformChanges] : YES;
     }
-    else if( [object isKindOfClass:[JSMStaticSection class]] && [keyPath isEqualToString:NSStringFromSelector(@selector(rows))] ) {
-        // Make sure the section exists in the data source
-        NSUInteger sectionIndex = [self indexForSection:object];
-        if( sectionIndex == NSNotFound ) {
-            return;
-        }
 
-        // Get the old and new values
-        NSArray *old = [change objectForKey:@"old"] ?: @[];
-        NSArray *new = [change objectForKey:@"new"] ?: @[];
-        if( [old isEqualToArray:new] ) {
-            return;
-        }
+    _changesBeingProcessed++;
 
-        // Process the changes on the main thread
-        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceWillPerformChanges:)] ) {
-            [self.delegate dataSourceWillPerformChanges:self];
-        }
-        [self willPerformChanges];
-
-        [old jsm_compareToArray:new usingBlock:^(JSMStaticRow *row, NSUInteger fromIndex, NSUInteger toIndex) {
-            NSIndexPath *fromIndexPath = [NSIndexPath indexPathForRow:fromIndex inSection:sectionIndex];
-            NSIndexPath *toIndexPath = [NSIndexPath indexPathForRow:toIndex inSection:sectionIndex];
-            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:didChangeRow:atIndexPath:newIndexPath:)] ) {
-                [self.delegate dataSource:self didChangeRow:row atIndexPath:fromIndexPath newIndexPath:toIndexPath];
+    if( _informDelegate || _informDataSource ) {
+        [_differences enumerateObjectsUsingBlock:^(JSMStaticChange * _Nonnull change, NSUInteger idx, BOOL * _Nonnull stop) {
+            if( _informDelegate && [delegate respondsToSelector:@selector(dataSource:didChangeSection:atIndex:newIndex:)] ) {
+                [delegate dataSource:self didChangeSection:change.object atIndex:change.fromIndex newIndex:change.toIndex];
             }
-            [self didChangeRow:row atIndexPath:fromIndexPath newIndexPath:toIndexPath];
+            if( _informDataSource && [delegate respondsToSelector:@selector(didChangeSection:atIndex:newIndex:)] ) {
+                [self didChangeSection:change.object atIndex:change.fromIndex newIndex:change.toIndex];
+            }
         }];
+    }
 
-        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSourceDidPerformChanges:)] ) {
-            [self.delegate dataSourceDidPerformChanges:self];
+    _changesBeingProcessed--;
+
+    if( _changesBeingProcessed <= 0 ) {
+        if( delegate != nil && [delegate respondsToSelector:@selector(dataSourceDidPerformChanges:)] ) {
+            [delegate dataSourceDidPerformChanges:self];
         }
-        [self didPerformChanges];
+        if( [self respondsToSelector:@selector(didPerformChanges)] ) {
+            [self didPerformChanges];
+        }
+    }
+}
+
+- (void)jst_rowsDidChangeInSection:(JSMStaticSection *)section {
+    id<JSMStaticDataSourceDelegate> delegate = self.delegate;
+    if( _changesBeingProcessed <= 0 ) {
+        _informDelegate = [delegate respondsToSelector:@selector(dataSourceShouldPerformChanges:)] ? [delegate dataSourceShouldPerformChanges:self] : YES;
+        _informDataSource = [self respondsToSelector:@selector(shouldPerformChanges)] ? [self shouldPerformChanges] : YES;
+    }
+
+    _changesBeingProcessed++;
+
+    if( _informDelegate || _informDataSource ) {
+        NSUInteger sectionIndex = [section.dataSource indexForSection:section];
+        [section.differences enumerateObjectsUsingBlock:^(JSMStaticChange * _Nonnull change, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSIndexPath *fromIndexPath = [NSIndexPath indexPathForRow:change.fromIndex inSection:sectionIndex];
+            NSIndexPath *toIndexPath = [NSIndexPath indexPathForRow:change.toIndex inSection:sectionIndex];
+            if( _informDelegate && [delegate respondsToSelector:@selector(dataSource:didChangeRow:atIndexPath:newIndexPath:)] ) {
+                [delegate dataSource:self didChangeRow:change.object atIndexPath:fromIndexPath newIndexPath:toIndexPath];
+            }
+            if( _informDataSource && [delegate respondsToSelector:@selector(didChangeRow:atIndexPath:newIndexPath:)] ) {
+                [self didChangeRow:change.object atIndexPath:fromIndexPath newIndexPath:toIndexPath];
+            }
+        }];
+    }
+
+    _changesBeingProcessed--;
+
+    if( _changesBeingProcessed <= 0 ) {
+        if( delegate != nil && [delegate respondsToSelector:@selector(dataSourceDidPerformChanges:)] ) {
+            [delegate dataSourceDidPerformChanges:self];
+        }
+        if( [self respondsToSelector:@selector(didPerformChanges)] ) {
+            [self didPerformChanges];
+        }
     }
 }
 

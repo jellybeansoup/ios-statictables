@@ -33,17 +33,23 @@
 
 @property (nonatomic, getter=isDirty) BOOL dirty;
 
+@property (nonatomic, copy, readonly) NSArray<JSMStaticChange *> *differences;
+
 @end
 
 @interface JSMStaticDataSource (JSMStaticSection)
 
 - (void)requestReloadForSection:(JSMStaticSection *)section;
 
+- (void)jst_rowsDidChangeInSection:(JSMStaticSection *)section;
+
 @end
 
 @interface JSMStaticRow (JSMStaticSection)
 
 - (void)setSection:(JSMStaticSection *)section;
+
+@property (nonatomic, getter=isDirty) BOOL dirty;
 
 @end
 
@@ -74,7 +80,7 @@
 - (instancetype)init {
     if( ( self = [super init] ) ) {
         _mutableRows = [NSMutableArray array];
-        [self addObserver:self forKeyPath:NSStringFromSelector(@selector(rows)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:NULL];
+        //[self addObserver:self forKeyPath:NSStringFromSelector(@selector(rows)) options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -87,7 +93,7 @@
 }
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(rows))];
+    //[self removeObserver:self forKeyPath:NSStringFromSelector(@selector(rows))];
 }
 
 + (instancetype)section {
@@ -176,6 +182,7 @@
 
 - (void)setRows:(NSArray <__kindof JSMStaticRow *> *)rows {
     NSMutableArray *mutableRows = rows.mutableCopy;
+    NSArray *oldRows = self.rows;
 
     // If the rows are the same, bail out now.
     if( [_mutableRows isEqualToArray:mutableRows] ) {
@@ -201,6 +208,7 @@
     _mutableRows = mutableRows;
 
     [self filterRows];
+    [self jst_rowsDidChange:oldRows];
     // We don't call KVO methods in the setter, as it appears to be done for us.
 }
 
@@ -244,6 +252,7 @@
     }
 
     [self willChangeValueForKey:@"rows"];
+    NSArray *oldRows = self.rows;
 
     // Insert the row
     row.section = self;
@@ -251,6 +260,7 @@
 
     [self filterRows];
     [self didChangeValueForKey:@"rows"];
+    [self jst_rowsDidChange:oldRows];
 }
 
 - (__kindof JSMStaticRow *)rowWithKey:(NSString *)key {
@@ -285,6 +295,7 @@
     }
 
     [self willChangeValueForKey:@"rows"];
+    NSArray *oldRows = self.rows;
 
     // Remove the row
     row.section = nil;
@@ -292,6 +303,7 @@
 
     [self filterRows];
     [self didChangeValueForKey:@"rows"];
+    [self jst_rowsDidChange:oldRows];
 }
 
 - (void)removeAllRows {
@@ -314,6 +326,12 @@
     }
 }
 
+#pragma mark - Refreshing the Contents
+
+- (void)requestReloadForRow:(JSMStaticRow *)row {
+    [self jst_rowsDidChange:self.rows];
+}
+
 #pragma mark - Refreshing the Row
 
 - (BOOL)needsReload {
@@ -331,7 +349,8 @@
 
 #pragma mark - Responding to changes
 
-- (void)willPerformChanges {
+- (BOOL)shouldPerformChanges {
+    return YES;
     // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
@@ -343,35 +362,40 @@
     // Empty implementation, as method is designed to be overriden by subclasses.
 }
 
-#pragma mark - Key-value observing
+- (void)jst_rowsDidChange:(NSArray<__kindof JSMStaticRow *> *)old {
+    NSArray<__kindof JSMStaticRow *> *new = self.rows.copy;
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    if( [object isEqual:self] && [keyPath isEqualToString:NSStringFromSelector(@selector(rows))] ) {
+    // We're going to find all the differences
+    _differences = [old jst_changesRequiredToMatchArray:new];
 
-        // Get the old and new values
-        NSArray *old = [change objectForKey:@"old"] ?: @[];
-        NSArray *new = [change objectForKey:@"new"] ?: @[];
-        if( [old isEqualToArray:new] ) {
-            return;
-        }
+    // After all that, we don't have anything to change, apparently?
+    if( _differences.count == 0 ) return;
 
-        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(sectionWillPerformChanges:)] ) {
-            [self.delegate sectionWillPerformChanges:self];
-        }
-        [self willPerformChanges];
+    // Inform the people of the differences
+    if( self.dataSource ) {
+        [self.dataSource jst_rowsDidChangeInSection:self];
+    }
 
-        [old jsm_compareToArray:new usingBlock:^(JSMStaticRow *row, NSUInteger fromIndex, NSUInteger toIndex) {
-            if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:didChangeRow:atIndex:newIndex:)] ) {
-                [self.delegate section:self didChangeRow:row atIndex:fromIndex newIndex:toIndex];
+    id<JSMStaticSectionDelegate> delegate = self.delegate;
+    BOOL informDelegate = [delegate respondsToSelector:@selector(sectionShouldPerformChanges:)] ? [delegate sectionShouldPerformChanges:self] : YES;
+    BOOL informSection = [self respondsToSelector:@selector(shouldPerformChanges)] ? [self shouldPerformChanges] : YES;
+
+    if( informDelegate || informSection ) {
+        [_differences enumerateObjectsUsingBlock:^(JSMStaticChange * _Nonnull change, NSUInteger idx, BOOL * _Nonnull stop) {
+            if( informDelegate && [delegate respondsToSelector:@selector(section:didChangeRow:atIndex:newIndex:)] ) {
+                [delegate section:self didChangeRow:change.object atIndex:change.fromIndex newIndex:change.toIndex];
             }
-            [self didChangeRow:row atIndex:fromIndex newIndex:toIndex];
+            if( informSection && [delegate respondsToSelector:@selector(didChangeRow:atIndex:newIndex:)] ) {
+                [self didChangeRow:change.object atIndex:change.fromIndex newIndex:change.toIndex];
+            }
         }];
+    }
 
-        if( self.delegate != nil && [self.delegate respondsToSelector:@selector(sectionDidPerformChanges:)] ) {
-            [self.delegate sectionDidPerformChanges:self];
-        }
+    if( delegate != nil && [delegate respondsToSelector:@selector(sectionDidPerformChanges:)] ) {
+        [delegate sectionDidPerformChanges:self];
+    }
+    if( [self respondsToSelector:@selector(didPerformChanges)] ) {
         [self didPerformChanges];
-
     }
 }
 

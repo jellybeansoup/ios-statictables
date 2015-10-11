@@ -23,10 +23,36 @@
 //
 
 #import "NSArray+StaticTables.h"
+#import "JSMStaticSection.h"
+#import "JSMStaticRow.h"
+
+@interface JSMStaticChange ()
+
++ (instancetype)deleteObject:(id)object fromIndex:(NSUInteger)index;
+
++ (instancetype)insertObject:(id)object atIndex:(NSUInteger)index;
+
++ (instancetype)moveObject:(id)object fromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
+
++ (instancetype)refreshObject:(id)object atIndex:(NSUInteger)index;
+
+@end
 
 @implementation NSArray (StaticTables)
 
-- (NSArray *)jsm_longestCommonSubsequenceWithArray:(NSArray *)array {
+- (NSArray *)jst_arrayByRemovingObjectsInArray:(NSArray *)array {
+    return [self filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return ! [array containsObject:evaluatedObject];
+    }]];
+}
+
+- (NSIndexSet *)jst_indexesOfObjectsInArray:(NSArray *)array {
+    return [self indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        return [array containsObject:obj];
+    }];
+}
+
+- (NSArray *)jst_longestCommonSubsequenceWithArray:(NSArray *)array {
     NSUInteger x = self.count;
     NSUInteger y = array.count;
     NSMutableArray<NSMutableArray<NSNumber *> *> *lens = [NSMutableArray arrayWithCapacity:x + 1];
@@ -66,102 +92,96 @@
     return result;
 }
 
-- (void)jsm_compareToArray:(NSArray *)array usingBlock:(void(^)(id object, NSUInteger fromIndex, NSUInteger toIndex))differences {
-    NSArray *lcs = [self jsm_longestCommonSubsequenceWithArray:array];
+- (NSArray<JSMStaticChange *> *)jst_changesRequiredToMatchArray:(NSArray *)array {
+    // Nothing to process
+    if( self.count == 0 && array.count == 0 ) return @[];
 
-    NSUInteger left_i = 0;
-    NSUInteger right_i = 0;
+    // We're going to find all the differences
+    NSMutableArray<JSMStaticChange *> *differences = [NSMutableArray array];
 
-    NSUInteger totalOffset = 0;
+    // Deleted items
+    NSArray *deletedObjects = [self jst_arrayByRemovingObjectsInArray:array];
+    NSIndexSet *deletedIndexes = [self jst_indexesOfObjectsInArray:deletedObjects];
+    [deletedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        [differences addObject:[JSMStaticChange deleteObject:[self objectAtIndex:idx] fromIndex:idx]];
+    }];
 
-    NSMutableArray *moved = [NSMutableArray array];
+    // Inserted items
+    NSArray *insertedObjects = [array jst_arrayByRemovingObjectsInArray:self];
+    NSIndexSet *insertedIndexes = [array jst_indexesOfObjectsInArray:insertedObjects];
+    [insertedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        [differences addObject:[JSMStaticChange insertObject:[array objectAtIndex:idx] atIndex:idx]];
+    }];
 
-    for( id<NSObject> commonElement in lcs ) {
-        NSUInteger leftOffset = 0;
-        NSUInteger rightOffset = 0;
-
-        // find index of el in left
-        while( true ) {
-            if( [self[left_i] isEqual:commonElement] ) {
-                break;
-            }
-            else {
-                left_i++;
-                leftOffset++;
-            }
+    // Updated items
+    NSArray *stable = [self jst_longestCommonSubsequenceWithArray:array];
+    [stable enumerateObjectsUsingBlock:^(id _Nonnull object, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSUInteger index = [self indexOfObject:object];
+        if( [object respondsToSelector:@selector(needsReload)] && [object needsReload] ) {
+            [differences addObject:[JSMStaticChange refreshObject:object atIndex:index]];
         }
+    }];
 
-        // find index of el in right
-        while( true ) {
-            if( [array[right_i] isEqual:commonElement] ) {
-                break;
-            } else {
-                right_i++;
-                rightOffset++;
-            }
-        }
+    // Moved items
+    NSArray *modifiedNew = [array jst_arrayByRemovingObjectsInArray:insertedObjects];
+    NSArray *unstable = [modifiedNew jst_arrayByRemovingObjectsInArray:stable];
+    [unstable enumerateObjectsUsingBlock:^(id _Nonnull object, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSUInteger oldIndex = [self indexOfObject:object];
+        NSUInteger newIndex = [array indexOfObject:object];
+        [differences addObject:[JSMStaticChange moveObject:object fromIndex:oldIndex toIndex:newIndex]];
+    }];
 
-        // if offsets differ, add to list of changes
-        if( rightOffset > leftOffset ) {
-            NSUInteger length = rightOffset - leftOffset;
-            NSUInteger pos = left_i + totalOffset;
-            for( NSUInteger i = 0; i < length; i++ ) {
-                id object = [array objectAtIndex:pos + i];
-                NSUInteger rpos = [self indexOfObject:object];
-                if( rpos != NSNotFound ) {
-                    [moved addObject:object];
-                    differences( object, rpos, pos + i );
-                }
-                else {
-                    differences( object, NSNotFound, pos + i );
-                }
-            }
-            //totalOffset += length
-        }
-        else if( leftOffset > rightOffset ) {
-            NSUInteger length = leftOffset - rightOffset;
-            NSUInteger pos = left_i - length + totalOffset;
-            for( NSUInteger i = 0; i < length; i++ ) {
-                id object = [self objectAtIndex:pos + i];
-                if( ! [moved containsObject:object] ) {
-                    differences( object, pos + i, NSNotFound );
-                }
-            }
-            //totalOffset -= length
-        }
+    return differences.copy;
+}
 
-        // start search with next element
-        left_i++;
-        right_i++;
+@end
+
+@implementation JSMStaticChange
+
++ (instancetype)deleteObject:(id)object fromIndex:(NSUInteger)index {
+    return [[self alloc] initWithObject:object fromIndex:index toIndex:NSNotFound];
+}
+
++ (instancetype)insertObject:(id)object atIndex:(NSUInteger)index {
+    return [[self alloc] initWithObject:object fromIndex:NSNotFound toIndex:index];
+}
+
++ (instancetype)moveObject:(id)object fromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
+    return [[self alloc] initWithObject:object fromIndex:fromIndex toIndex:toIndex];
+}
+
++ (instancetype)refreshObject:(id)object atIndex:(NSUInteger)index {
+    return [[self alloc] initWithObject:object fromIndex:index toIndex:index];
+}
+
+- (instancetype)initWithObject:(id)object fromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
+    if( ( self = [super init] ) ) {
+        _object = object;
+        _fromIndex = fromIndex;
+        _toIndex = toIndex;
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    return [[JSMStaticChange allocWithZone:zone] initWithObject:self.object fromIndex:self.fromIndex toIndex:self.toIndex];
+}
+
+- (NSString *)description {
+    if( self.toIndex == NSNotFound ) {
+        return [NSString stringWithFormat:@"<%@Delete: %@; object=%@>",NSStringFromClass(self.class),@(self.fromIndex),self.object];
     }
 
-    // elements after last common element
-    NSUInteger afterLastInLeft = self.count - left_i;
-    NSUInteger afterLastInRight = array.count - right_i;
-    if( afterLastInRight > afterLastInLeft ) {
-        NSUInteger length = afterLastInRight - afterLastInLeft;
-        NSUInteger pos = right_i + totalOffset;
-        for( NSUInteger i = 0; i < length; i++ ) {
-            id object = [array objectAtIndex:pos + i];
-            NSUInteger rpos = [self indexOfObject:object];
-            if( rpos != NSNotFound ) {
-                [moved addObject:object];
-                differences( object, rpos, pos + i );
-            }
-            else {
-                differences( object, NSNotFound, pos + i );
-            }
-        }
+    else if( self.fromIndex == NSNotFound ) {
+        return [NSString stringWithFormat:@"<%@Insert: %@; object=%@>",NSStringFromClass(self.class),@(self.toIndex),self.object];
     }
-    else if( afterLastInLeft > afterLastInRight ) {
-        NSUInteger length = afterLastInLeft - afterLastInRight;
-        NSUInteger pos = left_i + totalOffset;
-        for( NSUInteger i = 0; i < length; i++ ) {
-            id object = [self objectAtIndex:pos + i];
-            if( ! [moved containsObject:object] ) {
-                differences( object, pos + i, NSNotFound );
-            }
-        }
+
+    else if( self.toIndex == self.fromIndex ) {
+        return [NSString stringWithFormat:@"<%@Update: %@; object=%@>",NSStringFromClass(self.class),@(self.toIndex),self.object];
+    }
+
+    else {
+        return [NSString stringWithFormat:@"<%@Move: %@ -> %@; object=%@>",NSStringFromClass(self.class),@(self.fromIndex),@(self.toIndex),self.object];
     }
 }
 

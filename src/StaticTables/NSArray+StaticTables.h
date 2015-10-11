@@ -24,18 +24,29 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSArray (StaticTables)
+@class JSMStaticChange;
 
-/**
- * Determine the smallest number of changes required to transform the receiver so that it matches the given `array`,
- * calling the `differences` block for each change, to allow handling each change (like animating the UI).
- *
- * @param array The array to compare the receiver to.
- * @param differences A block called to handle each individual change. The block is provided with three parameters of
- *     its own: the object itself, the original index of the object (or `NSNotFound` for insertions), and the new index
- *     of the object (or `NSNotFound` for deletions).
- */
+@interface NSArray<ObjectType> (StaticTables)
 
-- (void)jsm_compareToArray:(NSArray *)array usingBlock:(void(^)(id object, NSUInteger fromIndex, NSUInteger toIndex))differences;
+/// Determines the least number of changes (inserts, deletions, moves and updates) that need to be performed to the
+/// receiver to match the given `array`.
+///
+/// @param array The array to compare the receiver to.
+/// @return Collection of objects reflecting individual changes that need to be performed for the receiver to match the given array.
+- (NSArray<JSMStaticChange *> *)jst_changesRequiredToMatchArray:(NSArray<ObjectType> *)array;
+
+@end
+
+/// Class defining a change when comparing two arrays.
+@interface JSMStaticChange : NSObject <NSCopying>
+
+/// The object involved in the change.
+@property (nonatomic, readonly) id object;
+
+/// The index the item is being removed from.
+@property (nonatomic, readonly) NSUInteger fromIndex;
+
+/// The index the item is being inserted at.
+@property (nonatomic, readonly) NSUInteger toIndex;
 
 @end

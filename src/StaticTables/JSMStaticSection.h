@@ -93,16 +93,20 @@ NS_ASSUME_NONNULL_BEGIN
  * Notifies the receiver that the section is about to start processing of one or more changes due to an add, remove, or move.
  *
  * This method is called before all calls to `section:didChangeRow:atIndex:newIndex:` have been sent for a given change event.
+ * If `NO` is returned, the receiver will not receive these calls with the changes that have been made.
  *
  * @param section The section whose rows were modified.
+ * @return Flag to indicate if the receiver should be notified of changes or not. Defaults to `YES`, if the delegate method
+ *  `section:didChangeRow:atIndex:newIndex:` has been implemented by the receiver, otherwise `NO`.
  */
 
-- (void)sectionWillPerformChanges:(JSMStaticSection *)section;
+- (BOOL)sectionShouldPerformChanges:(JSMStaticSection *)section;
 
 /**
  * Notifies the receiver that a row has been changed due to an add, remove or move.
  *
- * This method is called once for each change detected by the section.
+ * This method is called once for each change detected by the section, so long as the value returned from
+ * `sectionShouldPerformChanges:` was `YES`.
  *
  * @param section The section whose rows were modified.
  * @param row The row in the sections `rows` collection which changed.
@@ -117,6 +121,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * The section performs an analysis of the changes made, and will call `sectionWillChangeRows:` once, then
  * `section:didChangeRow:atIndex:newIndex:` once per change, and finally call `sectionDidChangeRows:` upon completion.
+ *
+ * This method is always called, regardless of the return value of the receiver's `sectionShouldPerformChanges:` implementation.
  *
  * @param section The section whose rows were modified.
  */
@@ -397,16 +403,21 @@ NS_ASSUME_NONNULL_BEGIN
  * the delegate's implementation.
  *
  * This method is called before all calls to `didChangeRow:atIndex:newIndex:` have been sent for a given change event.
+ * If `NO` is returned, the receiver will not receive these calls with the changes that have been made.
+ *
+ * @return Flag to indicate if the receiver should be notified of changes or not. Defaults to `YES`, if the delegate method
+ *  `section:didChangeRow:atIndex:newIndex:` has been implemented by the receiver, otherwise `NO`.
  */
 
-- (void)willPerformChanges;
+- (BOOL)shouldPerformChanges;
 
 /**
  * Method called when a row has been changed due to an add, remove or move. It is intended to be used by subclasses
  * of `JSMStaticSection` to respond internally to changes performed on the section's rows. It is equivalent to the
  * section delegate's `section:didChangeRow:atIndex:newIndex:` method, but is called after the delegate's implementation.
  *
- * This method is called once for each change detected by the section.
+ * This method is called once for each change detected by the section, so long as the value returned from
+ * `shouldPerformChanges` was `YES`.
  *
  * @param row The row in the sections `rows` collection which changed.
  * @param index The original index for the changed row (or `NSNotFound` for insertions).
@@ -422,6 +433,8 @@ NS_ASSUME_NONNULL_BEGIN
  * the delegate's implementation.
  *
  * This method is called after all calls to `didChangeRow:atIndex:newIndex:` have been sent for a given change event.
+ *
+ * This method is always called, regardless of the return value of the `shouldPerformChanges:` implementation.
  */
 
 - (void)didPerformChanges;

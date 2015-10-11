@@ -129,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param dataSource The data source that was changed.
  */
 
-- (void)dataSourceWillPerformChanges:(JSMStaticDataSource *)dataSource;
+- (BOOL)dataSourceShouldPerformChanges:(JSMStaticDataSource *)dataSource;
 
 /**
  * Notifies the receiver that a section has been changed due to an add, remove or move.
@@ -439,7 +439,7 @@ NS_ASSUME_NONNULL_BEGIN
  * This method is called before all calls to `didChangeRow:atIndex:newIndex:` have been sent for a given change event.
  */
 
-- (void)willPerformChanges;
+- (BOOL)shouldPerformChanges;
 
 /**
  * Method called when a row has been changed due to an add, remove or move. It is intended to be used by subclasses

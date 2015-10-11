@@ -33,6 +33,12 @@
 
 @end
 
+@interface JSMStaticSection (JSMStaticRow)
+
+- (void)requestReloadForRow:(JSMStaticRow *)row;
+
+@end
+
 @interface JSMStaticDataSource (JSMStaticRow)
 
 - (void)requestReloadForRow:(JSMStaticRow *)row;
@@ -195,12 +201,13 @@
 }
 
 - (void)setNeedsReload {
-    // No section or data source
-    if( self.section.dataSource == nil ) {
-        return;
+    self.dirty = YES;
+    if( self.section != nil ) {
+        [self.section requestReloadForRow:self];
     }
-    // Request a reload
-    [self.section.dataSource requestReloadForRow:self];
+    if( self.section.dataSource != nil ) {
+        [self.section.dataSource requestReloadForRow:self];
+    }
 }
 
 @end
