@@ -61,6 +61,9 @@
 - (instancetype)init {
     if( ( self = [super init] ) ) {
         _style = UITableViewCellStyleValue1;
+        _accessoryType = UITableViewCellAccessoryNone;
+        _editingAccessoryType = UITableViewCellAccessoryNone;
+        _selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     return self;
 }
