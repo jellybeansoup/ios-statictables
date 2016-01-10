@@ -155,20 +155,29 @@ static Class _staticCellClass = nil;
 }
 
 - (void)addSection:(JSMStaticSection *)section {
-    [self insertSection:section atIndex:self.mutableSections.count];
+    if( section == nil ) return;
+
+    // Index for appending to the array, should account for being in the datasource already
+    NSUInteger index = self.mutableSections.count;
+    if( section.dataSource != nil && [self isEqual:section.dataSource] ) {
+        index = index - 1;
+    }
+
+    [self insertSection:section atIndex:index];
 }
 
 - (void)insertSection:(JSMStaticSection *)section atIndex:(NSUInteger)index {
-    // No section, no service
-    if( section == nil ) {
-        return;
-    }
+    if( section == nil ) return;
 
     // Keep the index inside the bounds
-    index = MIN( self.mutableSections.count, MAX( 0, index ) );
+    NSUInteger maxIndex = self.mutableSections.count;
+    if( section.dataSource != nil && [self isEqual:section.dataSource] ) {
+        maxIndex = maxIndex - 1;
+    }
+    index = MIN( maxIndex, MAX( 0, index ) );
 
     // Section isn't moving anywhere
-    if( [self isEqual:section.dataSource] && [self indexForSection:section] == index ) {
+    if( section.dataSource != nil && [self isEqual:section.dataSource] && [self indexForSection:section] == index ) {
         return;
     }
 

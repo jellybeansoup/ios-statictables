@@ -229,20 +229,29 @@
 }
 
 - (void)addRow:(JSMStaticRow *)row {
-    [self insertRow:row atIndex:self.mutableRows.count];
+    if( row == nil ) return;
+
+    // Index for appending to the array, should account for being in the datasource already
+    NSUInteger index = self.mutableRows.count;
+    if( row.section != nil && [self isEqual:row.section] ) {
+        index = index - 1;
+    }
+
+    [self insertRow:row atIndex:index];
 }
 
 - (void)insertRow:(JSMStaticRow *)row atIndex:(NSUInteger)index {
-    // No row, no service
-    if( row == nil ) {
-        return;
-    }
+    if( row == nil ) return;
 
     // Keep the index inside the bounds
-    index = MIN( self.mutableRows.count, MAX( 0, index ) );
+    NSUInteger maxIndex = self.mutableRows.count;
+    if( row.section != nil && [self isEqual:row.section] ) {
+        maxIndex = maxIndex - 1;
+    }
+    index = MIN( maxIndex, MAX( 0, index ) );
 
     // Row isn't moving anywhere
-    if( [self isEqualToSection:row.section] && [self indexForRow:row] == index ) {
+    if( row.section != nil && [self isEqualToSection:row.section] && [self indexForRow:row] == index ) {
         return;
     }
 
