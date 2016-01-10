@@ -181,13 +181,13 @@ static Class _staticCellClass = nil;
         return;
     }
 
+    [self willChangeValueForKey:@"sections"];
+    NSArray *oldSections = self.sections;
+
     // Remove the row from it's current section
     if( section.dataSource != nil ) {
         [section.dataSource removeSection:section];
     }
-
-    [self willChangeValueForKey:@"sections"];
-    NSArray *oldSections = self.sections;
 
     // Insert the row
     section.dataSource = self;

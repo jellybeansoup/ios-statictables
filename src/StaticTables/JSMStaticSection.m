@@ -255,13 +255,13 @@
         return;
     }
 
+    [self willChangeValueForKey:@"rows"];
+    NSArray *oldRows = self.rows;
+
     // Remove the row from it's current section
     if( row.section != nil ) {
         [row.section removeRow:row];
     }
-
-    [self willChangeValueForKey:@"rows"];
-    NSArray *oldRows = self.rows;
 
     // Insert the row
     row.section = self;
