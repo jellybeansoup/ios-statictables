@@ -248,7 +248,7 @@
     if( row.section != nil && [self isEqual:row.section] ) {
         maxIndex = maxIndex - 1;
     }
-    index = MIN( maxIndex, MAX( 0, index ) );
+    index = MIN( maxIndex, MAX( (unsigned long)0, index ) );
 
     // Row isn't moving anywhere
     if( row.section != nil && [self isEqualToSection:row.section] && [self indexForRow:row] == index ) {

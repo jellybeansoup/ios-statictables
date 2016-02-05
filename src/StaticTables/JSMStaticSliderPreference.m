@@ -58,7 +58,7 @@
 }
 
 - (void)valueDidChange {
-    if( self.slider.value != self.floatValue ) {
+    if( [@(self.slider.value) isEqualToNumber:@(self.floatValue)] ) {
         [self.slider setValue:self.floatValue animated:YES];
     }
 }

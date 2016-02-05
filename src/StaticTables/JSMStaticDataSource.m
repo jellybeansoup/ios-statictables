@@ -174,7 +174,7 @@ static Class _staticCellClass = nil;
     if( section.dataSource != nil && [self isEqual:section.dataSource] ) {
         maxIndex = maxIndex - 1;
     }
-    index = MIN( maxIndex, MAX( 0, index ) );
+    index = MIN( maxIndex, MAX( (unsigned long)0, index ) );
 
     // Section isn't moving anywhere
     if( section.dataSource != nil && [self isEqual:section.dataSource] && [self indexForSection:section] == index ) {
