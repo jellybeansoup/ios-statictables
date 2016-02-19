@@ -24,6 +24,13 @@
 
 #import "JSMStaticTableViewController.h"
 #import "JSMStaticSection.h"
+#import "JSMStaticRow.h"
+
+@interface JSMStaticRow (JSMStaticTableViewController)
+
+- (void)prepareCell:(UITableViewCell *)cell;
+
+@end
 
 @interface JSMStaticTableViewController ()
 
@@ -70,6 +77,14 @@
     [self.tableView beginUpdates];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Workaround for alignment issues caused by cells having the "wrong" seperator inset size when the call to this method
+    // is initially made in `tableView:cellForRowAtIndexPath:`. This ensures alignment is always kept accurate.
+    [[self.dataSource rowAtIndexPath:indexPath] prepareCell:cell];
 }
 
 #pragma mark - Animating the Sections
