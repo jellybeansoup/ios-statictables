@@ -87,6 +87,10 @@
     [[self.dataSource rowAtIndexPath:indexPath] prepareCell:cell];
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return [[self.dataSource rowAtIndexPath:indexPath] editingStyle];
+}
+
 #pragma mark - Animating the Sections
 
 - (JSMStaticSection *)createSectionWithRowAnimation:(UITableViewRowAnimation)animation {

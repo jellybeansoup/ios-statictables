@@ -87,6 +87,21 @@
 - (void)dataSource:(JSMStaticDataSource *)dataSource rowNeedsReload:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
 
 /**
+ * Called when the user inserts or deletes a row.
+ *
+ * For this method to be called, the row's `canBeDeleted` flag must be set to `YES` or it's `editingStyle` must be set
+ * to a value other than `UITableViewCellEditingStyleNone`, and the user must then commit the edit.
+ *
+ * @param dataSource The data source responsible for the row.
+ * @param editingStyle The editing style commited by the user.
+ * @param row The row the user interacted with.
+ * @param indexPath The index path of the row the user interacted with.
+ * @return void
+ */
+
+- (void)dataSource:(JSMStaticDataSource *)dataSource commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
+
+/**
  * Called when the user moves a `row` in edit mode.
  *
  * For this method to be called, the row's `canBeMoved` flag must be set to `YES`, and the user must then drag the row.

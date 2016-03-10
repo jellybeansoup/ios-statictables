@@ -420,22 +420,31 @@ static Class _staticCellClass = nil;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self rowAtIndexPath:indexPath] canBeDeleted];
+	JSMStaticRow *row = [self rowAtIndexPath:indexPath];
+	return row.canBeDeleted || row.editingStyle != UITableViewCellEditingStyleNone;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if( editingStyle == UITableViewCellEditingStyleDelete ) {
-        // Remove the row
-        JSMStaticRow *row = [self rowAtIndexPath:indexPath];
+	JSMStaticRow *row = [self rowAtIndexPath:indexPath];
+
+	// Allow the delegate a chance to deal with this
+	if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:commitEditingStyle:forRow:atIndexPath:)] ) {
+		[self.delegate dataSource:self commitEditingStyle:editingStyle forRow:row atIndexPath:indexPath];
+	}
+
+	// Handle delete
+	else if( editingStyle == UITableViewCellEditingStyleDelete ) {
         [self removeRow:row];
-        // All we do now is notify the delegate
+
+		// All we do now is notify the delegate
         if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:didDeleteRow:fromIndexPath:)] ) {
             [self.delegate dataSource:self didDeleteRow:row fromIndexPath:indexPath];
         }
         else {
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
-        // And the section delegate as well
+
+		// And the section delegate as well
         JSMStaticSection *section = [self sectionAtIndex:indexPath.section];
         if( section.delegate != nil && [section.delegate respondsToSelector:@selector(section:didDeleteRow:fromIndexPath:)] ) {
             [section.delegate section:section didDeleteRow:row fromIndexPath:indexPath];

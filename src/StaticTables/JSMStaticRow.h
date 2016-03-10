@@ -129,6 +129,12 @@
 
 @property (nonatomic) UITableViewCellStyle style;
 
+/**
+ * The cell editing style used for the `UITableViewCell` instance.
+ */
+
+@property (nonatomic) UITableViewCellEditingStyle editingStyle;
+
 ///---------------------------------------------
 /// @name Configuring the cell
 ///---------------------------------------------
