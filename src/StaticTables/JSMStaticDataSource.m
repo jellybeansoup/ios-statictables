@@ -374,6 +374,13 @@ static Class _staticCellClass = nil;
     JSMStaticRow *row = [self rowAtIndexPath:indexPath];
     // Get a cell
     UITableViewCell *cell = [self tableView:tableView dequeueReusableCellWithStyle:row.style];
+	// Remove invalid subviews
+	for(UIView *subview in cell.contentView.subviews) {
+		if( [subview isEqual:cell.textLabel] ) continue;
+		if( [subview isEqual:cell.detailTextLabel] ) continue;
+		if( [subview isEqual:cell.imageView] ) continue;
+		[subview removeFromSuperview];
+	}
     // Apply the content from the row
     cell.textLabel.text = row.text;
     cell.detailTextLabel.text = row.detailText;
