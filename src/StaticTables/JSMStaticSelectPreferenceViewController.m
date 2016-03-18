@@ -83,7 +83,7 @@
         if( [optionImage isKindOfClass:[NSString class]] ) {
             row.image = [UIImage imageNamed:(NSString *)optionImage];
         }
-        else if( [optionValue isKindOfClass:[UIImage class]] ) {
+        else if( [optionImage isKindOfClass:[UIImage class]] ) {
             row.image = (UIImage *)optionImage;
         }
 
