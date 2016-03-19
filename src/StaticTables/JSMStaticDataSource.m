@@ -559,8 +559,8 @@ static Class _staticCellClass = nil;
     if( _informDelegate || _informDataSource ) {
         NSUInteger sectionIndex = [section.dataSource indexForSection:section];
         [section.differences enumerateObjectsUsingBlock:^(JSMStaticChange * _Nonnull change, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSIndexPath *fromIndexPath = [NSIndexPath indexPathForRow:change.fromIndex inSection:sectionIndex];
-            NSIndexPath *toIndexPath = [NSIndexPath indexPathForRow:change.toIndex inSection:sectionIndex];
+            NSIndexPath *fromIndexPath = change.fromIndex != NSNotFound ? [NSIndexPath indexPathForRow:change.fromIndex inSection:sectionIndex] : nil;
+            NSIndexPath *toIndexPath = change.toIndex != NSNotFound ? [NSIndexPath indexPathForRow:change.toIndex inSection:sectionIndex] : nil;
             if( _informDelegate && [delegate respondsToSelector:@selector(dataSource:didChangeRow:atIndexPath:newIndexPath:)] ) {
                 [delegate dataSource:self didChangeRow:change.object atIndexPath:fromIndexPath newIndexPath:toIndexPath];
             }
