@@ -130,10 +130,34 @@
 @property (nonatomic) UITableViewCellStyle style;
 
 /**
- * The cell editing style used for the `UITableViewCell` instance.
+ * The selection used for the `UITableViewCell` instance.
  */
 
-@property (nonatomic) UITableViewCellEditingStyle editingStyle;
+@property (nonatomic) UITableViewCellSelectionStyle selectionStyle;
+
+/**
+ * The accessory type used for the `UITableViewCell` instance. Defaults to `UITableViewCellAccessoryNone`.
+ */
+
+@property (nonatomic) UITableViewCellAccessoryType accessoryType;
+
+/**
+ * The accessory view used for the `UITableViewCell` instance. Setting this causes `accessoryType` to be ignored.
+ */
+
+@property (nonatomic, strong) UIView *accessoryView;
+
+/**
+ * The accessory type used for the `UITableViewCell` instance in an editing state. Defaults to `UITableViewCellAccessoryNone`.
+ */
+
+@property (nonatomic) UITableViewCellAccessoryType editingAccessoryType;
+
+/**
+ * The accessory view used for the `UITableViewCell` instance in an editing state. Setting this causes `editingAccessoryType` to be ignored.
+ */
+
+@property (nonatomic, strong) UIView *editingAccessoryView;
 
 ///---------------------------------------------
 /// @name Configuring the cell
@@ -190,6 +214,12 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableVi
 ///---------------------------------------------
 /// @name Manipulating the Row
 ///---------------------------------------------
+
+/**
+ * The cell editing style used for the `UITableViewCell` instance.
+ */
+
+@property (nonatomic) UITableViewCellEditingStyle editingStyle;
 
 /**
  * Flag for indicating whether the user can change the position of this row within the table view.

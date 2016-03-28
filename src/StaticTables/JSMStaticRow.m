@@ -59,10 +59,13 @@
 #pragma mark - Creating Sections
 
 - (instancetype)init {
-    if( ( self = [super init] ) ) {
-        _style = UITableViewCellStyleValue1;
-    }
-    return self;
+	if( ( self = [super init] ) ) {
+		_style = UITableViewCellStyleValue1;
+		_accessoryType = UITableViewCellAccessoryNone;
+		_editingAccessoryType = UITableViewCellAccessoryNone;
+		_selectionStyle = UITableViewCellSelectionStyleDefault;
+	}
+	return self;
 }
 
 - (instancetype)initWithKey:(id)key {
@@ -171,8 +174,23 @@
 #pragma mark - Configuring the cell
 
 - (void)prepareCell:(UITableViewCell *)cell {
-    self.dirty = NO;
-    [self configureCell:cell];
+	// Apply the content from the row
+	cell.textLabel.text = self.text;
+	cell.detailTextLabel.text = self.detailText;
+	cell.imageView.image = self.image;
+
+	// Reset some basics
+	cell.selectionStyle = self.selectionStyle;
+	cell.accessoryType = self.accessoryType;
+	cell.accessoryView = self.accessoryView;
+	cell.editingAccessoryType = self.editingAccessoryType;
+	cell.editingAccessoryView = self.editingAccessoryView;
+
+	// Row isn't dirty anymore
+	self.dirty = NO;
+
+	// Run custom configurations
+	[self configureCell:cell];
     if( self.configurationBlock != nil ) {
         self.configurationBlock( self, cell );
     }

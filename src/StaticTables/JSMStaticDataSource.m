@@ -370,10 +370,10 @@ static Class _staticCellClass = nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Get the row for this particular index path
-    JSMStaticRow *row = [self rowAtIndexPath:indexPath];
-    // Get a cell
-    UITableViewCell *cell = [self tableView:tableView dequeueReusableCellWithStyle:row.style];
+	// Get the row for this particular index path
+	JSMStaticRow *row = [self rowAtIndexPath:indexPath];
+	// Get a cell
+	UITableViewCell *cell = [self tableView:tableView dequeueReusableCellWithStyle:row.style];
 	// Remove invalid subviews
 	for(UIView *subview in cell.contentView.subviews) {
 		if( [subview isEqual:cell.textLabel] ) continue;
@@ -381,16 +381,9 @@ static Class _staticCellClass = nil;
 		if( [subview isEqual:cell.imageView] ) continue;
 		[subview removeFromSuperview];
 	}
-    // Apply the content from the row
-    cell.textLabel.text = row.text;
-    cell.detailTextLabel.text = row.detailText;
-    cell.imageView.image = row.image;
-    // Reset some basics
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.accessoryView = nil;
-    // Configure the cell using the row's configuration block
-    [row prepareCell:cell];
-    // Return the cell
+	// Configure the cell using the row's configuration block
+	[row prepareCell:cell];
+	// Return the cell
 	return cell;
 }
 
