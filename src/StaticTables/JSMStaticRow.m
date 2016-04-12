@@ -174,6 +174,11 @@
 #pragma mark - Configuring the cell
 
 - (void)prepareCell:(UITableViewCell *)cell {
+	[self performDefaultConfiguration:cell];
+	[self performCustomConfiguration:cell];
+}
+
+- (void)performDefaultConfiguration:(UITableViewCell *)cell {
 	// Apply the content from the row
 	cell.textLabel.text = self.text;
 	cell.detailTextLabel.text = self.detailText;
@@ -188,12 +193,13 @@
 
 	// Row isn't dirty anymore
 	self.dirty = NO;
+}
 
-	// Run custom configurations
+- (void)performCustomConfiguration:(UITableViewCell *)cell {
 	[self configureCell:cell];
-    if( self.configurationBlock != nil ) {
-        self.configurationBlock( self, cell );
-    }
+	if( self.configurationBlock != nil ) {
+		self.configurationBlock( self, cell );
+	}
 }
 
 - (void)configureCell:(UITableViewCell *)cell {

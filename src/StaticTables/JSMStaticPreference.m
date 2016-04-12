@@ -34,6 +34,10 @@
 
 - (void)prepareCell:(UITableViewCell *)cell;
 
+- (void)performDefaultConfiguration:(UITableViewCell *)cell;
+
+- (void)performCustomConfiguration:(UITableViewCell *)cell;
+
 @end
 
 @implementation JSMStaticPreference
@@ -129,14 +133,15 @@
 #pragma mark - Configuring the cell
 
 - (void)prepareCell:(UITableViewCell *)cell {
-    // We do our little bit of configuration here
+	[self performDefaultConfiguration:cell];
+
     if( self.control != nil ) {
-        if( cell.selectionStyle != UITableViewCellSelectionStyleNone ) {
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if( self.selectionStyle != UITableViewCellSelectionStyleNone ) {
+            self.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         if( ! self.fitControlToCell ) {
-            if( ! [cell.accessoryView isEqual:self.control] ) {
-                cell.accessoryView = self.control;
+            if( ! [self.accessoryView isEqual:self.control] ) {
+                self.accessoryView = self.control;
             }
         }
         else if( self.fitControlToCell ) {
@@ -147,8 +152,8 @@
             }
         }
     }
-    // Send the message to the super
-    [super prepareCell:cell];
+
+	[self performCustomConfiguration:cell];
 }
 
 #pragma mark - Observers

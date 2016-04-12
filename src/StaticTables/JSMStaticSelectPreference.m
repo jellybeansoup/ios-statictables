@@ -31,12 +31,6 @@ NSString *const JSMStaticSelectOptionLabel = @"JSMStaticSelectOptionLabel";
 
 NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
 
-@interface JSMStaticRow (JSMStaticDataSource)
-
-- (void)prepareCell:(UITableViewCell *)cell;
-
-@end
-
 @implementation JSMStaticSelectPreference
 
 @dynamic value;
@@ -48,6 +42,7 @@ NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
     if( ( self = [super init] ) ) {
         self.style = UITableViewCellStyleValue1;
         self.detailText = [self labelForValue:self.value];
+		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return self;
 }
@@ -116,14 +111,6 @@ NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
 
 - (void)valueDidChange {
     // Ideally, we'd probably tell the table view to refresh here?
-}
-
-#pragma mark - Configuring the cell
-
-- (void)prepareCell:(UITableViewCell *)cell {
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    // Send the message to the super
-    [super prepareCell:cell];
 }
 
 @end
