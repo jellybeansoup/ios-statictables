@@ -31,12 +31,6 @@ NSString *const JSMStaticSelectOptionLabel = @"JSMStaticSelectOptionLabel";
 
 NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
 
-@interface JSMStaticRow (JSMStaticDataSource)
-
-- (void)prepareCell:(UITableViewCell *)cell;
-
-@end
-
 @implementation JSMStaticSelectPreference
 
 @dynamic value;
