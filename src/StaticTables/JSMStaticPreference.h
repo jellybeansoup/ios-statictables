@@ -26,15 +26,17 @@
 
 @class JSMStaticPreference;
 
+NS_ASSUME_NONNULL_BEGIN
+
 // A protocol for data source observers to be notified
 
 @protocol JSMStaticPreferenceObserver <NSObject>
 
 @optional
 
-- (void)preference:(JSMStaticPreference *)preference willChangeValue:(id)value;
+- (void)preference:(__kindof JSMStaticPreference *)preference willChangeValue:(id)value;
 
-- (void)preference:(JSMStaticPreference *)preference didChangeValue:(id)value;
+- (void)preference:(__kindof JSMStaticPreference *)preference didChangeValue:(id)value;
 
 @end
 
@@ -71,7 +73,7 @@
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-+ (instancetype)preferenceWithKey:(NSString *)key;
++ (instancetype)preferenceWithKey:(NSString * _Nullable)key;
 
 /**
  * Allocates a new instance of `JSMStaticPreference`, and initialises it with the provided `key`.
@@ -82,7 +84,7 @@
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-+ (instancetype)transientPreferenceWithKey:(NSString *)key;
++ (instancetype)transientPreferenceWithKey:(NSString * _Nullable)key;
 
 /**
  * Allocates a new instance of `JSMStaticPreference`, and initialises it with the provided `key`
@@ -93,7 +95,7 @@
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-+ (instancetype)preferenceWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey;
++ (instancetype)preferenceWithKey:(NSString * _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey;
 
 ///---------------------------------------------
 /// @name Storage
@@ -106,7 +108,7 @@
  * is in memory.
  */
 
-@property (nonatomic, strong, readonly) NSString *userDefaultsKey;
+@property (nonatomic, strong, readonly, nullable) NSString *userDefaultsKey;
 
 /**
  * The value of the preference.
@@ -114,7 +116,7 @@
  * This will return the `defaultValue` if it is set to nil, or if no value has been provided yet.
  */
 
-@property (nonatomic, strong) id value;
+@property (nonatomic, strong, nullable) id value;
 
 /**
  * The default value for the preference.
@@ -122,7 +124,7 @@
  * This is not stored as part of the user defaults, but will be provided as the `value` if none is available.
  */
 
-@property (nonatomic, strong) id defaultValue;
+@property (nonatomic, strong, nullable) id defaultValue;
 
 /**
  * Method for subclasses that is called just before the value is changed.
@@ -159,7 +161,7 @@
  * The actual control returned will differ depending on the subclass.
  */
 
-@property (nonatomic, strong, readonly) UIControl *control;
+@property (nonatomic, strong, readonly, nullable) UIControl *control;
 
 /**
  * Flag which tells the row to configure the cell so that the control is contained in its `contentView`, and
@@ -202,3 +204,5 @@
 - (BOOL)hasObserver:(__weak id <JSMStaticPreferenceObserver>)observer;
 
 @end
+
+NS_ASSUME_NONNULL_END

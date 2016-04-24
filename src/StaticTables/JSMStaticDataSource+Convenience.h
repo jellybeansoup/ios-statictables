@@ -24,6 +24,8 @@
 
 #import "JSMStaticDataSource.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * This category provides a number of convenience methods to `JSMStaticDataSource` to make dealing with
  * an attached `UITableView` easier and cleaner.
@@ -73,7 +75,7 @@
  * @return void
  */
 
-- (void)addSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)addSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Inserts the given `JSMStaticSection` object at the given index.
@@ -89,7 +91,7 @@
  * @return void
  */
 
-- (void)insertSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Reload the given section if it exists within the reciever's data source.
@@ -102,7 +104,7 @@
  * @return void
  */
 
-- (void)reloadSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)reloadSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Remove the section at the given index from the content structure.
@@ -128,7 +130,7 @@
  * @return void
  */
 
-- (void)removeSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
 
 ///---------------------------------------------
 /// @name Animating the Rows
@@ -161,7 +163,7 @@
  * @return void
  */
 
-- (void)insertRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Add the given `JSMStaticRow` object to the given `JSMStaticSection`.
@@ -175,7 +177,7 @@
  * @return void
  */
 
-- (void)addRow:(JSMStaticRow *)row toSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)addRow:(__kindof JSMStaticRow *)row toSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Insert the given `JSMStaticRow` object into the given `JSMStaticSection`.
@@ -190,7 +192,7 @@
  * @return void
  */
 
-- (void)insertRow:(JSMStaticRow *)row intoSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertRow:(__kindof JSMStaticRow *)row intoSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Reload the given row if it exists within the reciever's data source.
@@ -203,7 +205,7 @@
  * @return void
  */
 
-- (void)reloadRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)reloadRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Remove the row at the given index path from the content structure.
@@ -229,6 +231,8 @@
  * @return void
  */
 
-- (void)removeRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
 
 @end
+
+NS_ASSUME_NONNULL_END

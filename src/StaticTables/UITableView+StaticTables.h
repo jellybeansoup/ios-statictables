@@ -28,6 +28,8 @@
 @class JSMStaticSection;
 @class JSMStaticRow;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * This category provides a number of convenience methods to `UITableView` to make dealing with
  * an attached `JSMStaticDataSource` easier and cleaner.
@@ -88,7 +90,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return The resulting instance of `JSMStaticSection`.
  */
 
-- (JSMStaticSection *)createSectionWithRowAnimation:(UITableViewRowAnimation)animation;
+- (__kindof JSMStaticSection *)createSectionWithRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Creates a new `JSMStaticSection` object and inserts it into the observer at the given index.
@@ -101,7 +103,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return The resulting instance of `JSMStaticSection`.
  */
 
-- (JSMStaticSection *)createSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (__kindof JSMStaticSection *)createSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Adds the given `JSMStaticSection` object to the content structure.
@@ -116,7 +118,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return void
  */
 
-- (void)addSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)addSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Inserts the given `JSMStaticSection` object at the given index.
@@ -132,7 +134,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return void
  */
 
-- (void)insertSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Fetch the `JSMStaticSection` representing the section at the given index.
@@ -144,7 +146,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return The section at the given index, or `nil` if no section is available.
  */
 
-- (JSMStaticSection *)sectionAtIndex:(NSUInteger)index;
+- (__kindof JSMStaticSection * _Nullable)sectionAtIndex:(NSUInteger)index;
 
 /**
  * Fetch the index within the content structure for the given section.
@@ -156,7 +158,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return The index, or -1 if the section is not present.
  */
 
-- (NSUInteger)indexForSection:(JSMStaticSection *)section;
+- (NSUInteger)indexForSection:(__kindof JSMStaticSection *)section;
 
 /**
  * Determine if the given section is within the content structure.
@@ -168,7 +170,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return Flag indicating if the object is present (true) or not (false).
  */
 
-- (BOOL)containsSection:(JSMStaticSection *)section;
+- (BOOL)containsSection:(__kindof JSMStaticSection *)section;
 
 /**
  * Reload the given section if it exists within the reciever's data source.
@@ -181,7 +183,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return void
  */
 
-- (void)reloadSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)reloadSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Remove the section at the given index from the content structure.
@@ -207,7 +209,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return void
  */
 
-- (void)removeSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
 
 ///---------------------------------------------
 /// @name Animating the Rows
@@ -240,7 +242,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return void
  */
 
-- (void)insertRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Add the given `JSMStaticRow` object to the given `JSMStaticSection`.
@@ -254,7 +256,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return void
  */
 
-- (void)addRow:(JSMStaticRow *)row toSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)addRow:(__kindof JSMStaticRow *)row toSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Insert the given `JSMStaticRow` object into the given `JSMStaticSection`.
@@ -269,7 +271,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return void
  */
 
-- (void)insertRow:(JSMStaticRow *)row intoSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertRow:(__kindof JSMStaticRow *)row intoSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Fetch the `JSMStaticRow` representing the row at the given index path.
@@ -281,7 +283,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return The row at the given index path, or `nil` if no row is available.
  */
 
-- (JSMStaticRow *)rowAtIndexPath:(NSIndexPath *)indexPath;
+- (__kindof JSMStaticRow * _Nullable)rowAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  * Fetch the index path within the content structure for the given row.
@@ -293,7 +295,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return The index path, or `nil` if the row is not present.
  */
 
-- (NSIndexPath *)indexPathForRow:(JSMStaticRow *)row;
+- (NSIndexPath * _Nullable)indexPathForRow:(__kindof JSMStaticRow *)row;
 
 /**
  * Reload the given row if it exists within the reciever's data source.
@@ -306,7 +308,7 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return void
  */
 
-- (void)reloadRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)reloadRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
 
 /**
  * Remove the row at the given index path from the content structure.
@@ -332,6 +334,8 @@ typedef void(^JSMTableViewUpdatesCompletion)(void);
  * @return void
  */
 
-- (void)removeRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
 
 @end
+
+NS_ASSUME_NONNULL_END

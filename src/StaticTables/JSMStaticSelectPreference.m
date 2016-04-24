@@ -46,8 +46,10 @@ NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
 
 - (instancetype)init {
     if( ( self = [super init] ) ) {
+		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.style = UITableViewCellStyleValue1;
         self.detailText = [self labelForValue:self.value];
+		self.options = @[];
     }
     return self;
 }
@@ -116,14 +118,6 @@ NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
 
 - (void)valueDidChange {
     // Ideally, we'd probably tell the table view to refresh here?
-}
-
-#pragma mark - Configuring the cell
-
-- (void)prepareCell:(UITableViewCell *)cell {
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    // Send the message to the super
-    [super prepareCell:cell];
 }
 
 @end

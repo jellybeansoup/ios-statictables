@@ -29,6 +29,8 @@
 @class JSMStaticSection;
 @class JSMStaticRow;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Objects can adopt the `JSMStaticDataSourceDelegate` protocol to recieve notifications on changes
  * to the data source, allowing them to react accordingly, as well as make additional changes (like sorting
@@ -52,7 +54,7 @@
  *      required modifications performed on it.
  */
 
-- (NSArray *)dataSource:(JSMStaticDataSource *)dataSource sectionsDidChange:(NSArray *)sections;
+- (NSArray<__kindof JSMStaticSection *> *)dataSource:(__kindof JSMStaticDataSource *)dataSource sectionsDidChange:(NSArray<__kindof JSMStaticSection *> *)sections;
 
 /**
  * Called when a `section` requests a reload using its `setNeedsReload` method.
@@ -68,7 +70,7 @@
  * @return void
  */
 
-- (void)dataSource:(JSMStaticDataSource *)dataSource sectionNeedsReload:(JSMStaticSection *)section atIndex:(NSUInteger)index;
+- (void)dataSource:(__kindof JSMStaticDataSource *)dataSource sectionNeedsReload:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index;
 
 /**
  * Called when a `row` requests a reload using its `setNeedsReload` method.
@@ -84,7 +86,7 @@
  * @return void
  */
 
-- (void)dataSource:(JSMStaticDataSource *)dataSource rowNeedsReload:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
+- (void)dataSource:(__kindof JSMStaticDataSource *)dataSource rowNeedsReload:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  * Called when the user inserts or deletes a row.
@@ -99,7 +101,7 @@
  * @return void
  */
 
-- (void)dataSource:(JSMStaticDataSource *)dataSource commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
+- (void)dataSource:(__kindof JSMStaticDataSource *)dataSource commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  * Called when the user moves a `row` in edit mode.
@@ -114,7 +116,7 @@
  * @return void
  */
 
-- (void)dataSource:(JSMStaticDataSource *)dataSource didMoveRow:(JSMStaticRow *)row fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
+- (void)dataSource:(__kindof JSMStaticDataSource *)dataSource didMoveRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
 
 /**
  * Called after the data source deletes a row at the request of the user.
@@ -131,7 +133,7 @@
  * @return void
  */
 
-- (void)dataSource:(JSMStaticDataSource *)dataSource didDeleteRow:(JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath;
+- (void)dataSource:(__kindof JSMStaticDataSource *)dataSource didDeleteRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -207,7 +209,7 @@
  * A collection of `JSMStaticSection` objects contained in the reciever.
  */
 
-@property (nonatomic, weak) NSArray *sections;
+@property (nonatomic, weak) NSArray<__kindof JSMStaticSection *> *sections;
 
 /**
  * The number of `JSMStaticSection` objects contained in the reciever.
@@ -241,7 +243,7 @@
  * @return void
  */
 
-- (void)addSection:(JSMStaticSection *)section;
+- (void)addSection:(__kindof JSMStaticSection *)section;
 
 /**
  * Inserts the given `JSMStaticSection` object at the given index.
@@ -253,7 +255,7 @@
  * @return void
  */
 
-- (void)insertSection:(JSMStaticSection *)section atIndex:(NSUInteger)index;
+- (void)insertSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index;
 
 /**
  * Fetch the `JSMStaticSection` with the given key.
@@ -264,7 +266,7 @@
  * @return The section matching the given key, or `nil` if no section is available.
  */
 
-- (JSMStaticSection *)sectionWithKey:(NSString *)key;
+- (__kindof JSMStaticSection * _Nullable)sectionWithKey:(NSString *)key;
 
 /**
  * Fetch the `JSMStaticSection` representing the section at the given index.
@@ -273,7 +275,7 @@
  * @return The section at the given index, or `nil` if no section is available.
  */
 
-- (JSMStaticSection *)sectionAtIndex:(NSUInteger)index;
+- (__kindof JSMStaticSection * _Nullable)sectionAtIndex:(NSUInteger)index;
 
 /**
  * Fetch the index within the content structure for the given section.
@@ -282,7 +284,7 @@
  * @return The index, or `NSNotFound` if the section is not present.
  */
 
-- (NSUInteger)indexForSection:(JSMStaticSection *)section;
+- (NSUInteger)indexForSection:(__kindof JSMStaticSection *)section;
 
 /**
  * Determine if the given section is within the content structure.
@@ -291,7 +293,7 @@
  * @return Flag indicating if the object is present (true) or not (false).
  */
 
-- (BOOL)containsSection:(JSMStaticSection *)section;
+- (BOOL)containsSection:(__kindof JSMStaticSection *)section;
 
 /**
  * Remove the section at the given index from the content structure.
@@ -309,7 +311,7 @@
  * @return void
  */
 
-- (void)removeSection:(JSMStaticSection *)section;
+- (void)removeSection:(__kindof JSMStaticSection *)section;
 
 /**
  * Remove all of the sections from the content structure.
@@ -342,7 +344,7 @@
  * @return void
  */
 
-- (void)insertRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
+- (void)insertRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  * Fetch the `JSMStaticRow` with the given key.
@@ -353,7 +355,7 @@
  * @return The key matching the given key, or `nil` if no key is available.
  */
 
-- (JSMStaticRow *)rowWithKey:(NSString *)key;
+- (__kindof JSMStaticRow * _Nullable)rowWithKey:(NSString *)key;
 
 /**
  * Fetch the `JSMStaticRow` representing the row at the given index path.
@@ -362,7 +364,7 @@
  * @return The row at the given index path, or `nil` if no row is available.
  */
 
-- (JSMStaticRow *)rowAtIndexPath:(NSIndexPath *)indexPath;
+- (__kindof JSMStaticRow * _Nullable)rowAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  * Fetch the index path within the content structure for the given row.
@@ -371,7 +373,7 @@
  * @return The index path, or `nil` if the row is not present.
  */
 
-- (NSIndexPath *)indexPathForRow:(JSMStaticRow *)row;
+- (NSIndexPath * _Nullable)indexPathForRow:(__kindof JSMStaticRow *)row;
 
 /**
  * Remove the row at the given index path from the content structure.
@@ -389,5 +391,8 @@
  * @return void
  */
 
-- (void)removeRow:(JSMStaticRow *)row;
+- (void)removeRow:(__kindof JSMStaticRow *)row;
+
 @end
+
+NS_ASSUME_NONNULL_END

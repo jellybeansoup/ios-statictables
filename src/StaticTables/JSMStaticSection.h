@@ -29,6 +29,8 @@
 @class JSMStaticSection;
 @class JSMStaticRow;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Objects can adopt the `JSMStaticDataSourceDelegate` protocol to recieve notifications on changes
  * to the data source, allowing them to react accordingly, as well as make additional changes (like sorting
@@ -51,7 +53,7 @@
  *      required modifications performed on it.
  */
 
-- (NSArray *)section:(JSMStaticSection *)section rowsDidChange:(NSArray *)rows;
+- (NSArray<__kindof JSMStaticRow *> *)section:(__kindof JSMStaticSection *)section rowsDidChange:(NSArray<__kindof JSMStaticRow *> *)rows;
 
 /**
  * Called when the user moves a `row` in edit mode for both the section the row was originally in, and the section
@@ -67,7 +69,7 @@
  * @return void
  */
 
-- (void)section:(JSMStaticSection *)section didMoveRow:(JSMStaticRow *)row fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
+- (void)section:(__kindof JSMStaticSection *)section didMoveRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
 
 /**
  * Called after the data source deletes a row at the request of the user.
@@ -85,7 +87,7 @@
  * @return void
  */
 
-- (void)section:(JSMStaticSection *)section didDeleteRow:(JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath;
+- (void)section:(__kindof JSMStaticSection *)section didDeleteRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -116,7 +118,7 @@
  * @return The new instance of `JSMStaticSection` with the given key.
  */
 
-+ (instancetype)sectionWithKey:(id)key;
++ (instancetype)sectionWithKey:(id _Nullable)key;
 
 /**
  * An identifier for the reciever.
@@ -124,7 +126,7 @@
  * This identifier is provided as part of `rowWithKey:` and cannot be changed.
  */
 
-@property (nonatomic, strong, readonly) id key;
+@property (nonatomic, strong, readonly, nullable) id key;
 
 ///---------------------------------------------
 /// @name Comparing Sections
@@ -142,7 +144,7 @@
  * @return Flag that indicates if the given section is equal to the the reciever (`YES`) or not (`NO`).
  */
 
-- (BOOL)isEqualToSection:(JSMStaticSection *)section;
+- (BOOL)isEqualToSection:(__kindof JSMStaticSection *)section;
 
 ///---------------------------------------------
 /// @name Managing the Delegate
@@ -154,7 +156,7 @@
  * The delegate must adopt the JSMStaticSectionDelegate protocol. The delegate is not retained.
  */
 
-@property (nonatomic, weak) id <JSMStaticSectionDelegate> delegate;
+@property (nonatomic, weak, nullable) id <JSMStaticSectionDelegate> delegate;
 
 ///---------------------------------------------
 /// @name Data Structure
@@ -166,13 +168,13 @@
  * @see JSMStaticDataSource.tableview
  */
 
-@property (nonatomic, weak, readonly) UITableView *tableView;
+@property (nonatomic, weak, readonly, nullable) UITableView *tableView;
 
 /**
  * The `JSMStaticDataSource` that the section belongs to.
  */
 
-@property (nonatomic, weak, readonly) JSMStaticDataSource *dataSource;
+@property (nonatomic, weak, readonly, nullable) JSMStaticDataSource *dataSource;
 
 ///---------------------------------------------
 /// @name Managing the Section's Content
@@ -182,7 +184,7 @@
  * A collection of `JSMStaticRow` objects used to define the content of this section.
  */
 
-@property (nonatomic, weak) NSArray *rows;
+@property (nonatomic, weak) NSArray<__kindof JSMStaticRow *> *rows;
 
 /**
  * The number of `JSMStaticRow` objects in this section.
@@ -216,7 +218,7 @@
  * @return void
  */
 
-- (void)addRow:(JSMStaticRow *)row;
+- (void)addRow:(__kindof JSMStaticRow *)row;
 
 /**
  * Inserts the given `JSMStaticRow` object into the section at the provided index.
@@ -228,7 +230,7 @@
  * @return void
  */
 
-- (void)insertRow:(JSMStaticRow *)row atIndex:(NSUInteger)index;
+- (void)insertRow:(__kindof JSMStaticRow *)row atIndex:(NSUInteger)index;
 
 /**
  * Fetch the `JSMStaticRow` with the given key.
@@ -239,7 +241,7 @@
  * @return The key matching the given key, or `nil` if no key is available.
  */
 
-- (JSMStaticRow *)rowWithKey:(NSString *)key;
+- (__kindof JSMStaticRow * _Nullable)rowWithKey:(NSString *)key;
 
 /**
  * Fetch the `JSMStaticRow` representing the row at the given index.
@@ -248,7 +250,7 @@
  * @return The row at the given index, or `nil` if no row is available.
  */
 
-- (JSMStaticRow *)rowAtIndex:(NSUInteger)index;
+- (__kindof JSMStaticRow * _Nullable)rowAtIndex:(NSUInteger)index;
 
 /**
  * Fetch the index within the content structure for the given row.
@@ -257,7 +259,7 @@
  * @return The index, or `NSNotFound` if the row is not present.
  */
 
-- (NSUInteger)indexForRow:(JSMStaticRow *)row;
+- (NSUInteger)indexForRow:(__kindof JSMStaticRow *)row;
 
 /**
  * Determine if the given section is within the content structure.
@@ -266,7 +268,7 @@
  * @return Flag indicating if the object is present (true) or not (false).
  */
 
-- (BOOL)containsRow:(JSMStaticRow *)row;
+- (BOOL)containsRow:(__kindof JSMStaticRow *)row;
 
 /**
  * Remove the row at the given index from the section.
@@ -284,7 +286,7 @@
  * @return void
  */
 
-- (void)removeRow:(JSMStaticRow *)row;
+- (void)removeRow:(__kindof JSMStaticRow *)row;
 
 /**
  * Remove all of the rows from the section.
@@ -302,13 +304,13 @@
  * The text used in the section header.
  */
 
-@property (nonatomic, copy) NSString *headerText;
+@property (nonatomic, copy, nullable) NSString *headerText;
 
 /**
  * The text used in the section footer.
  */
 
-@property (nonatomic, copy) NSString *footerText;
+@property (nonatomic, copy, nullable) NSString *footerText;
 
 ///---------------------------------------------
 /// @name Refreshing the Section
@@ -335,3 +337,5 @@
 - (void)setNeedsReload;
 
 @end
+
+NS_ASSUME_NONNULL_END

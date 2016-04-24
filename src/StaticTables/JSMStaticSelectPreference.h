@@ -24,6 +24,8 @@
 
 #import "JSMStaticPreference.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString *const JSMStaticSelectOptionValue;
 
 extern NSString *const JSMStaticSelectOptionLabel;
@@ -59,7 +61,7 @@ extern NSString *const JSMStaticSelectOptionImage;
  * The value provided should match a key within the provided `options` dictionary.
  */
 
-@property (nonatomic, strong) NSString *value;
+@property (nonatomic, strong, nullable) NSString *value;
 
 /**
  * The default value for the preference.
@@ -69,7 +71,7 @@ extern NSString *const JSMStaticSelectOptionImage;
  * The value provided should match a key within the provided `options` dictionary.
  */
 
-@property (nonatomic, strong) NSString *defaultValue;
+@property (nonatomic, strong, nullable) NSString *defaultValue;
 
 ///---------------------------------------------
 /// @name Options
@@ -86,7 +88,7 @@ extern NSString *const JSMStaticSelectOptionImage;
  * as an icon on the left side of the option's cell.
  */
 
-@property (nonatomic, strong) NSArray *options;
+@property (nonatomic, strong) NSArray<NSDictionary<NSString *,id> *> *options;
 
 ///---------------------------------------------
 /// @name User Interface
@@ -100,3 +102,5 @@ extern NSString *const JSMStaticSelectOptionImage;
 @property (nonatomic, strong, readonly) JSMStaticSelectPreferenceViewController *viewController;
 
 @end
+
+NS_ASSUME_NONNULL_END

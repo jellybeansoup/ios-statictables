@@ -29,6 +29,8 @@
 @class JSMStaticSection;
 @class JSMStaticRow;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * A `JSMStaticRow` objects acts as a data source for a single `UITableViewCell`.
  * It defines the basic structure such as the number of rows and any header or footer text.
@@ -55,7 +57,7 @@
  * @return The new instance of `JSMStaticRow` with the given key.
  */
 
-+ (instancetype)rowWithKey:(id)key;
++ (instancetype)rowWithKey:(id _Nullable)key;
 
 /**
  * An identifier for the reciever.
@@ -63,7 +65,7 @@
  * This identifier is provided as part of `rowWithKey:` and cannot be changed.
  */
 
-@property (nonatomic, strong, readonly) id key;
+@property (nonatomic, strong, readonly, nullable) id key;
 
 ///---------------------------------------------
 /// @name Comparing Rows
@@ -81,7 +83,7 @@
  * @return Flag that indicates if the given row is equal to the the reciever (`YES`) or not (`NO`).
  */
 
-- (BOOL)isEqualToRow:(JSMStaticRow *)row;
+- (BOOL)isEqualToRow:(__kindof JSMStaticRow *)row;
 
 ///---------------------------------------------
 /// @name Data Structure
@@ -93,13 +95,13 @@
  * @see JSMStaticDataSource.tableview
  */
 
-@property (nonatomic, weak, readonly) UITableView *tableView;
+@property (nonatomic, weak, readonly, nullable) UITableView *tableView;
 
 /**
  * The section that the row belongs to.
  */
 
-@property (nonatomic, weak, readonly) JSMStaticSection *section;
+@property (nonatomic, weak, readonly, nullable) __kindof JSMStaticSection *section;
 
 ///---------------------------------------------
 /// @name Predefined content
@@ -109,19 +111,19 @@
  * The string used for the `UITableViewCell`'s `textLabel` content.
  */
 
-@property (nonatomic, copy) NSString *text;
+@property (nonatomic, copy, nullable) NSString *text;
 
 /**
  * The string used for the `UITableViewCell`'s `detailTextLabel` content.
  */
 
-@property (nonatomic, copy) NSString *detailText;
+@property (nonatomic, copy, nullable) NSString *detailText;
 
 /**
  * The image used for the `UITableViewCell`'s `imageView` content.
  */
 
-@property (nonatomic, copy) UIImage *image;
+@property (nonatomic, copy, nullable) UIImage *image;
 
 /**
  * The cell style used for the `UITableViewCell` instance.
@@ -145,7 +147,7 @@
  * The accessory view used for the `UITableViewCell` instance. Setting this causes `accessoryType` to be ignored.
  */
 
-@property (nonatomic, strong) UIView *accessoryView;
+@property (nonatomic, strong, nullable) UIView *accessoryView;
 
 /**
  * The accessory type used for the `UITableViewCell` instance in an editing state. Defaults to `UITableViewCellAccessoryNone`.
@@ -157,7 +159,7 @@
  * The accessory view used for the `UITableViewCell` instance in an editing state. Setting this causes `editingAccessoryType` to be ignored.
  */
 
-@property (nonatomic, strong) UIView *editingAccessoryView;
+@property (nonatomic, strong, nullable) UIView *editingAccessoryView;
 
 ///---------------------------------------------
 /// @name Configuring the cell
@@ -174,7 +176,7 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableVi
  * @return void
  */
 
-- (void)configureCell:(UITableViewCell *)cell;
+- (void)configureCell:(__kindof UITableViewCell *)cell;
 
 /**
  * Provide configuration for the row's `UITableViewCell` when it is prepared for view.
@@ -239,3 +241,5 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableVi
 @property (nonatomic) BOOL canBeDeleted;
 
 @end
+
+NS_ASSUME_NONNULL_END
