@@ -24,9 +24,9 @@ This method is demonstrated in the included example project (example/StaticTable
 
 6. Build your project (⌘B). All going well you should get a 'Build Succeeded' notification. This signifies that you're ready to implement StaticTables in your project.
 
-###Cocoapods
+###CocoaPods
 
-StaticTables can be installed *very* easily if you use [Cocoapods](http://cocoapods.org) with your projects. The podspec is included in the Github repository, and is also available through [cocoapods.org](http://cocoapods.org/?q=statictables).
+StaticTables can be installed *very* easily if you use [CocoaPods](http://cocoapods.org) with your projects. The podspec is included in the Github repository, and is also available through [cocoapods.org](http://cocoapods.org/?q=statictables).
 
 Simply add the project to your `Podfile` by adding the line:
 
@@ -42,7 +42,7 @@ You can also specify a version to include, such as 0.1.0:
 pod 'StaticTables', '0.1.0'
 ```
 
-For more information on how to add projects using Cocoapods, read [their documentation on Podfiles](http://docs.cocoapods.org/podfile.html).
+For more information on how to add projects using CocoaPods, read [their documentation on Podfiles](http://docs.cocoapods.org/podfile.html).
 
 ##Implementing StaticTables
 
