@@ -46,8 +46,8 @@
 
 - (instancetype)initWithPreference:(JSMStaticSelectPreference *)preference {
     if( ( self = [super initWithStyle:UITableViewStyleGrouped] ) ) {
-        self.preference = preference;
-        self.rows = [NSMutableDictionary dictionary];
+        _preference = preference;
+        _rows = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -66,20 +66,20 @@
 
     // Prepare the section with the preference's options
     [self.preference.options enumerateObjectsUsingBlock:^(NSDictionary *option, NSUInteger idx, BOOL *stop) {
-        if( ! [option isKindOfClass:[NSDictionary class]] || [option objectForKey:JSMStaticSelectOptionValue] == nil ) {
+        if( ! [option isKindOfClass:[NSDictionary class]] || option[JSMStaticSelectOptionValue] == nil ) {
             return;
         }
 
-        id optionValue = [option objectForKey:JSMStaticSelectOptionValue];
-        JSMStaticRow *row = [JSMStaticRow rowWithKey:[option objectForKey:JSMStaticSelectOptionValue]];
+        id optionValue = option[JSMStaticSelectOptionValue];
+        JSMStaticRow *row = [JSMStaticRow rowWithKey:option[JSMStaticSelectOptionValue]];
         row.style = UITableViewCellStyleSubtitle;
 
-        id optionLabel = [option objectForKey:JSMStaticSelectOptionLabel] ?: optionValue;
+        id optionLabel = option[JSMStaticSelectOptionLabel] ?: optionValue;
         if( [optionLabel isKindOfClass:[NSString class]] ) {
             row.text = (NSString *)optionLabel;
         }
 
-        id optionImage = [option objectForKey:JSMStaticSelectOptionImage];
+        id optionImage = option[JSMStaticSelectOptionImage];
         if( [optionImage isKindOfClass:[NSString class]] ) {
             row.image = [UIImage imageNamed:(NSString *)optionImage];
         }
@@ -89,9 +89,9 @@
 
         // We place a checkmark on the selected option
         JSMStaticSelectPreferenceViewController __weak *weakSelf = self;
-        [row configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
+        [row configurationForCell:^(JSMStaticRow *_row, UITableViewCell *cell) {
             JSMStaticSelectPreferenceViewController __strong *strongSelf = weakSelf;
-            if( [strongSelf.preference.value isEqual:row.key] ) {
+            if( [strongSelf.preference.value isEqual:_row.key] ) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
             else {
@@ -100,7 +100,7 @@
         }];
 
         // Add to the section
-        [self.rows setObject:row forKey:optionValue];
+		self.rows[optionValue] = row;
         [self.section addRow:row];
     }];
 }
@@ -125,7 +125,7 @@
     // Deselect the row
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // Find the rows for the existing and new values
-    JSMStaticRow *oldRow = [self.rows objectForKey:self.preference.value];
+    JSMStaticRow *oldRow = self.rows[self.preference.value];
     JSMStaticRow *newRow = [self.dataSource rowAtIndexPath:indexPath];
     // If the rows are actually one and the same, stop right now.
     if( [oldRow isEqual:newRow] ) {

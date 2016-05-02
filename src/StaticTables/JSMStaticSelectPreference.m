@@ -43,7 +43,7 @@ NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
 		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.style = UITableViewCellStyleValue1;
         self.detailText = [self labelForValue:self.value];
-		self.options = @[];
+		_options = @[];
     }
     return self;
 }
@@ -95,19 +95,19 @@ NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
 - (id)defaultValue {
     // If we haven't been given a value, use the first valid option.
     if( super.defaultValue == nil ) {
-        return [[[self.options filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSDictionary *option, NSDictionary *bindings) {
-            return ( [option isKindOfClass:[NSDictionary class]] && [option objectForKey:JSMStaticSelectOptionValue] != nil );
-        }]] firstObject] objectForKey:JSMStaticSelectOptionValue];
+        return [[self.options filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSDictionary *option, NSDictionary *bindings) {
+            return ( [option isKindOfClass:[NSDictionary class]] && option[JSMStaticSelectOptionValue] != nil );
+        }]] firstObject][JSMStaticSelectOptionValue];
     }
     // Return the value
     return super.defaultValue;
 }
 
 - (NSString *)labelForValue:(NSString *)value {
-    NSDictionary *option = [[self.options filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSDictionary *option, NSDictionary *bindings) {
-        return ( [option isKindOfClass:[NSDictionary class]] && [[option objectForKey:JSMStaticSelectOptionValue] isEqual:value] );
+    NSDictionary *option = [[self.options filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSDictionary *_option, NSDictionary *bindings) {
+        return ( [_option isKindOfClass:[NSDictionary class]] && [_option[JSMStaticSelectOptionValue] isEqual:value] );
     }]] firstObject];
-    return [option objectForKey:JSMStaticSelectOptionLabel] ?: [option objectForKey:JSMStaticSelectOptionValue];
+    return option[JSMStaticSelectOptionLabel] ?: option[JSMStaticSelectOptionValue];
 }
 
 - (void)valueDidChange {

@@ -166,8 +166,8 @@
 - (void)setRows:(NSArray *)rows {
     _mutableRows = rows.mutableCopy;
     // Update the section for all the added rows
-    for( NSInteger i=0; i<_mutableRows.count; i++ ) {
-        [(JSMStaticRow *)[_mutableRows objectAtIndex:i] setSection:self];
+    for( NSUInteger i=0; i<_mutableRows.count; i++ ) {
+        [(JSMStaticRow *)_mutableRows[i] setSection:self];
     }
     // Notify the delegate
     if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
@@ -243,7 +243,7 @@
         return nil;
     }
     // Fetch the object
-    return (JSMStaticRow *)[self.mutableRows objectAtIndex:index];
+    return (JSMStaticRow *)self.mutableRows[index];
 }
 
 - (NSUInteger)indexForRow:(JSMStaticRow *)row {

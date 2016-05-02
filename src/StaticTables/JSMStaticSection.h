@@ -184,7 +184,7 @@ NS_ASSUME_NONNULL_BEGIN
  * A collection of `JSMStaticRow` objects used to define the content of this section.
  */
 
-@property (nonatomic, weak) NSArray<__kindof JSMStaticRow *> *rows;
+@property (nonatomic, copy) NSArray<__kindof JSMStaticRow *> *rows;
 
 /**
  * The number of `JSMStaticRow` objects in this section.

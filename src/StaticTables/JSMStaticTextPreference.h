@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  * This will return the `defaultValue` if it is set to nil, or if no value has been provided yet.
  */
 
-@property (nonatomic, strong, nullable) NSString *value;
+@property (nonatomic, copy, nullable) NSString *value;
 
 /**
  * The default value for the preference.
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
  * This is not stored as part of the user defaults, but will be provided as the `value` if none is available.
  */
 
-@property (nonatomic, strong, nullable) NSString *defaultValue;
+@property (nonatomic, copy, nullable) NSString *defaultValue;
 
 ///---------------------------------------------
 /// @name User Interface

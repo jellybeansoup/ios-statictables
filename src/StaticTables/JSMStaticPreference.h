@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
  * This will return the `defaultValue` if it is set to nil, or if no value has been provided yet.
  */
 
-@property (nonatomic, strong, nullable) id value;
+@property (nonatomic, copy, nullable) id value;
 
 /**
  * The default value for the preference.
@@ -124,7 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
  * This is not stored as part of the user defaults, but will be provided as the `value` if none is available.
  */
 
-@property (nonatomic, strong, nullable) id defaultValue;
+@property (nonatomic, copy, nullable) id defaultValue;
 
 /**
  * Method for subclasses that is called just before the value is changed.

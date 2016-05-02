@@ -52,8 +52,8 @@
 
 - (id)init {
     if( ( self = [super init] ) ) {
-        self.cellClass = [JSMStaticDataSource cellClass];
-        self.mutableSections = [NSMutableArray array];
+        _cellClass = self.class.cellClass;
+        _mutableSections = [NSMutableArray array];
     }
     return self;
 }
@@ -91,8 +91,8 @@ static Class _staticCellClass = nil;
 - (void)setSections:(NSArray *)sections {
     _mutableSections = sections.mutableCopy;
     // Update the data source for all the added sections
-    for( NSInteger i=0; i<_mutableSections.count; i++ ) {
-        [(JSMStaticSection *)[_mutableSections objectAtIndex:i] setDataSource:self];
+    for( NSUInteger i=0; i<_mutableSections.count; i++ ) {
+        [(JSMStaticSection *)_mutableSections[i] setDataSource:self];
     }
     // Notify the delegate
     if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:sectionsDidChange:)] ) {
@@ -160,7 +160,7 @@ static Class _staticCellClass = nil;
         return nil;
     }
     // Fetch the object
-    return (JSMStaticSection *)[self.mutableSections objectAtIndex:index];
+    return (JSMStaticSection *)self.mutableSections[index];
 }
 
 - (NSUInteger)indexForSection:(JSMStaticSection *)section {

@@ -58,7 +58,7 @@
 }
 
 - (void)setBoolValue:(BOOL)boolValue {
-    self.value = [NSNumber numberWithBool:boolValue];
+	self.value = @(boolValue);
 }
 
 - (BOOL)defaultBoolValue {
@@ -66,7 +66,7 @@
 }
 
 - (void)setDefaultBoolValue:(BOOL)defaultBoolValue {
-    self.defaultValue = [NSNumber numberWithBool:defaultBoolValue];
+    self.defaultValue = @(defaultBoolValue);
 }
 
 - (void)valueDidChange {
@@ -78,7 +78,7 @@
 #pragma mark - Event Handling
 
 - (void)toggleChanged:(UISwitch *)toggle {
-    self.value = [NSNumber numberWithBool:toggle.on];
+    self.value = @(toggle.on);
 }
 
 @end

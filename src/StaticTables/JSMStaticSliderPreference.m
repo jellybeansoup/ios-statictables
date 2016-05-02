@@ -36,7 +36,7 @@
 - (UIControl *)control {
     if( _control == nil ) {
         UISlider *slider = [[UISlider alloc] init];
-        slider.value = self.floatValue;
+        slider.value = (float)self.floatValue;
         [slider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
         _control = (UIControl *)slider;
     }
@@ -54,19 +54,19 @@
 }
 
 - (void)setFloatValue:(CGFloat)floatValue {
-    self.value = [NSNumber numberWithFloat:floatValue];
+    self.value = @(floatValue);
 }
 
 - (void)valueDidChange {
-    if( self.slider.value != self.floatValue ) {
-        [self.slider setValue:self.floatValue animated:YES];
+    if( self.slider.value < (float)self.floatValue || self.slider.value > (float)self.floatValue ) {
+        [self.slider setValue:(float)self.floatValue animated:YES];
     }
 }
 
 #pragma mark - Event Handling
 
 - (void)sliderChanged:(UISlider *)slider {
-    self.value = [NSNumber numberWithFloat:slider.value];
+    self.value = @(slider.value);
 }
 
 @end

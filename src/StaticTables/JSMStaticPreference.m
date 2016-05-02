@@ -76,10 +76,10 @@
         return;
     }
     // We'll be changing the value
-    [self willChangeValueForKey:@"value"];
+    [self willChangeValueForKey:NSStringFromSelector(@selector(value))];
     [self valueWillChange];
-    for( NSValue *value in self.observers.allValues ) {
-        id <JSMStaticPreferenceObserver>observer = value.nonretainedObjectValue;
+    for( NSValue *ov in self.observers.allValues ) {
+        id <JSMStaticPreferenceObserver>observer = ov.nonretainedObjectValue;
         if( observer == nil || ! [observer respondsToSelector:@selector(preference:willChangeValue:)] ) {
             continue;
         }
@@ -95,15 +95,15 @@
         _value = value;
     }
     // We've changed the value
-    for( NSValue *value in self.observers.allValues ) {
-        id <JSMStaticPreferenceObserver>observer = value.nonretainedObjectValue;
+    for( NSValue *ov in self.observers.allValues ) {
+        id <JSMStaticPreferenceObserver>observer = ov.nonretainedObjectValue;
         if( observer == nil || ! [observer respondsToSelector:@selector(preference:didChangeValue:)] ) {
             continue;
         }
         [observer preference:self didChangeValue:self.value];
     }
     [self valueDidChange];
-    [self didChangeValueForKey:@"value"];
+    [self didChangeValueForKey:NSStringFromSelector(@selector(value))];
 }
 
 - (id)value {
@@ -176,7 +176,7 @@
 
     // Add the value
     NSString *key = [NSString stringWithFormat:@"%@",@(observer.hash)];
-    [self.observers setObject:[NSValue valueWithNonretainedObject:observer] forKey:key];
+	self.observers[key] = [NSValue valueWithNonretainedObject:observer];
 }
 
 - (void)removeObserver:(id <JSMStaticPreferenceObserver>)observer {
@@ -197,7 +197,7 @@
 
 - (BOOL)hasObserver:(id <JSMStaticPreferenceObserver>)observer {
     NSString *key = [NSString stringWithFormat:@"%@",@(observer.hash)];
-    return ( self.observers != nil && [self.observers objectForKey:key] != nil );
+    return ( self.observers != nil && self.observers[key] != nil );
 }
 
 @end

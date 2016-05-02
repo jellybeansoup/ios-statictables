@@ -209,7 +209,7 @@ NS_ASSUME_NONNULL_BEGIN
  * A collection of `JSMStaticSection` objects contained in the reciever.
  */
 
-@property (nonatomic, weak) NSArray<__kindof JSMStaticSection *> *sections;
+@property (nonatomic, copy) NSArray<__kindof JSMStaticSection *> *sections;
 
 /**
  * The number of `JSMStaticSection` objects contained in the reciever.
