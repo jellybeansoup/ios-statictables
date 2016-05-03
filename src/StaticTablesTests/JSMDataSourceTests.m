@@ -25,11 +25,11 @@
 #import <XCTest/XCTest.h>
 #import "StaticTables.h"
 
-@interface StaticTablesDataSourceTests : XCTestCase
+@interface JSMDataSourceTests : XCTestCase
 
 @end
 
-@implementation StaticTablesDataSourceTests
+@implementation JSMDataSourceTests
 
 - (void)setUp {
     [super setUp];
@@ -79,18 +79,6 @@
     XCTAssertNotNil( dataSource, @"Datasource was not created." );
 }
 
-- (void)testNewSection {
-    JSMStaticSection *section = [JSMStaticSection section];
-
-    XCTAssertNotNil( section, @"Section was not created." );
-}
-
-- (void)testNewRow {
-    JSMStaticRow *row = [JSMStaticRow row];
-
-    XCTAssertNotNil( row, @"Row was not created." );
-}
-
 - (void)testDetectionOfSections {
     JSMStaticDataSource *dataSource = [self simpleDataSource];
 
@@ -103,14 +91,6 @@
     XCTAssertNil( [dataSource sectionWithKey:@"quack"], @"Section with key 'quack' should not be retrievable from data source." );
 }
 
-- (void)testNewSectionWithKey {
-    NSString *key = @"example";
-    JSMStaticSection *sectionWithKey = [JSMStaticSection sectionWithKey:key];
-
-    XCTAssertNotNil( sectionWithKey, @"Section was not created with key." );
-    XCTAssertEqualObjects( sectionWithKey.key, key, @"Section was not given key correctly." );
-}
-
 - (void)testDetectionOfRows {
     JSMStaticSection *section = [self simpleSection];
 
@@ -121,14 +101,6 @@
 
     XCTAssertNotNil( [section rowWithKey:@"simpleRow"], @"Row with key 'simpleRow' should be retrievable from section." );
     XCTAssertNil( [section rowWithKey:@"quack"], @"Row with key 'quack' should not be retrievable from section." );
-}
-
-- (void)testNewRowWithKey {
-    NSString *key = @"example";
-    JSMStaticRow *rowWithKey = [JSMStaticRow rowWithKey:key];
-
-    XCTAssertNotNil( rowWithKey, @"Row was not created with key." );
-    XCTAssertEqualObjects( rowWithKey.key, key, @"Row was not given key correctly." );
 }
 
 - (void)testCreateSection {
@@ -174,7 +146,5 @@
     XCTAssertEqualObjects( [dataSource rowAtIndexPath:indexPath], row, @"Row was not inserted at supplied index path." );
     XCTAssertEqualObjects( [dataSource rowWithKey:key], row, @"Row is not retrievable with supplied key." );
 }
-
-
 
 @end
