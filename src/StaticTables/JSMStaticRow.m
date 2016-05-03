@@ -60,6 +60,7 @@
 
 - (instancetype)init {
 	if( ( self = [super init] ) ) {
+		_dirty = YES;
 		_style = UITableViewCellStyleValue1;
 		_accessoryType = UITableViewCellAccessoryNone;
 		_editingAccessoryType = UITableViewCellAccessoryNone;
@@ -174,6 +175,9 @@
 #pragma mark - Configuring the cell
 
 - (void)prepareCell:(UITableViewCell *)cell {
+	if( cell == nil ) {
+		return;
+	}
 	[self performDefaultConfiguration:cell];
 	[self performCustomConfiguration:cell];
 }
@@ -216,6 +220,7 @@
 }
 
 - (void)setNeedsReload {
+	self.dirty = YES;
     // No section or data source
     if( self.section.dataSource == nil ) {
         return;

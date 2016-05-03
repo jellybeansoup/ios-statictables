@@ -72,6 +72,7 @@
 
 - (instancetype)init {
     if( ( self = [super init] ) ) {
+		_dirty = NO;
         _mutableRows = [NSMutableArray array];
     }
     return self;
@@ -303,6 +304,7 @@
 }
 
 - (void)setNeedsReload {
+	self.dirty = YES;
     // No section or data source
     if( self.dataSource == nil ) {
         return;
