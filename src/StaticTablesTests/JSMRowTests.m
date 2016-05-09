@@ -98,8 +98,8 @@
 	JSMStaticRow *row = self.row;
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:row.style reuseIdentifier:nil];
 
-	XCTAssertTrue(row.needsReload, @"Unrepared row doesn't indicate it requires reload.");
-	
+	XCTAssertTrue(row.needsReload, @"Unprepared row doesn't indicate it requires reload.");
+
 	[row prepareCell:cell];
 
 	XCTAssertFalse(row.needsReload, @"Prepared row hasn't cleared the `needsReload` parameter.");
@@ -107,6 +107,32 @@
 	[row setNeedsReload];
 
 	XCTAssertTrue(row.needsReload, @"Row marked for reload doesn't indicate it requires reload.");
+}
+
+- (void)test_canBeDeleted {
+	JSMStaticRow *row = self.row;
+
+	XCTAssertEqual(row.editingStyle, UITableViewCellEditingStyleNone, @"Unprepared row doesn't have editing style of \'None\'.");
+	XCTAssertFalse(row.canBeDeleted, @"Unprepared row inaccurately indicates that it can be deleted.");
+
+	row.canBeDeleted = YES;
+
+	XCTAssertEqual(row.editingStyle, UITableViewCellEditingStyleDelete, @"Row marked as being deletable doesn't editing style of \'Delete\'.");
+	XCTAssertTrue(row.canBeDeleted, @"Row marked as being deletable doesn't indicate it can be deleted.");
+
+	row.editingStyle = UITableViewCellEditingStyleInsert;
+
+	XCTAssertEqual(row.editingStyle, UITableViewCellEditingStyleInsert, @"Insertion row doesn't have editing style of \'Insert\'.");
+	XCTAssertFalse(row.canBeDeleted, @"Insertion row inaccurately indicates that it can be deleted.");
+
+	row.canBeDeleted = NO;
+
+	XCTAssertEqual(row.editingStyle, UITableViewCellEditingStyleInsert, @"Insertion row should not change style when `canBeDeleted` is set to NO.");
+
+	row.canBeDeleted = YES;
+
+	XCTAssertEqual(row.editingStyle, UITableViewCellEditingStyleDelete, @"Row marked as being deletable doesn't editing style of \'Delete\'.");
+	XCTAssertTrue(row.canBeDeleted, @"Row marked as being deletable doesn't indicate it can be deleted.");
 }
 
 @end
