@@ -229,4 +229,19 @@
     [self.section.dataSource requestReloadForRow:self];
 }
 
+#pragma mark - Manipulating the Row
+
+- (BOOL)canBeDeleted {
+	return (self.editingStyle == UITableViewCellEditingStyleDelete);
+}
+
+- (void)setCanBeDeleted:(BOOL)canBeDeleted {
+	if( canBeDeleted ) {
+		self.editingStyle = UITableViewCellEditingStyleDelete;
+	}
+	else if( self.canBeDeleted ) {
+		self.editingStyle = UITableViewCellEditingStyleNone;
+	}
+}
+
 @end
