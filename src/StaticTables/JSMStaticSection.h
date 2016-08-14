@@ -121,6 +121,23 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sectionWithKey:(id _Nullable)key;
 
 /**
+ * Initialises an instance of `JSMStaticSection`.
+ *
+ * @return The new instance of `JSMStaticSection`.
+ */
+
+- (instancetype)init;
+
+/**
+ * Initialises an instance of `JSMStaticSection` with the given key.
+ *
+ * @param key The key to use in identifying the section.
+ * @return The new instance of `JSMStaticSection` with the given key.
+ */
+
+- (instancetype)initWithKey:(id _Nullable)key;
+
+/**
  * An identifier for the reciever.
  *
  * This identifier is provided as part of `rowWithKey:` and cannot be changed.

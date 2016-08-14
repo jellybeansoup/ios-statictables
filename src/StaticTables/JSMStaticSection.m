@@ -70,19 +70,17 @@
 
 #pragma mark - Creating Sections
 
-- (instancetype)init {
+- (instancetype)initWithKey:(id)key {
     if( ( self = [super init] ) ) {
-		_dirty = NO;
+        _key = key;
+        _dirty = NO;
         _mutableRows = [NSMutableArray array];
     }
     return self;
 }
 
-- (instancetype)initWithKey:(id)key {
-    if( ( self = [self init] ) ) {
-        _key = key;
-    }
-    return self;
+- (instancetype)init {
+    return [self initWithKey:nil];
 }
 
 + (instancetype)section {

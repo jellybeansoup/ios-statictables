@@ -58,22 +58,20 @@
 
 #pragma mark - Creating Sections
 
-- (instancetype)init {
-	if( ( self = [super init] ) ) {
-		_dirty = YES;
-		_style = UITableViewCellStyleValue1;
-		_accessoryType = UITableViewCellAccessoryNone;
-		_editingAccessoryType = UITableViewCellAccessoryNone;
-		_selectionStyle = UITableViewCellSelectionStyleDefault;
-	}
-	return self;
-}
-
 - (instancetype)initWithKey:(id)key {
-    if( ( self = [self init] ) ) {
+    if( ( self = [super init] ) ) {
         _key = key;
+        _dirty = YES;
+        _style = UITableViewCellStyleValue1;
+        _accessoryType = UITableViewCellAccessoryNone;
+        _editingAccessoryType = UITableViewCellAccessoryNone;
+        _selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     return self;
+}
+
+- (instancetype)init {
+    return [self initWithKey:nil];
 }
 
 + (instancetype)row {
