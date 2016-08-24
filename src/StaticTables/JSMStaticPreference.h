@@ -97,6 +97,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)preferenceWithKey:(NSString * _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey;
 
+/**
+ * Initialises a new instance of `JSMStaticPreference`, and initialises it with the provided `key`
+ * and `userDefaultsKey`.
+ *
+ * @param key The key to use in identifying the preference within the containing section.
+ * @param userDefaultsKey The key used for storing the value in the user defaults dictionary.
+ * @return A new instance of `JSMStaticPreference` with the given `key`.
+ */
+
+- (instancetype)initWithKey:(NSString * _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey;
+
 ///---------------------------------------------
 /// @name Storage
 ///---------------------------------------------

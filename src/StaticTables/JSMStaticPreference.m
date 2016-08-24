@@ -53,9 +53,19 @@
 }
 
 + (instancetype)preferenceWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey {
-    JSMStaticPreference *preference = [self rowWithKey:key];
-    preference.userDefaultsKey = userDefaultsKey;
-    return preference;
+    return [[self alloc] initWithKey:key andUserDefaultsKey:userDefaultsKey];
+}
+
+- (instancetype)initWithKey:(NSString *)key {
+    return [self initWithKey:key andUserDefaultsKey:nil];
+}
+
+- (instancetype)initWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey {
+    if( ( self = [super initWithKey:key] ) ) {
+        self.userDefaultsKey = userDefaultsKey;
+    }
+    
+    return self;
 }
 
 - (void)dealloc {

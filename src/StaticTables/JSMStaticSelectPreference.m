@@ -38,13 +38,14 @@ NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
 
 #pragma mark - Creating Preferences
 
-- (instancetype)init {
-    if( ( self = [super init] ) ) {
-		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+- (instancetype)initWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey {
+    if( ( self = [super initWithKey:key andUserDefaultsKey:userDefaultsKey] ) ) {
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.style = UITableViewCellStyleValue1;
         self.detailText = [self labelForValue:self.value];
-		_options = @[];
+        _options = @[];
     }
+    
     return self;
 }
 
