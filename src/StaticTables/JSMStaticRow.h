@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The new instance of `JSMStaticRow`.
  */
 
-+ (instancetype)row;
++ (instancetype)row NS_SWIFT_UNAVAILABLE("Use init() instead.");
 
 /**
  * Allocates and initialises an instance of `JSMStaticRow` with the given key.
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The new instance of `JSMStaticRow` with the given key.
  */
 
-+ (instancetype)rowWithKey:(id _Nullable)key;
++ (instancetype)rowWithKey:(id _Nullable)key NS_SWIFT_UNAVAILABLE("Use init(key:) instead.");
 
 /**
  * Initialises an instance of `JSMStaticRow`.
@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The new instance of `JSMStaticRow` with the given key.
  */
 
-- (instancetype)initWithKey:(id _Nullable)key;
+- (instancetype)initWithKey:(id _Nullable)key NS_SWIFT_NAME(init(key:));
 
 /**
  * An identifier for the reciever.
@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return Flag that indicates if the given row is equal to the the reciever (`YES`) or not (`NO`).
  */
 
-- (BOOL)isEqualToRow:(__kindof JSMStaticRow *)row;
+- (BOOL)isEqualToRow:(__kindof JSMStaticRow *)row NS_SWIFT_NAME(isEqual(to:));
 
 ///---------------------------------------------
 /// @name Data Structure
@@ -193,7 +193,7 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableVi
  * @return void
  */
 
-- (void)configureCell:(__kindof UITableViewCell *)cell;
+- (void)configureCell:(__kindof UITableViewCell *)cell NS_SWIFT_NAME(configure(_:));
 
 /**
  * Provide configuration for the row's `UITableViewCell` when it is prepared for view.
@@ -204,7 +204,7 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableVi
  * @return void
  */
 
-- (void)configurationForCell:(JSMStaticTableViewCellConfiguration)configurationBlock;
+- (void)configurationForCell:(JSMStaticTableViewCellConfiguration)configurationBlock NS_SWIFT_NAME(configurationForCell(handler:));
 
 ///---------------------------------------------
 /// @name Refreshing the Row

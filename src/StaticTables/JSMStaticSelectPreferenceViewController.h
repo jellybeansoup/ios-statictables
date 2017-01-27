@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return Initialised `JSMStaticSelectPreferenceViewController` object with `preference`.
  */
 
-- (instancetype)initWithPreference:(__kindof JSMStaticSelectPreference *)preference;
+- (instancetype)initWithPreference:(__kindof JSMStaticSelectPreference *)preference NS_SWIFT_NAME(init(with:));
 
 /**
  * The `JSMStaticSelectPreference` that provides the default options and other functionality for the reciever.

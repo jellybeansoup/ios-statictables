@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
  *      required modifications performed on it.
  */
 
-- (NSArray<__kindof JSMStaticRow *> *)section:(__kindof JSMStaticSection *)section rowsDidChange:(NSArray<__kindof JSMStaticRow *> *)rows;
+- (NSArray<__kindof JSMStaticRow *> *)section:(__kindof JSMStaticSection *)section rowsDidChange:(NSArray<__kindof JSMStaticRow *> *)rows NS_SWIFT_NAME(section(_:rowsDidChange:));
 
 /**
  * Called when the user moves a `row` in edit mode for both the section the row was originally in, and the section
@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)section:(__kindof JSMStaticSection *)section didMoveRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
+- (void)section:(__kindof JSMStaticSection *)section didMoveRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath NS_SWIFT_NAME(section(_:didMove:from:to:));
 
 /**
  * Called after the data source deletes a row at the request of the user.
@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)section:(__kindof JSMStaticSection *)section didDeleteRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath;
+- (void)section:(__kindof JSMStaticSection *)section didDeleteRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath NS_SWIFT_NAME(section(_:didDelete:from:));
 
 @end
 
@@ -109,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The new instance of `JSMStaticSection`.
  */
 
-+ (instancetype)section;
++ (instancetype)section NS_SWIFT_UNAVAILABLE("Use init() instead.");
 
 /**
  * Allocates and initialises an instance of `JSMStaticSection` with the given key.
@@ -118,7 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The new instance of `JSMStaticSection` with the given key.
  */
 
-+ (instancetype)sectionWithKey:(id _Nullable)key;
++ (instancetype)sectionWithKey:(id _Nullable)key NS_SWIFT_UNAVAILABLE("Use init(key:) instead.");
 
 /**
  * Initialises an instance of `JSMStaticSection`.
@@ -135,7 +135,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The new instance of `JSMStaticSection` with the given key.
  */
 
-- (instancetype)initWithKey:(id _Nullable)key;
+- (instancetype)initWithKey:(id _Nullable)key NS_SWIFT_NAME(init(key:));
 
 /**
  * An identifier for the reciever.
@@ -161,7 +161,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return Flag that indicates if the given section is equal to the the reciever (`YES`) or not (`NO`).
  */
 
-- (BOOL)isEqualToSection:(__kindof JSMStaticSection *)section;
+- (BOOL)isEqualToSection:(__kindof JSMStaticSection *)section NS_SWIFT_NAME(isEqual(to:));
 
 ///---------------------------------------------
 /// @name Managing the Delegate
@@ -215,7 +215,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The resulting instance of `JSMStaticRow`.
  */
 
-- (JSMStaticRow *)createRow;
+- (JSMStaticRow *)createRow NS_SWIFT_NAME(createRow());
 
 /**
  * Creates a new `JSMStaticRow` object and inserts it into the section at the provided index.
@@ -224,7 +224,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The resulting instance of `JSMStaticRow`.
  */
 
-- (JSMStaticRow *)createRowAtIndex:(NSUInteger)index;
+- (JSMStaticRow *)createRowAtIndex:(NSUInteger)index NS_SWIFT_NAME(createRow(at:));
 
 /**
  * Adds the given `JSMStaticRow` object to the end of the section.
@@ -235,7 +235,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)addRow:(__kindof JSMStaticRow *)row;
+- (void)addRow:(__kindof JSMStaticRow *)row NS_SWIFT_NAME(add(_:));
 
 /**
  * Inserts the given `JSMStaticRow` object into the section at the provided index.
@@ -247,7 +247,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)insertRow:(__kindof JSMStaticRow *)row atIndex:(NSUInteger)index;
+- (void)insertRow:(__kindof JSMStaticRow *)row atIndex:(NSUInteger)index NS_SWIFT_NAME(insert(_:at:));
 
 /**
  * Fetch the `JSMStaticRow` with the given key.
@@ -258,7 +258,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The key matching the given key, or `nil` if no key is available.
  */
 
-- (__kindof JSMStaticRow * _Nullable)rowWithKey:(NSString *)key;
+- (__kindof JSMStaticRow * _Nullable)rowWithKey:(NSString *)key NS_SWIFT_NAME(row(key:));
 
 /**
  * Fetch the `JSMStaticRow` representing the row at the given index.
@@ -267,7 +267,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The row at the given index, or `nil` if no row is available.
  */
 
-- (__kindof JSMStaticRow * _Nullable)rowAtIndex:(NSUInteger)index;
+- (__kindof JSMStaticRow * _Nullable)rowAtIndex:(NSUInteger)index NS_SWIFT_NAME(row(index:));
 
 /**
  * Fetch the index within the content structure for the given row.
@@ -276,7 +276,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The index, or `NSNotFound` if the row is not present.
  */
 
-- (NSUInteger)indexForRow:(__kindof JSMStaticRow *)row;
+- (NSUInteger)indexForRow:(__kindof JSMStaticRow *)row NS_SWIFT_NAME(index(for:));
 
 /**
  * Determine if the given section is within the content structure.
@@ -285,7 +285,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return Flag indicating if the object is present (true) or not (false).
  */
 
-- (BOOL)containsRow:(__kindof JSMStaticRow *)row;
+- (BOOL)containsRow:(__kindof JSMStaticRow *)row NS_SWIFT_NAME(contains(_:));
 
 /**
  * Remove the row at the given index from the section.
@@ -294,7 +294,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)removeRowAtIndex:(NSUInteger)index;
+- (void)removeRowAtIndex:(NSUInteger)index NS_SWIFT_NAME(removeRow(at:));
 
 /**
  * Remove the given row from the section.
@@ -303,7 +303,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)removeRow:(__kindof JSMStaticRow *)row;
+- (void)removeRow:(__kindof JSMStaticRow *)row NS_SWIFT_NAME(remove(_:));
 
 /**
  * Remove all of the rows from the section.

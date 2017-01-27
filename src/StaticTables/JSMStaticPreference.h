@@ -34,9 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-- (void)preference:(__kindof JSMStaticPreference *)preference willChangeValue:(id)value;
+- (void)preference:(__kindof JSMStaticPreference *)preference willChangeValue:(id)value NS_SWIFT_NAME(preference(_:willChange:));
 
-- (void)preference:(__kindof JSMStaticPreference *)preference didChangeValue:(id)value;
+- (void)preference:(__kindof JSMStaticPreference *)preference didChangeValue:(id)value NS_SWIFT_NAME(preference(_:didChange:));
 
 @end
 
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-+ (instancetype)preferenceWithKey:(NSString * _Nullable)key;
++ (instancetype)preferenceWithKey:(NSString * _Nullable)key NS_SWIFT_UNAVAILABLE("Use init(key:userDefaultsKey:) instead.");
 
 /**
  * Allocates a new instance of `JSMStaticPreference`, and initialises it with the provided `key`.
@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-+ (instancetype)transientPreferenceWithKey:(NSString * _Nullable)key;
++ (instancetype)transientPreferenceWithKey:(NSString * _Nullable)key NS_SWIFT_UNAVAILABLE("Use init(key:userDefaultsKey:) instead.");
 
 /**
  * Allocates a new instance of `JSMStaticPreference`, and initialises it with the provided `key`
@@ -95,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-+ (instancetype)preferenceWithKey:(NSString * _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey;
++ (instancetype)preferenceWithKey:(NSString * _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey NS_SWIFT_UNAVAILABLE("Use init(key:userDefaultsKey:) instead.");
 
 /**
  * Initialises a new instance of `JSMStaticPreference`, and initialises it with the provided `key`
@@ -106,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-- (instancetype)initWithKey:(NSString * _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey;
+- (instancetype)initWithKey:(NSString * _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey NS_SWIFT_NAME(init(key:userDefaultsKey:));
 
 ///---------------------------------------------
 /// @name Storage
@@ -195,7 +195,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param observer An object implementing the `JSMStaticPreferenceObserver` protocol.
  */
 
-- (void)addObserver:(__weak id <JSMStaticPreferenceObserver>)observer;
+- (void)addObserver:(__weak id <JSMStaticPreferenceObserver>)observer NS_SWIFT_NAME(add(observer:));
 
 /**
  * Remove an observer from the reciever.
@@ -203,7 +203,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param observer An object implementing the `JSMStaticPreferenceObserver` protocol.
  */
 
-- (void)removeObserver:(__weak id <JSMStaticPreferenceObserver>)observer;
+- (void)removeObserver:(__weak id <JSMStaticPreferenceObserver>)observer NS_SWIFT_NAME(remove(observer:));
 
 /**
  * Detect whether an object is observing the reciever.
@@ -212,7 +212,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return Flag indicating if the given object is currently observing the receiver.
  */
 
-- (BOOL)hasObserver:(__weak id <JSMStaticPreferenceObserver>)observer;
+- (BOOL)hasObserver:(__weak id <JSMStaticPreferenceObserver>)observer NS_SWIFT_NAME(has(observer:));
 
 @end
 
