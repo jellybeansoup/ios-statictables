@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A new instance of a grouped `JSMStaticTableViewController`.
  */
 
-+ (instancetype)grouped;
++ (instancetype)grouped NS_SWIFT_UNAVAILABLE("Use init(style: .grouped) instead.");
 
 ///---------------------------------------------
 /// @name Data Source
@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The resulting instance of `JSMStaticSection`.
  */
 
-- (JSMStaticSection *)createSectionWithRowAnimation:(UITableViewRowAnimation)animation;
+- (JSMStaticSection *)createSectionWithRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(createSection(with:));
 
 /**
  * Creates a new `JSMStaticSection` object and inserts it into the observer at the given index.
@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The resulting instance of `JSMStaticSection`.
  */
 
-- (JSMStaticSection *)createSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (JSMStaticSection *)createSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(createSection(at:with:));
 
 /**
  * Adds the given `JSMStaticSection` object to the content structure.
@@ -112,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)addSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)addSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(add(_:with:));
 
 /**
  * Inserts the given `JSMStaticSection` object at the given index.
@@ -128,7 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)insertSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(insert(_:at:with:));
 
 /**
  * Reload the given section if it exists within the reciever's data source.
@@ -141,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)reloadSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)reloadSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(reload(_:with:));
 
 /**
  * Remove the section at the given index from the content structure.
@@ -154,7 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)removeSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(removeSection(at:with:));
 
 /**
  * Remove the given section from the content structure.
@@ -167,7 +167,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)removeSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(remove(_:with:));
 
 ///---------------------------------------------
 /// @name Animating the Rows
@@ -184,7 +184,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The resulting instance of `JSMStaticRow`.
  */
 
-- (__kindof JSMStaticRow *)createRowAtIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation;
+- (__kindof JSMStaticRow *)createRowAtIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(createRow(at:with:));
 
 /**
  * Inserts the given `JSMStaticRow` object at the given index path.
@@ -200,7 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)insertRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(insert(_:at:with:));
 
 /**
  * Add the given `JSMStaticRow` object to the given `JSMStaticSection`.
@@ -214,7 +214,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)addRow:(__kindof JSMStaticRow *)row toSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)addRow:(__kindof JSMStaticRow *)row toSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(add(_:to:with:));
 
 /**
  * Insert the given `JSMStaticRow` object into the given `JSMStaticSection`.
@@ -229,7 +229,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)insertRow:(__kindof JSMStaticRow *)row intoSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertRow:(__kindof JSMStaticRow *)row intoSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(insert(_:into:at:with:));
 
 /**
  * Reload the given row if it exists within the reciever's data source.
@@ -242,7 +242,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)reloadRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)reloadRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(reload(_:with:));
 
 /**
  * Remove the row at the given index path from the content structure.
@@ -255,7 +255,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)removeRowAtIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeRowAtIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(removeRow(at:with:));
 
 /**
  * Remove the given row from the content structure.
@@ -268,7 +268,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return void
  */
 
-- (void)removeRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)removeRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(remove(_:with:));
 
 @end
 
