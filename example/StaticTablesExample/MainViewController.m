@@ -24,6 +24,7 @@
 
 #import "MainViewController.h"
 #import "SettingsViewController.h"
+#include <stdlib.h>
 
 @interface MainViewController ()
 
@@ -45,22 +46,36 @@
     // Customers
     self.customers = [JSMStaticSection new];
     self.customers.headerText = @"Customers";
-    self.customers.footerText = @"The customer is almost never right.";
+    self.customers.footerText = @"Tap customers to reorder.";
     [self.dataSource addSection:self.customers];
 
     JSMStaticRow *devina = [JSMStaticRow new];
     devina.text = @"Devina";
-    [devina configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }];
     [self.customers addRow:devina];
-
-    JSMStaticRow *chase = [JSMStaticRow new];
-    chase.text = @"Chase";
-    [chase configurationForCell:^(JSMStaticRow *row, UITableViewCell *cell) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }];
-    [self.customers addRow:chase];
+	
+	JSMStaticRow *chase = [JSMStaticRow new];
+	chase.text = @"Chase";
+	[self.customers addRow:chase];
+	
+	JSMStaticRow *anthony = [JSMStaticRow new];
+	anthony.text = @"Anthony";
+	[self.customers addRow:anthony];
+	
+	JSMStaticRow *dominic = [JSMStaticRow new];
+	dominic.text = @"Dominic";
+	[self.customers addRow:dominic];
+	
+	JSMStaticRow *hatterman = [JSMStaticRow new];
+	hatterman.text = @"Hatterman";
+	[self.customers addRow:hatterman];
+	
+	JSMStaticRow *lydia = [JSMStaticRow new];
+	lydia.text = @"Lydia";
+	[self.customers addRow:lydia];
+	
+	JSMStaticRow *monica = [JSMStaticRow new];
+	monica.text = @"Monica";
+	[self.customers addRow:monica];
 
     // Managers
     self.managers = [JSMStaticSection new];
@@ -114,30 +129,48 @@
     // Fetch the row that was selected
     JSMStaticRow *row = [self.dataSource rowAtIndexPath:indexPath];
 
-    // Here, we'll move people between sections and take advantage of the added tableview
-    // methods for animating the changes while we do it.
-    JSMStaticSection *newSection;
-    if( [row.section isEqual:self.employees] ) {
-        newSection = self.managers;
-    }
-    else if( [row.section isEqual:self.managers] ) {
-        newSection = self.employees;
-    }
+	// Let's randomly shuffle the selected customer to a new position within the same section
+	if( [row.section isEqual:self.customers] ) {
+		NSUInteger oldIndex = [row.section indexForRow:row];
+		NSUInteger newIndex = arc4random_uniform((uint32_t)row.section.numberOfRows);
+		
+		// So we always appear to move, we may need to fudge the new index a bit.
+		// Note that the row's old index plus one would also appear not to move, so we'll need to fudge that too.
+		if( newIndex == oldIndex || newIndex == oldIndex + 1 ) {
+			newIndex = oldIndex + 2;
+		}
+		
+		// We can simply insert the row at it's new index, and it'll move automatically.
+		[tableView performUpdates:^(UITableView *tableView) {
+			[tableView insertRow:row intoSection:row.section atIndex:newIndex withRowAnimation:UITableViewRowAnimationAutomatic];
+		}];
 
-    // And if we recieved a section, we go forth!
+		return;
+	}
+
+	// Here, we'll move people between sections
+	JSMStaticSection *newSection;
+	if( [row.section isEqual:self.employees] ) {
+		newSection = self.managers;
+	}
+	else if( [row.section isEqual:self.managers] ) {
+		newSection = self.employees;
+	}
+
+	// And if we recieved a section, we go forth!
     if( newSection != nil ) {
         JSMStaticSection *oldSection = row.section;
         MainViewController __weak *weakSelf = self;
 
         // If we removed the section we're moving to, we need to add it back in first.
         if( ! [newSection.dataSource isEqual:self.dataSource] ) {
-            [self.tableView performUpdates:^(UITableView *tableView) {
+            [tableView performUpdates:^(UITableView *tableView) {
                 [tableView addSection:newSection withRowAnimation:UITableViewRowAnimationAutomatic];
             }];
         }
 
         // We'll add the row (or rather, move it), and then make a quick change when that's completed.
-        [self.tableView performUpdates:^(UITableView *tableView) {
+        [tableView performUpdates:^(UITableView *tableView) {
             [tableView addRow:row toSection:newSection withRowAnimation:UITableViewRowAnimationFade];
         } withCompletion:^{
 
@@ -151,17 +184,17 @@
             }
 
         }];
-
-        // Once we've moved the row, we can safely remove any empty sections
-        [self.tableView performUpdates:^(UITableView *tableView) {
-            if( oldSection.numberOfRows == 0 ) {
-                [tableView removeSection:oldSection withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-            else {
-                //[oldSection setNeedsReload];
-            }
-       }];
-   }
+		
+		// Once we've moved the row, we can safely remove any empty sections
+		[tableView performUpdates:^(UITableView *tableView) {
+			if( oldSection.numberOfRows == 0 ) {
+				[tableView removeSection:oldSection withRowAnimation:UITableViewRowAnimationAutomatic];
+			}
+			else {
+				//[oldSection setNeedsReload];
+			}
+		}];
+	}
 }
 
 #pragma mark - Static data source delegate

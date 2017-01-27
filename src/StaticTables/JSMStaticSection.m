@@ -156,143 +156,153 @@
     _dataSource = dataSource;
 }
 
-#pragma mark - Managing the Section's Content
+#pragma mark - Accessing rows
 
 - (NSArray *)rows {
-    return self.mutableRows.copy;
-}
-
-- (void)setRows:(NSArray *)rows {
-    _mutableRows = rows.mutableCopy;
-    // Update the section for all the added rows
-    for( NSUInteger i=0; i<_mutableRows.count; i++ ) {
-        [(JSMStaticRow *)_mutableRows[i] setSection:self];
-    }
-    // Notify the delegate
-    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
-        _mutableRows = [[self.delegate section:self rowsDidChange:_mutableRows.copy] mutableCopy];
-    }
+	return self.mutableRows.copy;
 }
 
 - (NSUInteger)numberOfRows {
-    return self.mutableRows.count;
+	return self.mutableRows.count;
+}
+
+- (JSMStaticRow *)rowWithKey:(NSString *)key {
+	return [[self.mutableRows filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"key = %@",key]] firstObject];
+}
+
+- (JSMStaticRow *)rowAtIndex:(NSUInteger)index {
+	if( index == NSNotFound || index >= self.mutableRows.count ) {
+		return nil;
+	}
+
+	return (JSMStaticRow *)self.mutableRows[index];
+}
+
+- (NSUInteger)indexForRow:(JSMStaticRow *)row {
+	return [self.mutableRows indexOfObject:row];
+}
+
+- (BOOL)containsRow:(JSMStaticRow *)row {
+	return [self.mutableRows containsObject:row];
+}
+
+#pragma mark - Mutating rows
+
+- (void)setRows:(NSArray *)rows {
+	if( self.mutableRows.count > 0 ) {
+		[self.mutableRows makeObjectsPerformSelector:@selector(setSection:) withObject:nil];
+		[self.mutableRows removeAllObjects];
+	}
+	
+	for( JSMStaticRow *row in rows ) {
+		if( row.section != nil ) {
+			[row.section removeRow:row];
+		}
+
+		row.section = self;
+		
+		[self.mutableRows addObject:row];
+	}
+
+	[self rowsDidChange];
 }
 
 - (JSMStaticRow *)createRow {
     JSMStaticRow *row = [JSMStaticRow row];
-    [self addRow:row];
+	[self insertRow:row atIndex:self.mutableRows.count];
     return row;
 }
 
 - (JSMStaticRow *)createRowAtIndex:(NSUInteger)index {
+	NSAssert(index != NSNotFound, @"You cannot create a row at NSNotFound.");
+	
     JSMStaticRow *row = [JSMStaticRow row];
     [self insertRow:row atIndex:index];
     return row;
 }
 
 - (void)addRow:(JSMStaticRow *)row {
-    if( [self containsRow:row] ) {
-        return;
-    }
-    // The row can't be in two places at once
-    if( row.section != nil ) {
-        [row.section removeRow:row];
-    }
-    // Update the row's section
-    row.section = self;
-    // Add the row to the end
-    [self.mutableRows addObject:row];
-    // Notify the delegate
-    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
-        self.mutableRows = [[self.delegate section:self rowsDidChange:self.mutableRows.copy] mutableCopy];
-    }
+	[self insertRow:row atIndex:self.mutableRows.count];
 }
 
 - (void)insertRow:(JSMStaticRow *)row atIndex:(NSUInteger)index {
-    if( [self indexForRow:row] == index ) {
-        return;
-    }
-    // The row can't be in two places at once
-    if( row.section != nil ) {
-        [row.section removeRow:row];
-    }
-    // Update the row's section
-    row.section = self;
-    // No inserting outside the bounds, default to the appropriate end
-    if( index >= self.mutableRows.count ) {
+	NSAssert(index != NSNotFound, @"You cannot insert a row at NSNotFound.");
+
+	// Remove from the existing section
+	if( row.section == self ) {
+		NSUInteger oldIndex = [self.mutableRows indexOfObject:row];
+		
+		if( index == oldIndex || index == oldIndex + 1 ) {
+			return;
+		}
+		else if( index > oldIndex ) {
+			index -= 1; // Adjust to account for the row's removal.
+		}
+
+		[self.mutableRows removeObjectAtIndex:oldIndex];
+	}
+	else if( row.section != nil ) {
+		[row.section removeRow:row];
+	}
+
+	// Add to the receiver
+	row.section = self;
+	if( index >= self.mutableRows.count ) {
         [self.mutableRows addObject:row];
     }
-    // Otherwise add at the specified index
     else {
         [self.mutableRows insertObject:row atIndex:index];
     }
-    // Notify the delegate
-    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
-        self.mutableRows = [[self.delegate section:self rowsDidChange:self.mutableRows.copy] mutableCopy];
-    }
-}
-
-- (JSMStaticRow *)rowWithKey:(NSString *)key {
-    return [[self.mutableRows filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"key = %@",key]] firstObject];
-}
-
-- (JSMStaticRow *)rowAtIndex:(NSUInteger)index {
-    // We won't find anything outside the bounds
-    if( index >= self.mutableRows.count ) {
-        return nil;
-    }
-    // Fetch the object
-    return (JSMStaticRow *)self.mutableRows[index];
-}
-
-- (NSUInteger)indexForRow:(JSMStaticRow *)row {
-    return [self.mutableRows indexOfObject:row];
-}
-
-- (BOOL)containsRow:(JSMStaticRow *)row {
-    return [self.mutableRows containsObject:row];
+	
+	[self rowsDidChange];
 }
 
 - (void)removeRowAtIndex:(NSUInteger)index {
-    if( ! [self rowAtIndex:index] ) {
-        return;
-    }
-    // Update the row's section
-    [self rowAtIndex:index].section = nil;
-    // Remove the row
-    [self.mutableRows removeObjectAtIndex:index];
-    // Notify the delegate
-    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
-        self.mutableRows = [[self.delegate section:self rowsDidChange:self.mutableRows.copy] mutableCopy];
-    }
+	NSAssert(index != NSNotFound, @"You cannot remove a row at NSNotFound.");
+	
+	JSMStaticRow *row = [self.mutableRows objectAtIndex:index];
+	
+	if( row == nil ) {
+		return;
+	}
+	
+	[self removeRow:row atIndex:index];
 }
 
 - (void)removeRow:(JSMStaticRow *)row {
-    if( ! [self containsRow:row] ) {
-        return;
-    }
-    // Update the row's section
-    row.section = nil;
-    // Remove the row
-    [self.mutableRows removeObject:row];
-    // Notify the delegate
-    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
-        self.mutableRows = [[self.delegate section:self rowsDidChange:self.mutableRows.copy] mutableCopy];
-    }
+	NSUInteger index = [self.mutableRows indexOfObject:row];
+	
+	if( index == NSNotFound ) {
+		return;
+	}
+	
+	[self removeRow:row atIndex:index];
+}
+
+- (void)removeRow:(JSMStaticRow *)row atIndex:(NSUInteger)index {
+	NSAssert(index != NSNotFound, @"You cannot remove a row at NSNotFound.");
+	
+	row.section = nil;
+	[self.mutableRows removeObjectAtIndex:index];
+	
+	[self rowsDidChange];
 }
 
 - (void)removeAllRows {
     if( self.mutableRows.count == 0 ) {
         return;
     }
-    // Update the rows' sections
-    [self.mutableRows makeObjectsPerformSelector:@selector(setSection:) withObject:nil];
-    // Remove the rows
+
+	[self.mutableRows makeObjectsPerformSelector:@selector(setSection:) withObject:nil];
     [self.mutableRows removeAllObjects];
-    // Notify the delegate
-    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
-        self.mutableRows = [[self.delegate section:self rowsDidChange:self.mutableRows.copy] mutableCopy];
-    }
+
+	[self rowsDidChange];
+}
+
+- (void)rowsDidChange {
+	if( self.delegate != nil && [self.delegate respondsToSelector:@selector(section:rowsDidChange:)] ) {
+		self.mutableRows = [[self.delegate section:self rowsDidChange:self.mutableRows.copy] mutableCopy];
+	}
 }
 
 #pragma mark - Refreshing the Row
