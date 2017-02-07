@@ -33,65 +33,49 @@
 - (JSMStaticSection *)createSectionWithRowAnimation:(UITableViewRowAnimation)animation {
     JSMStaticSection *section = [self createSection];
     NSUInteger sectionIndex = [self indexForSection:section];
-    if( self.tableView != nil && sectionIndex != NSNotFound ) {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    }
+	[self animateSectionToIndex:sectionIndex fromIndex:NSNotFound withRowAnimation:animation];
     return section;
 }
 
 - (JSMStaticSection *)createSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation {
     JSMStaticSection *section = [self createSectionAtIndex:index];
-    if( self.tableView != nil && index != NSNotFound ) {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:animation];
-    }
+	[self animateSectionToIndex:index fromIndex:NSNotFound withRowAnimation:animation];
     return section;
 }
 
 - (void)addSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
     [self addSection:section];
     NSUInteger sectionIndex = [self indexForSection:section];
-    if( self.tableView != nil && sectionIndex != NSNotFound ) {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    }
+	[self animateSectionToIndex:sectionIndex fromIndex:NSNotFound withRowAnimation:animation];
 }
 
 - (void)insertSection:(JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation {
     [self insertSection:section atIndex:index];
     NSUInteger sectionIndex = [self indexForSection:section];
-    if( self.tableView != nil && sectionIndex != NSNotFound ) {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    }
+	[self animateSectionToIndex:sectionIndex fromIndex:NSNotFound withRowAnimation:animation];
 }
 
 - (void)reloadSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
     NSUInteger sectionIndex = [self indexForSection:section];
-    if( self.tableView != nil && sectionIndex != NSNotFound ) {
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    }
+	[self animateSectionToIndex:sectionIndex fromIndex:sectionIndex withRowAnimation:animation];
 }
 
 - (void)removeSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation {
     [self removeSectionAtIndex:index];
-    if( self.tableView != nil ) {
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:animation];
-    }
+	[self animateSectionToIndex:NSNotFound fromIndex:index withRowAnimation:animation];
 }
 
 - (void)removeSection:(JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation {
     NSUInteger sectionIndex = [self indexForSection:section];
     [self removeSection:section];
-    if( self.tableView != nil && sectionIndex != NSNotFound ) {
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    }
+	[self animateSectionToIndex:NSNotFound fromIndex:sectionIndex withRowAnimation:animation];
 }
 
 #pragma mark - Animating the Rows
 
 - (JSMStaticRow *)createRowAtIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
     JSMStaticRow *row = [self createRowAtIndexPath:indexPath];
-    if( self.tableView != nil ) {
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
-    }
+	[self animateRowToIndexPath:indexPath fromIndexPath:nil withRowAnimation:animation];
     return row;
 }
 
@@ -115,48 +99,78 @@
     [self animateRowToIndexPath:toIndexPath fromIndexPath:fromIndexPath withRowAnimation:animation];
 }
 
-- (void)animateRowToIndexPath:(NSIndexPath *)toIndexPath fromIndexPath:(NSIndexPath *)fromIndexPath withRowAnimation:(UITableViewRowAnimation)animation {
-    if( self.tableView == nil || [toIndexPath isEqual:fromIndexPath]) {
-        return;
-    }
-    else if( toIndexPath != nil && fromIndexPath != nil ) {
-        [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
-    }
-    else if( toIndexPath != nil && fromIndexPath == nil ) {
-        [self.tableView insertRowsAtIndexPaths:@[toIndexPath] withRowAnimation:animation];
-    }
-    else if( toIndexPath == nil && fromIndexPath != nil ) {
-        [self.tableView deleteRowsAtIndexPaths:@[fromIndexPath] withRowAnimation:animation];
-    }
-}
-
 - (void)reloadRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation {
     NSIndexPath *indexPath = [self indexPathForRow:row];
-    if( indexPath && self.tableView != nil ) {
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
-    }
+	[self animateRowToIndexPath:indexPath fromIndexPath:indexPath withRowAnimation:animation];
 }
 
 - (void)removeRowAtIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
     JSMStaticRow *row = [self rowAtIndexPath:indexPath];
-    if( row == nil ) {
-        return;
-    }
-    [self removeRow:row];
-    if( self.tableView != nil ) {
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
-    }
+	[self removeRow:row atIndexPath:indexPath withRowAnimation:animation];
 }
 
 - (void)removeRow:(JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation {
     NSIndexPath *indexPath = [self indexPathForRow:row];
-    if( indexPath == nil ) {
-        return;
-    }
-    [self removeRow:row];
-    if( self.tableView != nil ) {
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
-    }
+	[self removeRow:row atIndexPath:indexPath withRowAnimation:animation];
+}
+
+- (void)removeRow:(JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
+	if( row == nil || indexPath == nil ) {
+		return;
+	}
+
+	[self removeRow:row];
+	[self animateRowToIndexPath:nil fromIndexPath:indexPath withRowAnimation:animation];
+}
+
+#pragma mark - Performing the actual animations
+
+- (void)animateSectionToIndex:(NSUInteger)toIndex fromIndex:(NSUInteger)fromIndex withRowAnimation:(UITableViewRowAnimation)animation {
+	if( self.tableView == nil || (toIndex == NSNotFound && fromIndex == NSNotFound)) {
+		return;
+	}
+
+	if( self.tableView.window == nil ) {
+		[self.tableView reloadData];
+	}
+	else if( toIndex != NSNotFound && fromIndex != NSNotFound ) {
+		if( toIndex == fromIndex ) {
+			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:fromIndex] withRowAnimation:animation];
+		}
+		else {
+			[self.tableView moveSection:fromIndex toSection:toIndex];
+		}
+	}
+	else if( toIndex != NSNotFound && fromIndex == NSNotFound ) {
+		[self.tableView insertSections:[NSIndexSet indexSetWithIndex:fromIndex] withRowAnimation:animation];
+	}
+	else if( toIndex == NSNotFound && fromIndex != NSNotFound ) {
+		[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:fromIndex] withRowAnimation:animation];
+	}
+}
+
+- (void)animateRowToIndexPath:(NSIndexPath *)toIndexPath fromIndexPath:(NSIndexPath *)fromIndexPath withRowAnimation:(UITableViewRowAnimation)animation {
+	if( self.tableView == nil || (toIndexPath == nil && fromIndexPath == nil)) {
+		return;
+	}
+
+	if( self.tableView.window == nil ) {
+		[self.tableView reloadData];
+	}
+	else if( toIndexPath != nil && fromIndexPath != nil ) {
+		if( [toIndexPath isEqual:fromIndexPath] ) {
+			[self.tableView reloadRowsAtIndexPaths:@[fromIndexPath] withRowAnimation:animation];
+		}
+		else {
+			[self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+		}
+	}
+	else if( toIndexPath != nil && fromIndexPath == nil ) {
+		[self.tableView insertRowsAtIndexPaths:@[toIndexPath] withRowAnimation:animation];
+	}
+	else if( toIndexPath == nil && fromIndexPath != nil ) {
+		[self.tableView deleteRowsAtIndexPaths:@[fromIndexPath] withRowAnimation:animation];
+	}
 }
 
 @end
