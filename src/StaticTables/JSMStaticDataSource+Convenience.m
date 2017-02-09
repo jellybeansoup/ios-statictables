@@ -142,7 +142,7 @@
 		}
 	}
 	else if( toIndex != NSNotFound && fromIndex == NSNotFound ) {
-		[self.tableView insertSections:[NSIndexSet indexSetWithIndex:fromIndex] withRowAnimation:animation];
+		[self.tableView insertSections:[NSIndexSet indexSetWithIndex:toIndex] withRowAnimation:animation];
 	}
 	else if( toIndex == NSNotFound && fromIndex != NSNotFound ) {
 		[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:fromIndex] withRowAnimation:animation];
