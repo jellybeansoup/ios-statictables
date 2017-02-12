@@ -81,6 +81,10 @@
 
 #pragma mark - Table view delegate
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return 44.0f;
+}
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     // Workaround for alignment issues caused by cells having the "wrong" seperator inset size when the call to this method
     // is initially made in `tableView:cellForRowAtIndexPath:`. This ensures alignment is always kept accurate.
