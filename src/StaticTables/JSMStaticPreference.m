@@ -40,6 +40,14 @@
 
 @end
 
+@interface JSMStaticPreferenceObserverContainer: NSObject
+
+@property (nonatomic, weak) id<JSMStaticPreferenceObserver> observer;
+
+- (instancetype)initWithObserver:(id<JSMStaticPreferenceObserver>)observer;
+
+@end
+
 @implementation JSMStaticPreference
 
 #pragma mark - Creating Preferences
@@ -88,8 +96,8 @@
     // We'll be changing the value
     [self willChangeValueForKey:NSStringFromSelector(@selector(value))];
     [self valueWillChange];
-    for( NSValue *ov in self.observers.allValues ) {
-        id <JSMStaticPreferenceObserver>observer = ov.nonretainedObjectValue;
+    for( JSMStaticPreferenceObserverContainer *ov in self.observers.allValues ) {
+		id<JSMStaticPreferenceObserver> observer = ov.observer;
         if( observer == nil || ! [observer respondsToSelector:@selector(preference:willChangeValue:)] ) {
             continue;
         }
@@ -105,8 +113,8 @@
         _value = value;
     }
     // We've changed the value
-    for( NSValue *ov in self.observers.allValues ) {
-        id <JSMStaticPreferenceObserver>observer = ov.nonretainedObjectValue;
+    for( JSMStaticPreferenceObserverContainer *ov in self.observers.allValues ) {
+        id<JSMStaticPreferenceObserver> observer = ov.observer;
         if( observer == nil || ! [observer respondsToSelector:@selector(preference:didChangeValue:)] ) {
             continue;
         }
@@ -186,7 +194,7 @@
 
     // Add the value
     NSString *key = [NSString stringWithFormat:@"%@",@(observer.hash)];
-	self.observers[key] = [NSValue valueWithNonretainedObject:observer];
+	self.observers[key] = [[JSMStaticPreferenceObserverContainer alloc] initWithObserver:observer];
 }
 
 - (void)removeObserver:(id <JSMStaticPreferenceObserver>)observer {
@@ -208,6 +216,18 @@
 - (BOOL)hasObserver:(id <JSMStaticPreferenceObserver>)observer {
     NSString *key = [NSString stringWithFormat:@"%@",@(observer.hash)];
     return ( self.observers != nil && self.observers[key] != nil );
+}
+
+@end
+
+@implementation JSMStaticPreferenceObserverContainer
+
+- (instancetype)initWithObserver:(id<JSMStaticPreferenceObserver>)observer {
+	if( (self = [super init]) ) {
+		self.observer = observer;
+	}
+
+	return self;
 }
 
 @end
