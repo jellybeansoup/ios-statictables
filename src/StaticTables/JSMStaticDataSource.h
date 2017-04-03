@@ -329,10 +329,10 @@ NS_ASSUME_NONNULL_BEGIN
  * Creates a new `JSMStaticRow` object and inserts it at the given index path.
  *
  * @param indexPath The location at which to insert the row.
- * @return The resulting instance of `JSMStaticRow`.
+ * @return The resulting instance of `JSMStaticRow`, `nil` if no section is found at the appropriate index.
  */
 
-- (JSMStaticRow *)createRowAtIndexPath:(NSIndexPath *)indexPath NS_SWIFT_NAME(createRow(at:));
+- (JSMStaticRow * _Nullable)createRowAtIndexPath:(NSIndexPath *)indexPath NS_SWIFT_NAME(createRow(at:));
 
 /**
  * Inserts the given `JSMStaticSection` object at the given index path.

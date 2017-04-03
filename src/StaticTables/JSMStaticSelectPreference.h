@@ -96,10 +96,10 @@ extern NSString *const JSMStaticSelectOptionImage;
 
 /**
  * A preconfigured instance of `JSMStaticSelectPreferenceViewController` that will update the preference
- * value when an option is selected.
+ * value when an option is selected. This value is reset when the returned view controller is dismissed.
  */
 
-@property (nonatomic, strong, readonly) JSMStaticSelectPreferenceViewController *viewController;
+@property (nonatomic, strong, readonly, null_resettable) JSMStaticSelectPreferenceViewController *viewController;
 
 @end
 
