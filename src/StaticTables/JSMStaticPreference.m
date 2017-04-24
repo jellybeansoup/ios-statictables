@@ -159,15 +159,22 @@
         }
         if( ! self.fitControlToCell ) {
             if( ! [self.accessoryView isEqual:self.control] ) {
+				self.control.translatesAutoresizingMaskIntoConstraints = YES;
                 self.accessoryView = self.control;
             }
         }
         else if( self.fitControlToCell ) {
-            self.control.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            self.control.frame = CGRectMake( cell.separatorInset.left, 0, cell.contentView.frame.size.width - ( cell.separatorInset.left + cell.separatorInset.right ), cell.contentView.frame.size.height );
-            if( ! [self.control.superview isEqual:cell.contentView] ) {
-                [cell.contentView addSubview:self.control];
-            }
+			if( ! [self.control.superview isEqual:cell.contentView] ) {
+				[cell.contentView addSubview:self.control];
+			}
+
+			self.control.translatesAutoresizingMaskIntoConstraints = NO;
+			[cell.contentView addConstraints:@[
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeTopMargin multiplier:1 constant:0],
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeBottomMargin multiplier:1 constant:0],
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeLeftMargin multiplier:1 constant:0],
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeRightMargin multiplier:1 constant:0]
+											  ]];
         }
     }
 
