@@ -65,7 +65,7 @@
 }
 
 - (instancetype)initWithKey:(NSString *)key {
-    return [self initWithKey:key andUserDefaultsKey:nil];
+    return [self initWithKey:key andUserDefaultsKey:key];
 }
 
 - (instancetype)initWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey {
