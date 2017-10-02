@@ -66,6 +66,10 @@
 		A19D1436195426A2005146CB /* JSMStaticDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D1435195426A2005146CB /* JSMStaticDataSource.m */; };
 		A1C0C4CD1B2AF177004561C9 /* JSMStaticDataSource+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C0C4CC1B2AF177004561C9 /* JSMStaticDataSource+Convenience.m */; };
 		A1E0B41A1AE514D800C7E308 /* JSMDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1E0B4191AE514D800C7E308 /* JSMDataSourceTests.m */; };
+		A1E216941FA9A91700080F9E /* JSMStaticDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1E216931FA9A91700080F9E /* JSMStaticDelegateTests.m */; };
+		A1FA1FCF1F820BB000C931A6 /* JSMStaticDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FA1FCD1F820BB000C931A6 /* JSMStaticDelegate.h */; };
+		A1FA1FD01F820BB000C931A6 /* JSMStaticDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FA1FCE1F820BB000C931A6 /* JSMStaticDelegate.m */; };
+		A1FA1FD11F820BB000C931A6 /* JSMStaticDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FA1FCE1F820BB000C931A6 /* JSMStaticDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +134,9 @@
 		A1E0B40D1AE5141D00C7E308 /* StaticTablesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StaticTablesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E0B4101AE5141D00C7E308 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1E0B4191AE514D800C7E308 /* JSMDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMDataSourceTests.m; sourceTree = "<group>"; };
+		A1E216931FA9A91700080F9E /* JSMStaticDelegateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSMStaticDelegateTests.m; sourceTree = "<group>"; };
+		A1FA1FCD1F820BB000C931A6 /* JSMStaticDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSMStaticDelegate.h; sourceTree = "<group>"; };
+		A1FA1FCE1F820BB000C931A6 /* JSMStaticDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSMStaticDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +176,8 @@
 				A19D1435195426A2005146CB /* JSMStaticDataSource.m */,
 				A1C0C4CB1B2AF177004561C9 /* JSMStaticDataSource+Convenience.h */,
 				A1C0C4CC1B2AF177004561C9 /* JSMStaticDataSource+Convenience.m */,
+				A1FA1FCD1F820BB000C931A6 /* JSMStaticDelegate.h */,
+				A1FA1FCE1F820BB000C931A6 /* JSMStaticDelegate.m */,
 				A19D142E19541ACA005146CB /* JSMStaticSection.h */,
 				A19D142F19541ACA005146CB /* JSMStaticSection.m */,
 				A19D143119541ADC005146CB /* JSMStaticRow.h */,
@@ -232,7 +241,6 @@
 				A17135311850094B00E56C4D /* StaticTables_Prefix.pch */,
 			);
 			name = "Supporting Files";
-			path = JSMStaticTablesTests;
 			sourceTree = "<group>";
 		};
 		A18D9C241B44E7DB00F43BF5 /* Supporting Files */ = {
@@ -249,6 +257,7 @@
 				A1E0B4191AE514D800C7E308 /* JSMDataSourceTests.m */,
 				A16B726F1CD775C4006CB42D /* JSMSectionTests.m */,
 				A16B72711CD775D7006CB42D /* JSMRowTests.m */,
+				A1E216931FA9A91700080F9E /* JSMStaticDelegateTests.m */,
 				A1E0B40F1AE5141D00C7E308 /* Supporting Files */,
 			);
 			name = StaticTablesTests;
@@ -293,6 +302,7 @@
 				A18D9C181B44E76D00F43BF5 /* UITableView+StaticTables.h in Headers */,
 				A18D9C191B44E76D00F43BF5 /* JSMStaticTableViewController.h in Headers */,
 				A18D9C1A1B44E76D00F43BF5 /* JSMStaticDataSource.h in Headers */,
+				A1FA1FCF1F820BB000C931A6 /* JSMStaticDelegate.h in Headers */,
 				A18D9C1B1B44E76D00F43BF5 /* JSMStaticDataSource+Convenience.h in Headers */,
 				A18D9C1C1B44E76D00F43BF5 /* JSMStaticSection.h in Headers */,
 				A18D9C1D1B44E76D00F43BF5 /* JSMStaticRow.h in Headers */,
@@ -443,6 +453,7 @@
 				A1486E4E195DA3580017CACD /* JSMStaticTextPreference.m in Sources */,
 				A1486E571960223F0017CACD /* JSMStaticSelectPreferenceViewController.m in Sources */,
 				A19D143019541ACA005146CB /* JSMStaticSection.m in Sources */,
+				A1FA1FD01F820BB000C931A6 /* JSMStaticDelegate.m in Sources */,
 				A1486E5419601F550017CACD /* JSMStaticSelectPreference.m in Sources */,
 				A19D1436195426A2005146CB /* JSMStaticDataSource.m in Sources */,
 				A14B567C19604EEC00C2A701 /* JSMStaticTableViewController.m in Sources */,
@@ -462,6 +473,7 @@
 				A18D9C0E1B44E71800F43BF5 /* JSMStaticRow.m in Sources */,
 				A18D9C101B44E71800F43BF5 /* JSMStaticTextPreference.m in Sources */,
 				A18D9C0F1B44E71800F43BF5 /* JSMStaticPreference.m in Sources */,
+				A1FA1FD11F820BB000C931A6 /* JSMStaticDelegate.m in Sources */,
 				A18D9C111B44E71800F43BF5 /* JSMStaticBooleanPreference.m in Sources */,
 				A18D9C0A1B44E71800F43BF5 /* JSMStaticTableViewController.m in Sources */,
 				A18D9C091B44E71800F43BF5 /* UITableView+StaticTables.m in Sources */,
@@ -478,6 +490,7 @@
 			files = (
 				A16B72721CD775D7006CB42D /* JSMRowTests.m in Sources */,
 				A16B72701CD775C4006CB42D /* JSMSectionTests.m in Sources */,
+				A1E216941FA9A91700080F9E /* JSMStaticDelegateTests.m in Sources */,
 				A1E0B41A1AE514D800C7E308 /* JSMDataSourceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

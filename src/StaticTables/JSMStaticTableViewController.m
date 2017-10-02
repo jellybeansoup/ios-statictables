@@ -25,6 +25,7 @@
 #import "JSMStaticTableViewController.h"
 #import "JSMStaticSection.h"
 #import "JSMStaticRow.h"
+#import "JSMStaticDelegate.h"
 
 @interface JSMStaticRow (JSMStaticTableViewController)
 
@@ -33,6 +34,8 @@
 @end
 
 @interface JSMStaticTableViewController ()
+
+@property (nonatomic) UITableViewStyle tableViewStyle;
 
 @end
 
@@ -44,13 +47,20 @@
     return [[self alloc] initWithStyle:UITableViewStyleGrouped];
 }
 
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+	if( ( self = [super initWithStyle:style] ) ) {
+		self.tableViewStyle = style;
+	}
+	return self;
+}
+
 #pragma mark - View Lifecycle
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    // Override the initial data source
-    self.tableView.dataSource = self.dataSource;
+- (void)loadView {
+	JSMTableView *tableView = [[JSMTableView alloc] initWithFrame:UIScreen.mainScreen.bounds style:self.tableViewStyle];
+	tableView.dataSource = self.dataSource;
+	tableView.internalDelegate = self;
+	self.view = tableView;
 }
 
 #pragma mark - Data Source
@@ -58,11 +68,11 @@
 @synthesize dataSource = _dataSource;
 
 - (JSMStaticDataSource *)dataSource {
-    if( _dataSource == nil ) {
-        _dataSource = [JSMStaticDataSource new];
-        _dataSource.delegate = self;
-    }
-    return _dataSource;
+	if( _dataSource == nil ) {
+		_dataSource = [JSMStaticDataSource new];
+		_dataSource.delegate = self;
+	}
+	return _dataSource;
 }
 
 #pragma mark - Static data source delegate
