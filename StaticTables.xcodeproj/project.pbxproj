@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		492A9D771983AD3500EC9CF0 /* JSMStaticSliderPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = 492A9D761983AD3500EC9CF0 /* JSMStaticSliderPreference.m */; };
+		A10F042B1FA42A18003BA897 /* StaticTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9BF01B44E64F00F43BF5 /* StaticTables.framework */; };
 		A1486E4619599C330017CACD /* UITableView+StaticTables.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4519599C330017CACD /* UITableView+StaticTables.m */; };
 		A1486E4B195AE6E60017CACD /* JSMStaticPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4A195AE6E60017CACD /* JSMStaticPreference.m */; };
 		A1486E4E195DA3580017CACD /* JSMStaticTextPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4D195DA3580017CACD /* JSMStaticTextPreference.m */; };
@@ -64,7 +65,6 @@
 		A19D143319541ADC005146CB /* JSMStaticRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D143219541ADC005146CB /* JSMStaticRow.m */; };
 		A19D1436195426A2005146CB /* JSMStaticDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D1435195426A2005146CB /* JSMStaticDataSource.m */; };
 		A1C0C4CD1B2AF177004561C9 /* JSMStaticDataSource+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C0C4CC1B2AF177004561C9 /* JSMStaticDataSource+Convenience.m */; };
-		A1E0B4131AE5141D00C7E308 /* libStaticTables.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1713505185007F800E56C4D /* libStaticTables.a */; };
 		A1E0B41A1AE514D800C7E308 /* JSMDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1E0B4191AE514D800C7E308 /* JSMDataSourceTests.m */; };
 /* End PBXBuildFile section */
 
@@ -155,7 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1E0B4131AE5141D00C7E308 /* libStaticTables.a in Frameworks */,
+				A10F042B1FA42A18003BA897 /* StaticTables.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

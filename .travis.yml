@@ -1,6 +1,32 @@
+osx_image: xcode9
 language: objective-c
-osx_image: xcode7.3
-xcode_project: StaticTables.xcodeproj
-xcode_scheme: StaticTablesTests
-xcode_sdk:
-  - iphonesimulator
+
+before_install:
+    - gem install cocoapods # Since Travis is not always on latest version
+    - gem install xcpretty
+
+env:
+    global:
+        - LANG=en_US.UTF-8
+        - PROJECT="StaticTables.xcodeproj"
+        - SCHEME="StaticTables"
+
+    matrix:
+        - DESTINATION="OS=8.4,name=iPhone 6"
+        - DESTINATION="OS=9.0,name=iPhone 6s"
+        - DESTINATION="OS=9.1,name=iPhone 6s"
+        - DESTINATION="OS=9.2,name=iPhone 6s"
+        - DESTINATION="OS=9.3,name=iPhone 6s"
+        - DESTINATION="OS=10.0,name=iPhone 7"
+        - DESTINATION="OS=10.1,name=iPhone 7"
+        - DESTINATION="OS=10.2,name=iPhone 7"
+        - DESTINATION="OS=10.3.1,name=iPhone 7"
+        - DESTINATION="OS=11.0,name=iPhone 8"
+
+script:
+    - set -o pipefail
+    - xcodebuild clean test -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" CODE_SIGNING_REQUIRED=NO | xcpretty -c
+
+after_success:
+   - bash <(curl -s https://codecov.io/bash)
+   - sleep 5 # Workaround for https://github.com/travis-ci/travis-ci/issues/4725
