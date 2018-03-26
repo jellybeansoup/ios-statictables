@@ -116,7 +116,11 @@
 #pragma mark - Data Structure
 
 - (UITableView *)tableView {
-    return self.section.tableView;
+	return self.section.tableView;
+}
+
+- (JSMStaticDataSource *)dataSource {
+	return self.section.dataSource;
 }
 
 /**
@@ -171,6 +175,20 @@
 }
 
 #pragma mark - Configuring the cell
+
+- (UITableViewCell *)currentCell {
+	if( self.dataSource == nil ) {
+		return nil;
+	}
+
+	NSIndexPath *indexPath = [self.dataSource indexPathForRow:self];
+
+	if( self.tableView == nil || indexPath == nil ) {
+		return nil;
+	}
+
+	return [self.tableView cellForRowAtIndexPath:indexPath];
+}
 
 - (void)prepareCell:(UITableViewCell *)cell {
 	if( cell == nil ) {

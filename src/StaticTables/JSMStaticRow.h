@@ -115,6 +115,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readonly, nullable) UITableView *tableView;
 
 /**
+ * The data source that the row belongs to.
+ */
+
+@property (nonatomic, weak, readonly, nullable) __kindof JSMStaticDataSource *dataSource;
+
+/**
  * The section that the row belongs to.
  */
 
@@ -182,7 +188,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// @name Configuring the cell
 ///---------------------------------------------
 
-typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, UITableViewCell *cell );
+typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, __kindof UITableViewCell *cell );
+
+/**
+ * The table view cell currently representing the receiver.
+ */
+
+@property (nonatomic, weak, readonly, nullable) __kindof UITableViewCell *currentCell;
 
 /**
  * Method intended for use by subclasses to configure the given cell. This method is called before any block provided
