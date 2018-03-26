@@ -103,14 +103,19 @@
         }
         [observer preference:self willChangeValue:self.value];
     }
-    // Store the value in NSUserDefaults
-    if( self.userDefaultsKey != nil ) {
-        [[NSUserDefaults standardUserDefaults] setValue:value forKey:self.userDefaultsKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+	// Store the value in the value property
+	if( self.userDefaultsKey == nil ) {
+		_value = value;
+	}
+	// Clear NSUserDefaults for a nil value.
+    else if( value == nil ) {
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:self.userDefaultsKey];
+		[[NSUserDefaults standardUserDefaults] synchronize];
     }
-    // Or if we have to, in the value property
+	// Store the value in NSUserDefaults
     else {
-        _value = value;
+		[[NSUserDefaults standardUserDefaults] setValue:value forKey:self.userDefaultsKey];
+		[[NSUserDefaults standardUserDefaults] synchronize];
     }
     // We've changed the value
     for( JSMStaticPreferenceObserverContainer *ov in self.observers.allValues ) {
