@@ -307,24 +307,28 @@ static Class _staticCellClass = nil;
 #pragma mark - Refreshing the Contents
 
 - (void)requestReloadForSection:(JSMStaticSection *)section {
-    // Ensure we own the section first
-    if( ! [self containsSection:section] ) {
-        return;
-    }
-    // All we do is notify the delegate
-    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:sectionNeedsReload:atIndex:)] ) {
+	NSUInteger index = [self indexForSection:section];
+	if( index == NSNotFound && _tableView.numberOfSections > (NSInteger)index ) {
+		return;
+	}
+
+	if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:sectionNeedsReload:atIndex:)] ) {
         [self.delegate dataSource:self sectionNeedsReload:section atIndex:[self indexForSection:section]];
     }
 }
 
 - (void)requestReloadForRow:(JSMStaticRow *)row {
-    // Ensure we own the row first
-    NSIndexPath *indexPath = [self indexPathForRow:row];
+	NSIndexPath *indexPath = [self indexPathForRow:row];
     if( indexPath == nil ) {
         return;
     }
-    // All we do is notify the delegate
-    if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:rowNeedsReload:atIndexPath:)] ) {
+
+	// If there's no cell, reloading can just happen when the cell comes into view.
+	if( [_tableView cellForRowAtIndexPath:indexPath] == nil ) {
+		return;
+	}
+
+	if( self.delegate != nil && [self.delegate respondsToSelector:@selector(dataSource:rowNeedsReload:atIndexPath:)] ) {
         [self.delegate dataSource:self rowNeedsReload:row atIndexPath:indexPath];
     }
 }
