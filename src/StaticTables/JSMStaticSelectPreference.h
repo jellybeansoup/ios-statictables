@@ -26,11 +26,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *const JSMStaticSelectOptionValue;
+extern NSString *const JSMStaticSelectOptionValue NS_REFINED_FOR_SWIFT;
 
-extern NSString *const JSMStaticSelectOptionLabel;
+extern NSString *const JSMStaticSelectOptionLabel NS_REFINED_FOR_SWIFT;
 
-extern NSString *const JSMStaticSelectOptionImage;
+extern NSString *const JSMStaticSelectOptionImage NS_REFINED_FOR_SWIFT;
 
 @class JSMStaticSelectPreferenceViewController;
 
@@ -88,7 +88,7 @@ extern NSString *const JSMStaticSelectOptionImage;
  * as an icon on the left side of the option's cell.
  */
 
-@property (nonatomic, copy) NSArray<NSDictionary<NSString *,id> *> *options;
+@property (nonatomic, copy) NSArray<NSDictionary<NSString *,id> *> *options NS_REFINED_FOR_SWIFT;
 
 ///---------------------------------------------
 /// @name User Interface
