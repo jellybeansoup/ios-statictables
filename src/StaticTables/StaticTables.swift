@@ -24,6 +24,12 @@
 
 import Foundation
 
+public let JSMStaticSelectOptionValue: JSMStaticSelectPreference.OptionKey = .value
+
+public let JSMStaticSelectOptionLabel: JSMStaticSelectPreference.OptionKey = .label
+
+public let JSMStaticSelectOptionImage: JSMStaticSelectPreference.OptionKey = .image
+
 public extension JSMStaticSelectPreference {
 
 	public enum OptionKey: String {
