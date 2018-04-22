@@ -26,6 +26,7 @@
 #import "JSMStaticSection.h"
 #import "JSMStaticRow.h"
 #import "JSMStaticDelegate.h"
+#import "JSMStaticPreference.h"
 
 @interface JSMStaticRow (JSMStaticTableViewController)
 
@@ -92,7 +93,17 @@
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return 44.0f;
+	return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	JSMStaticPreference *row = (JSMStaticPreference *)[self.dataSource rowAtIndexPath:indexPath];
+
+	if( [row isKindOfClass:[JSMStaticPreference class]] && row.control.frame.size.height > 44.0f ) {
+		return row.control.frame.size.height + 17;
+	}
+
+	return UITableViewAutomaticDimension;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
