@@ -94,15 +94,7 @@
         return;
     }
     // We'll be changing the value
-    [self willChangeValueForKey:NSStringFromSelector(@selector(value))];
-    [self valueWillChange];
-    for( JSMStaticPreferenceObserverContainer *ov in self.observers.allValues ) {
-		id<JSMStaticPreferenceObserver> observer = ov.observer;
-        if( observer == nil || ! [observer respondsToSelector:@selector(preference:willChangeValue:)] ) {
-            continue;
-        }
-        [observer preference:self willChangeValue:self.value];
-    }
+	[self _valueWillChange];
 	// Store the value in the value property
 	if( self.userDefaultsKey == nil ) {
 		_value = value;
@@ -118,15 +110,7 @@
 		[[NSUserDefaults standardUserDefaults] synchronize];
     }
     // We've changed the value
-    for( JSMStaticPreferenceObserverContainer *ov in self.observers.allValues ) {
-        id<JSMStaticPreferenceObserver> observer = ov.observer;
-        if( observer == nil || ! [observer respondsToSelector:@selector(preference:didChangeValue:)] ) {
-            continue;
-        }
-        [observer preference:self didChangeValue:self.value];
-    }
-    [self valueDidChange];
-    [self didChangeValueForKey:NSStringFromSelector(@selector(value))];
+	[self _valueDidChange];
 }
 
 - (id)value {
@@ -147,10 +131,63 @@
     return value;
 }
 
+- (BOOL)usingDefaultValue {
+	return _value == nil && ( self.userDefaultsKey == nil || [[NSUserDefaults standardUserDefaults] valueForKey:self.userDefaultsKey] == nil );
+}
+
+- (void)setDefaultValue:(id)defaultValue {
+	// Don't update if the value doesn't change
+	if( defaultValue == self.defaultValue ) {
+		return;
+	}
+	// We'll be changing the value
+	if( self.usingDefaultValue ) {
+		[self _valueWillChange];
+	}
+
+	// Update the stored value
+	_defaultValue = defaultValue;
+
+	// We've changed the value
+	if( self.usingDefaultValue ) {
+		[self _valueDidChange];
+	}
+}
+
+- (void)_valueWillChange {
+	[self willChangeValueForKey:NSStringFromSelector(@selector(value))];
+
+	[self valueWillChange];
+
+	for( JSMStaticPreferenceObserverContainer *ov in self.observers.allValues ) {
+		id<JSMStaticPreferenceObserver> observer = ov.observer;
+		if( observer == nil || ! [observer respondsToSelector:@selector(preference:willChangeValue:)] ) {
+			continue;
+		}
+		[observer preference:self willChangeValue:self.value];
+	}
+}
+
 - (void)valueWillChange {
+	// Subclass use only
+}
+
+- (void)_valueDidChange {
+	for( JSMStaticPreferenceObserverContainer *ov in self.observers.allValues ) {
+		id<JSMStaticPreferenceObserver> observer = ov.observer;
+		if( observer == nil || ! [observer respondsToSelector:@selector(preference:didChangeValue:)] ) {
+			continue;
+		}
+		[observer preference:self didChangeValue:self.value];
+	}
+
+	[self valueDidChange];
+
+	[self didChangeValueForKey:NSStringFromSelector(@selector(value))];
 }
 
 - (void)valueDidChange {
+	// Subclass use only
 }
 
 #pragma mark - Configuring the cell
