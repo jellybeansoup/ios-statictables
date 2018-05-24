@@ -37,19 +37,15 @@
 
 #pragma mark - User Interface
 
-@synthesize control = _control;
+- (void)loadControl {
+	UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake( 0, 0, 180, 44 )];
+	textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	textField.placeholder = self.text;
+	textField.text = self.value;
+	[textField addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+	[textField addTarget:self action:@selector(updatePreferenceValue:) forControlEvents:UIControlEventEditingDidEnd];
 
-- (UIControl *)control {
-    if( _control == nil ) {
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake( 0, 0, 180, 44 )];
-        textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        textField.placeholder = self.text;
-        textField.text = self.value;
-        [textField addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
-        [textField addTarget:self action:@selector(updatePreferenceValue:) forControlEvents:UIControlEventEditingDidEnd];
-        _control = (UIControl *)textField;
-    }
-    return _control;
+	super.control = (UIControl *)textField;
 }
 
 - (UITextField *)textField {
@@ -59,7 +55,7 @@
 #pragma mark - Updating the value
 
 - (void)valueDidChange {
-    if( ! [self.textField.text isEqual:self.value] ) {
+    if( self.isControlLoaded && ! [self.textField.text isEqual:self.value] ) {
         self.textField.text = self.value;
     }
 }

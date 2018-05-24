@@ -190,6 +190,74 @@
 	// Subclass use only
 }
 
+#pragma mark - User interface
+
+@synthesize control = _control;
+
+- (UIControl *)control {
+	[self loadControlIfNeeded];
+
+	return _control;
+}
+
+- (BOOL)isControlLoaded {
+	return _control != nil;
+}
+
+- (void)loadControl {
+	// Subclass use only
+}
+
+- (void)controlDidLoad {
+	// Subclass use only
+}
+
+- (void)loadControlIfNeeded {
+	if( self.isControlLoaded ) {
+		return;
+	}
+
+	[self loadControl];
+	[self controlDidLoad];
+
+	_control.enabled = _enabled;
+
+	for( JSMStaticPreferenceObserverContainer *ov in self.observers.allValues ) {
+		id<JSMStaticPreferenceObserver> observer = ov.observer;
+		if( observer == nil || ! [observer respondsToSelector:@selector(preference:didLoadControl:)] ) {
+			continue;
+		}
+		[observer preference:self didLoadControl:self.control];
+	}
+}
+
+- (UIControl *)controlIfLoaded {
+	if( !self.isControlLoaded ) {
+		return nil;
+	}
+
+	return _control;
+}
+
+@synthesize enabled = _enabled;
+
+- (BOOL)isEnabled {
+	// Default to the control's value to avoid returning something invalid.
+	return self.controlIfLoaded.isEnabled ?: _enabled;
+}
+
+- (void)setEnabled:(BOOL)enabled {
+	_enabled = enabled;
+
+	if( self.controlIfLoaded != nil && self.controlIfLoaded.enabled != enabled ) {
+		self.controlIfLoaded.enabled = enabled;
+
+		if( self.currentCell != nil ) {
+			[self configureCell:self.currentCell];
+		}
+	}
+}
+
 #pragma mark - Configuring the cell
 
 - (void)prepareCell:(UITableViewCell *)cell {
