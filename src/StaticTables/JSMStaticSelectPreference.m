@@ -63,10 +63,6 @@ NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
 
 @synthesize viewController = _viewController;
 
-- (UIControl *)control {
-    return nil; // No control for this one.
-}
-
 - (JSMStaticSelectPreferenceViewController *)viewController {
     if( _viewController == nil ) {
         JSMStaticSelectPreferenceViewController *viewController = [[JSMStaticSelectPreferenceViewController alloc] initWithPreference:self];

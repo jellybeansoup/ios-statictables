@@ -31,16 +31,12 @@
 
 #pragma mark - User Interface
 
-@synthesize control = _control;
+- (void)loadControl {
+	UISlider *slider = [[UISlider alloc] init];
+	slider.value = (float)self.floatValue;
+	[slider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
 
-- (UIControl *)control {
-    if( _control == nil ) {
-        UISlider *slider = [[UISlider alloc] init];
-        slider.value = (float)self.floatValue;
-        [slider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
-        _control = (UIControl *)slider;
-    }
-    return _control;
+	super.control = (UIControl *)slider;
 }
 
 - (UISlider *)slider {
@@ -58,7 +54,7 @@
 }
 
 - (void)valueDidChange {
-    if( self.slider.value < (float)self.floatValue || self.slider.value > (float)self.floatValue ) {
+    if( self.isControlLoaded && (self.slider.value < (float)self.floatValue || self.slider.value > (float)self.floatValue) ) {
         [self.slider setValue:(float)self.floatValue animated:YES];
     }
 }

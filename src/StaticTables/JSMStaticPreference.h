@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+- (void)preference:(__kindof JSMStaticPreference *)preference didLoadControl:(__kindof UIControl *)control NS_SWIFT_NAME(preference(_:didLoad:));
+
 - (void)preference:(__kindof JSMStaticPreference *)preference willChangeValue:(id)value NS_SWIFT_NAME(preference(_:willChange:));
 
 - (void)preference:(__kindof JSMStaticPreference *)preference didChangeValue:(id)value NS_SWIFT_NAME(preference(_:didChange:));
@@ -172,7 +174,45 @@ NS_ASSUME_NONNULL_BEGIN
  * The actual control returned will differ depending on the subclass.
  */
 
-@property (nonatomic, strong, readonly, nullable) UIControl *control;
+@property (nonatomic, strong) __kindof UIControl *control;
+
+/**
+ * Boolean flag to indicate if the control has been loaded into memory.
+ */
+
+@property (nonatomic, readonly, getter=isControlLoaded) BOOL controlLoaded;
+
+/**
+ * Creates the `UIControl` for managing the value of the underlying preference.
+ */
+
+- (void)loadControl;
+
+/**
+ * Method for subclasses that is called after the control has been loaded.
+ */
+
+- (void)controlDidLoad;
+
+/**
+ * Creates the `UIControl` for managing the value of the underlying preference if it has not yet been loaded.
+ */
+
+- (void)loadControlIfNeeded;
+
+/**
+ * The `UIControl` created by the reciever if it has been loaded, otherwise `nil`.
+ */
+
+@property (nonatomic, strong, readonly, nullable) __kindof UIControl *controlIfLoaded;
+
+/**
+ * Boolean flag to indicate if the control should be enabled or not.
+ *
+ * This is to allow the control to be disabled without needing to load the control itself into memory.
+ */
+
+@property (nonatomic, getter=isEnabled) BOOL enabled;
 
 /**
  * Flag which tells the row to configure the cell so that the control is contained in its `contentView`, and

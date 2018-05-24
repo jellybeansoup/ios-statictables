@@ -31,16 +31,12 @@
 
 #pragma mark - User Interface
 
-@synthesize control = _control;
+- (void)loadControl {
+	UISwitch *toggle = [[UISwitch alloc] init];
+	toggle.on = self.boolValue;
+	[toggle addTarget:self action:@selector(toggleChanged:) forControlEvents:UIControlEventValueChanged];
 
-- (UIControl *)control {
-    if( _control == nil ) {
-        UISwitch *toggle = [[UISwitch alloc] init];
-        toggle.on = self.boolValue;
-        [toggle addTarget:self action:@selector(toggleChanged:) forControlEvents:UIControlEventValueChanged];
-        _control = (UIControl *)toggle;
-    }
-    return _control;
+	super.control = (UIControl *)toggle;
 }
 
 - (UISwitch *)toggle {
@@ -70,7 +66,7 @@
 }
 
 - (void)valueDidChange {
-    if( self.toggle.on != self.boolValue ) {
+    if( self.isControlLoaded && self.toggle.on != self.boolValue ) {
         [self.toggle setOn:self.boolValue animated:YES];
     }
 }
