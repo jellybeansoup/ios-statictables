@@ -243,8 +243,11 @@
 @synthesize enabled = _enabled;
 
 - (BOOL)isEnabled {
-	// Default to the control's value to avoid returning something invalid.
-	return self.controlIfLoaded.isEnabled ?: _enabled;
+	if( self.controlIfLoaded != nil ) {
+		return self.controlIfLoaded.isEnabled;
+	}
+
+	return _enabled;
 }
 
 - (void)setEnabled:(BOOL)enabled {
