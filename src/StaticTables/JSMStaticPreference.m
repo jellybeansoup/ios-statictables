@@ -71,6 +71,7 @@
 - (instancetype)initWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey {
     if( ( self = [super initWithKey:key] ) ) {
         self.userDefaultsKey = userDefaultsKey;
+		self.enabled = YES;
     }
     
     return self;
