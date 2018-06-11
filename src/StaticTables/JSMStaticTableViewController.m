@@ -99,7 +99,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	JSMStaticPreference *row = (JSMStaticPreference *)[self.dataSource rowAtIndexPath:indexPath];
 
-	if( [row isKindOfClass:[JSMStaticPreference class]] && row.control.frame.size.height > 44.0f ) {
+	if( [row isKindOfClass:[JSMStaticPreference class]] && row.control.translatesAutoresizingMaskIntoConstraints && row.control.frame.size.height > 44.0f ) {
 		return row.control.frame.size.height + 17;
 	}
 
