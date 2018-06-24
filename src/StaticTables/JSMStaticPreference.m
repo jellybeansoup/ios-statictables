@@ -78,7 +78,11 @@
 }
 
 - (void)dealloc {
-    [self.control removeFromSuperview];
+	UIControl *control = self.controlIfLoaded;
+
+	if( control != nil && control.superview != nil ) {
+		[control removeFromSuperview];
+	}
 }
 
 #pragma mark - Storage
