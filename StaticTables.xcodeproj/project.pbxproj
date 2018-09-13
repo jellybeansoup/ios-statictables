@@ -382,7 +382,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = JSM;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Daniel Farrelly";
 				TargetAttributes = {
 					A1713504185007F800E56C4D = {
@@ -628,6 +628,7 @@
 					"-Wno-unused-parameter",
 				);
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
