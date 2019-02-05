@@ -66,7 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param row The row that was moved by the user.
  * @param fromIndexPath The original index path of the row within the data source (before it was moved).
  * @param toIndexPath The new index path of the row within the data source (after it was moved).
- * @return void
  */
 
 - (void)section:(__kindof JSMStaticSection *)section didMoveRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath NS_SWIFT_NAME(section(_:didMove:from:to:));
@@ -84,7 +83,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param section The section that contained the row before it was deleted.
  * @param row The row that was deleted by the user.
  * @param indexPath The index path of the row before it was deleted.
- * @return void
  */
 
 - (void)section:(__kindof JSMStaticSection *)section didDeleteRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath NS_SWIFT_NAME(section(_:didDelete:from:));
@@ -232,7 +230,6 @@ NS_ASSUME_NONNULL_BEGIN
  * If the row exists in a section already, it will be removed before being added to the observer.
  *
  * @param row A `JSMStaticRow` to add to the section.
- * @return void
  */
 
 - (void)addRow:(__kindof JSMStaticRow *)row NS_SWIFT_NAME(add(_:));
@@ -244,7 +241,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param row A `JSMStaticRow` to insert into the section.
  * @param index The index at which to insert the row.
- * @return void
  */
 
 - (void)insertRow:(__kindof JSMStaticRow *)row atIndex:(NSUInteger)index NS_SWIFT_NAME(insert(_:at:));
@@ -291,7 +287,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Remove the row at the given index from the section.
  *
  * @param index The location of the row you want to remove.
- * @return void
  */
 
 - (void)removeRowAtIndex:(NSUInteger)index NS_SWIFT_NAME(removeRow(at:));
@@ -300,7 +295,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Remove the given row from the section.
  *
  * @param row The row you want to remove.
- * @return void
  */
 
 - (void)removeRow:(__kindof JSMStaticRow *)row NS_SWIFT_NAME(remove(_:));
@@ -308,7 +302,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Remove all of the rows from the section.
  *
- * @return void
  */
 
 - (void)removeAllRows;
@@ -348,7 +341,6 @@ NS_ASSUME_NONNULL_BEGIN
  * The data source will then inform its delegate, which needs to perform the reload. If the data source is not part of an
  * instance of `JSMStaticTableViewController`, you will need to ensure that you respond to the message appropriately.
  *
- * @return void
  */
 
 - (void)setNeedsReload;
