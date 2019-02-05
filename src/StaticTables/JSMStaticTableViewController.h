@@ -109,7 +109,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param section A `JSMStaticSection` to add.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
- * @return void
  */
 
 - (void)addSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(add(_:with:));
@@ -125,7 +124,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param section A `JSMStaticSection` to insert into the content structure.
  * @param index The location at which to insert the section.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
- * @return void
  */
 
 - (void)insertSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(insert(_:at:with:));
@@ -138,7 +136,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param section The section you want to reload.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
- * @return void
  */
 
 - (void)reloadSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(reload(_:with:));
@@ -151,7 +148,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param index The location of the section you want to remove.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
- * @return void
  */
 
 - (void)removeSectionAtIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(removeSection(at:with:));
@@ -164,7 +160,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param section The section you want to remove.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
- * @return void
  */
 
 - (void)removeSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(remove(_:with:));
@@ -197,7 +192,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param row A `JSMStaticRow` to insert into the content structure.
  * @param indexPath The location at which to insert the row.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
- * @return void
  */
 
 - (void)insertRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(insert(_:at:with:));
@@ -211,7 +205,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param row A `JSMStaticRow` to insert into the content structure.
  * @param section The `JSMStaticSection` you want to add the row to.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
- * @return void
  */
 
 - (void)addRow:(__kindof JSMStaticRow *)row toSection:(__kindof JSMStaticSection *)section withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(add(_:to:with:));
@@ -226,7 +219,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param section The `JSMStaticSection` you want to insert the row into.
  * @param index The position within the given section that you want to insert the row into.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
- * @return void
  */
 
 - (void)insertRow:(__kindof JSMStaticRow *)row intoSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(insert(_:into:at:with:));
@@ -239,7 +231,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param row The row you want to reload.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
- * @return void
  */
 
 - (void)reloadRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(reload(_:with:));
@@ -252,7 +243,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param indexPath The location of the row you want to remove.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
- * @return void
  */
 
 - (void)removeRowAtIndexPath:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(removeRow(at:with:));
@@ -265,7 +255,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param row The row you want to remove.
  * @param animation The `UITableViewRowAnimation` you want to use for the update animation.
- * @return void
  */
 
 - (void)removeRow:(__kindof JSMStaticRow *)row withRowAnimation:(UITableViewRowAnimation)animation NS_SWIFT_NAME(remove(_:with:));

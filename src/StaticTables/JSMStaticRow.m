@@ -127,7 +127,6 @@
  * Provide the section for contained rows.
  *
  * @param section The section that contains the observer.
- * @return void
  */
 
 - (void)setSection:(JSMStaticSection *)section {

@@ -202,7 +202,6 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, __kindof 
  * providing custom default behaviour, but can be overridden.
  *
  * @param cell The cell to be configured.
- * @return void
  */
 
 - (void)configureCell:(__kindof UITableViewCell *)cell NS_SWIFT_NAME(configure(_:));
@@ -213,7 +212,6 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, __kindof 
  * @param configurationBlock The location of the section you want to retrieve. You are provided with two parameters:
  *      a cell for you to configure, passed by reference, and the index path pointing to the cell in the overall
  *      structure.
- * @return void
  */
 
 - (void)configurationForCell:(JSMStaticTableViewCellConfiguration)configurationBlock NS_SWIFT_NAME(configurationForCell(handler:));
@@ -237,7 +235,6 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, __kindof 
  * The data source will then inform its delegate, which needs to perform the reload. If the data source is not part of an
  * instance of `JSMStaticTableViewController`, you will need to ensure that you respond to the message appropriately.
  *
- * @return void
  */
 
 - (void)setNeedsReload;

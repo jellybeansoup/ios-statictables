@@ -67,7 +67,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param dataSource The data source that contains the section needing to be reloaded.
  * @param section The section that requested to be reloaded.
  * @param index The index of the section within the data source.
- * @return void
  */
 
 - (void)dataSource:(__kindof JSMStaticDataSource *)dataSource sectionNeedsReload:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index NS_SWIFT_NAME(dataSource(_:sectionNeedsReload:at:));
@@ -83,7 +82,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param dataSource The data source that contains the row needing to be reloaded.
  * @param row The row that requested to be reloaded.
  * @param indexPath The index path of the row within the data source.
- * @return void
  */
 
 - (void)dataSource:(__kindof JSMStaticDataSource *)dataSource rowNeedsReload:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath NS_SWIFT_NAME(dataSource(_:rowNeedsReload:at:));
@@ -98,7 +96,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param editingStyle The editing style commited by the user.
  * @param row The row the user interacted with.
  * @param indexPath The index path of the row the user interacted with.
- * @return void
  */
 
 - (void)dataSource:(__kindof JSMStaticDataSource *)dataSource commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath NS_SWIFT_NAME(dataSource(_:commit:for:at:));
@@ -113,7 +110,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param row The row that was moved by the user.
  * @param fromIndexPath The original index path of the row within the data source (before it was moved).
  * @param toIndexPath The new index path of the row within the data source (after it was moved).
- * @return void
  */
 
 - (void)dataSource:(__kindof JSMStaticDataSource *)dataSource didMoveRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath NS_SWIFT_NAME(dataSource(_:didMove:from:to:));
@@ -130,7 +126,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @param dataSource The data source that contained the row before it was deleted.
  * @param row The row that was deleted by the user.
  * @param indexPath The index path of the row before it was deleted.
- * @return void
  */
 
 - (void)dataSource:(__kindof JSMStaticDataSource *)dataSource didDeleteRow:(__kindof JSMStaticRow *)row fromIndexPath:(NSIndexPath *)indexPath NS_SWIFT_NAME(dataSource(_:didDelete:from:));
@@ -196,7 +191,6 @@ NS_ASSUME_NONNULL_BEGIN
  * an alternate class with the `cellClass` property.
  *
  * @param cellClass The default class to be used by data source instances when allocating new table view cells.
- * @return void
  */
 
 + (void)setCellClass:(Class)cellClass NS_SWIFT_NAME(setCellClass(_:));
@@ -240,7 +234,6 @@ NS_ASSUME_NONNULL_BEGIN
  * If the section exists in a data source already, it will be removed before being added to the observer.
  *
  * @param section A `JSMStaticSection` to add.
- * @return void
  */
 
 - (void)addSection:(__kindof JSMStaticSection *)section NS_SWIFT_NAME(add(_:));
@@ -252,7 +245,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param section A `JSMStaticSection` to insert into the content structure.
  * @param index The location at which to insert the section.
- * @return void
  */
 
 - (void)insertSection:(__kindof JSMStaticSection *)section atIndex:(NSUInteger)index NS_SWIFT_NAME(insert(_:at:));
@@ -299,7 +291,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Remove the section at the given index from the content structure.
  *
  * @param index The location of the section you want to remove.
- * @return void
  */
 
 - (void)removeSectionAtIndex:(NSUInteger)index NS_SWIFT_NAME(removeSection(at:));
@@ -308,7 +299,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Remove the given section from the content structure.
  *
  * @param section The section you want to remove.
- * @return void
  */
 
 - (void)removeSection:(__kindof JSMStaticSection *)section NS_SWIFT_NAME(remove(_:));
@@ -316,7 +306,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Remove all of the sections from the content structure.
  *
- * @return void
  */
 
 - (void)removeAllSections;
@@ -341,7 +330,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param row A `JSMStaticSection` to insert into the content structure.
  * @param indexPath The location at which to insert the row.
- * @return void
  */
 
 - (void)insertRow:(__kindof JSMStaticRow *)row atIndexPath:(NSIndexPath *)indexPath NS_SWIFT_NAME(insert(_:at:));
@@ -379,7 +367,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Remove the row at the given index path from the content structure.
  *
  * @param indexPath The location of the row you want to remove.
- * @return void
  */
 
 - (void)removeRowAtIndexPath:(NSIndexPath *)indexPath NS_SWIFT_NAME(removeRow(at:));
@@ -388,7 +375,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Remove the given row from the content structure.
  *
  * @param row The row you want to remove.
- * @return void
  */
 
 - (void)removeRow:(__kindof JSMStaticRow *)row NS_SWIFT_NAME(remove(_:));
