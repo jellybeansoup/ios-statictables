@@ -1,4 +1,4 @@
-osx_image: xcode9
+osx_image: xcode10.1
 language: objective-c
 
 before_install:
@@ -13,20 +13,15 @@ env:
 
     matrix:
         - DESTINATION="OS=8.4,name=iPhone 6"
-        - DESTINATION="OS=9.0,name=iPhone 6s"
-        - DESTINATION="OS=9.1,name=iPhone 6s"
-        - DESTINATION="OS=9.2,name=iPhone 6s"
         - DESTINATION="OS=9.3,name=iPhone 6s"
-        - DESTINATION="OS=10.0,name=iPhone 7"
-        - DESTINATION="OS=10.1,name=iPhone 7"
-        - DESTINATION="OS=10.2,name=iPhone 7"
         - DESTINATION="OS=10.3.1,name=iPhone 7"
-        - DESTINATION="OS=11.0,name=iPhone 8"
+        - DESTINATION="OS=11.3,name=iPhone 8"
+        - DESTINATION="OS=12.1,name=iPhone Xs"
 
 script:
     - set -o pipefail
     - xcodebuild clean test -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" CODE_SIGNING_REQUIRED=NO | xcpretty -c
-
+    
 after_success:
-   - bash <(curl -s https://codecov.io/bash)
-   - sleep 5 # Workaround for https://github.com/travis-ci/travis-ci/issues/4725
+    - bash <(curl -s https://codecov.io/bash)
+    - sleep 5 # Workaround for https://github.com/travis-ci/travis-ci/issues/4725
