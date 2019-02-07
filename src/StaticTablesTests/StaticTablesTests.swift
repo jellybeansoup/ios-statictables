@@ -22,19 +22,12 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-@import UIKit;
+import XCTest
 
-#import "JSMStaticTableViewController.h"
-#import "JSMStaticDataSource.h"
-#import "JSMStaticDataSource+Convenience.h"
-#import "JSMStaticSection.h"
-#import "JSMStaticRow.h"
+class StaticTablesTests: XCTestCase {
 
-#import "UITableView+StaticTables.h"
+	// This class exists purely because without it, unit tests won't run successfully on some iOS versions.
+	//
+	// Because that makes sense.
 
-#import "JSMStaticPreference.h"
-#import "JSMStaticTextPreference.h"
-#import "JSMStaticBooleanPreference.h"
-#import "JSMStaticSelectPreference.h"
-#import "JSMStaticSelectPreferenceViewController.h"
-#import "JSMStaticSliderPreference.h"
+}

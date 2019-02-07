@@ -33,7 +33,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A1E0B40C1AE5141D00C7E308"
+               BlueprintIdentifier = "A14B808E2209C95B00EBDCF6"
                BuildableName = "StaticTablesTests.xctest"
                BlueprintName = "StaticTablesTests"
                ReferencedContainer = "container:StaticTables.xcodeproj">

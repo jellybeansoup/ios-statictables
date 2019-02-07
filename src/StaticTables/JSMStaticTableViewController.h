@@ -22,8 +22,7 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import "JSMStaticDataSource.h"
 #import "JSMStaticDataSource+Convenience.h"
 
