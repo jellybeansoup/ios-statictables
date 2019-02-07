@@ -21,22 +21,12 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		492A9D771983AD3500EC9CF0 /* JSMStaticSliderPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = 492A9D761983AD3500EC9CF0 /* JSMStaticSliderPreference.m */; };
 		A12AEBAE207D83E7001BFB38 /* StaticTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12AEBAC207D83E7001BFB38 /* StaticTables.swift */; };
-		A1486E4619599C330017CACD /* UITableView+StaticTables.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4519599C330017CACD /* UITableView+StaticTables.m */; };
-		A1486E4B195AE6E60017CACD /* JSMStaticPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4A195AE6E60017CACD /* JSMStaticPreference.m */; };
-		A1486E4E195DA3580017CACD /* JSMStaticTextPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4D195DA3580017CACD /* JSMStaticTextPreference.m */; };
-		A1486E5119601B2F0017CACD /* JSMStaticBooleanPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E5019601B2F0017CACD /* JSMStaticBooleanPreference.m */; };
-		A1486E5419601F550017CACD /* JSMStaticSelectPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E5319601F550017CACD /* JSMStaticSelectPreference.m */; };
-		A1486E571960223F0017CACD /* JSMStaticSelectPreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E561960223F0017CACD /* JSMStaticSelectPreferenceViewController.m */; };
-		A14B567C19604EEC00C2A701 /* JSMStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A14B567B19604EEC00C2A701 /* JSMStaticTableViewController.m */; };
 		A14B80942209C95B00EBDCF6 /* StaticTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9BF01B44E64F00F43BF5 /* StaticTables.framework */; };
 		A14B80A32209C9C400EBDCF6 /* JSMStaticDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A14B809E2209C9C300EBDCF6 /* JSMStaticDelegateTests.m */; };
 		A14B80A52209C9C400EBDCF6 /* JSMDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A14B80A02209C9C400EBDCF6 /* JSMDataSourceTests.m */; };
 		A14B80A62209C9C400EBDCF6 /* JSMSectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A14B80A12209C9C400EBDCF6 /* JSMSectionTests.m */; };
 		A14B80A72209C9C400EBDCF6 /* JSMRowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A14B80A22209C9C400EBDCF6 /* JSMRowTests.m */; };
-		A1713509185007F800E56C4D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1713508185007F800E56C4D /* Foundation.framework */; };
-		A1713537185009F100E56C4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1713536185009F100E56C4D /* UIKit.framework */; };
 		A18D9C091B44E71800F43BF5 /* UITableView+StaticTables.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E4519599C330017CACD /* UITableView+StaticTables.m */; };
 		A18D9C0A1B44E71800F43BF5 /* JSMStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A14B567B19604EEC00C2A701 /* JSMStaticTableViewController.m */; };
 		A18D9C0B1B44E71800F43BF5 /* JSMStaticDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D1435195426A2005146CB /* JSMStaticDataSource.m */; };
@@ -49,8 +39,6 @@
 		A18D9C121B44E71800F43BF5 /* JSMStaticSelectPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E5319601F550017CACD /* JSMStaticSelectPreference.m */; };
 		A18D9C131B44E71800F43BF5 /* JSMStaticSelectPreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1486E561960223F0017CACD /* JSMStaticSelectPreferenceViewController.m */; };
 		A18D9C141B44E71800F43BF5 /* JSMStaticSliderPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = 492A9D761983AD3500EC9CF0 /* JSMStaticSliderPreference.m */; };
-		A18D9C151B44E74800F43BF5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1713536185009F100E56C4D /* UIKit.framework */; };
-		A18D9C161B44E75200F43BF5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1713508185007F800E56C4D /* Foundation.framework */; };
 		A18D9C181B44E76D00F43BF5 /* UITableView+StaticTables.h in Headers */ = {isa = PBXBuildFile; fileRef = A1486E4419599C330017CACD /* UITableView+StaticTables.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A18D9C191B44E76D00F43BF5 /* JSMStaticTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A14B567A19604EEC00C2A701 /* JSMStaticTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A18D9C1A1B44E76D00F43BF5 /* JSMStaticDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = A19D1434195426A2005146CB /* JSMStaticDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -64,12 +52,8 @@
 		A18D9C221B44E76D00F43BF5 /* JSMStaticSelectPreferenceViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A1486E551960223F0017CACD /* JSMStaticSelectPreferenceViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A18D9C231B44E76D00F43BF5 /* JSMStaticSliderPreference.h in Headers */ = {isa = PBXBuildFile; fileRef = 492A9D751983AD3500EC9CF0 /* JSMStaticSliderPreference.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A18D9C321B44F0D200F43BF5 /* StaticTables.h in Headers */ = {isa = PBXBuildFile; fileRef = A171353818500A1A00E56C4D /* StaticTables.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A19D143019541ACA005146CB /* JSMStaticSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D142F19541ACA005146CB /* JSMStaticSection.m */; };
-		A19D143319541ADC005146CB /* JSMStaticRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D143219541ADC005146CB /* JSMStaticRow.m */; };
-		A19D1436195426A2005146CB /* JSMStaticDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A19D1435195426A2005146CB /* JSMStaticDataSource.m */; };
-		A1C0C4CD1B2AF177004561C9 /* JSMStaticDataSource+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C0C4CC1B2AF177004561C9 /* JSMStaticDataSource+Convenience.m */; };
+		A1E0BFBB220C67520022CDD7 /* StaticTablesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0BFBA220C67520022CDD7 /* StaticTablesTests.swift */; };
 		A1FA1FCF1F820BB000C931A6 /* JSMStaticDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FA1FCD1F820BB000C931A6 /* JSMStaticDelegate.h */; };
-		A1FA1FD01F820BB000C931A6 /* JSMStaticDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FA1FCE1F820BB000C931A6 /* JSMStaticDelegate.m */; };
 		A1FA1FD11F820BB000C931A6 /* JSMStaticDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FA1FCE1F820BB000C931A6 /* JSMStaticDelegate.m */; };
 /* End PBXBuildFile section */
 
@@ -82,18 +66,6 @@
 			remoteInfo = StaticTables;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		A1713503185007F800E56C4D /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		492A9D751983AD3500EC9CF0 /* JSMStaticSliderPreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMStaticSliderPreference.h; sourceTree = "<group>"; };
@@ -119,13 +91,10 @@
 		A14B80A02209C9C400EBDCF6 /* JSMDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSMDataSourceTests.m; path = src/StaticTablesTests/JSMDataSourceTests.m; sourceTree = SOURCE_ROOT; };
 		A14B80A12209C9C400EBDCF6 /* JSMSectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSMSectionTests.m; path = src/StaticTablesTests/JSMSectionTests.m; sourceTree = SOURCE_ROOT; };
 		A14B80A22209C9C400EBDCF6 /* JSMRowTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSMRowTests.m; path = src/StaticTablesTests/JSMRowTests.m; sourceTree = SOURCE_ROOT; };
-		A1713505185007F800E56C4D /* libStaticTables.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libStaticTables.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1713508185007F800E56C4D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A171352E185008F400E56C4D /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A171352F185008F400E56C4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		A17135301850090C00E56C4D /* StaticTables.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = StaticTables.podspec; sourceTree = "<group>"; };
 		A17135311850094B00E56C4D /* StaticTables_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StaticTables_Prefix.pch; sourceTree = SOURCE_ROOT; };
-		A1713536185009F100E56C4D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A171353818500A1A00E56C4D /* StaticTables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticTables.h; sourceTree = "<group>"; };
 		A18D9BF01B44E64F00F43BF5 /* StaticTables.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StaticTables.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A18D9C251B44E7EB00F43BF5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -137,6 +106,7 @@
 		A19D1435195426A2005146CB /* JSMStaticDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMStaticDataSource.m; sourceTree = "<group>"; };
 		A1C0C4CB1B2AF177004561C9 /* JSMStaticDataSource+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSMStaticDataSource+Convenience.h"; sourceTree = "<group>"; };
 		A1C0C4CC1B2AF177004561C9 /* JSMStaticDataSource+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSMStaticDataSource+Convenience.m"; sourceTree = "<group>"; };
+		A1E0BFBA220C67520022CDD7 /* StaticTablesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTablesTests.swift; sourceTree = "<group>"; };
 		A1FA1FCD1F820BB000C931A6 /* JSMStaticDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSMStaticDelegate.h; sourceTree = "<group>"; };
 		A1FA1FCE1F820BB000C931A6 /* JSMStaticDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSMStaticDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,21 +120,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A1713502185007F800E56C4D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A1713537185009F100E56C4D /* UIKit.framework in Frameworks */,
-				A1713509185007F800E56C4D /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A18D9BEC1B44E64F00F43BF5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A18D9C151B44E74800F43BF5 /* UIKit.framework in Frameworks */,
-				A18D9C161B44E75200F43BF5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,13 +150,15 @@
 		A14B80902209C95B00EBDCF6 /* StaticTablesTests */ = {
 			isa = PBXGroup;
 			children = (
+				A1E0BFBA220C67520022CDD7 /* StaticTablesTests.swift */,
 				A14B80A02209C9C400EBDCF6 /* JSMDataSourceTests.m */,
 				A14B80A12209C9C400EBDCF6 /* JSMSectionTests.m */,
 				A14B80A22209C9C400EBDCF6 /* JSMRowTests.m */,
 				A14B809E2209C9C300EBDCF6 /* JSMStaticDelegateTests.m */,
 				A14B809F2209C9C300EBDCF6 /* Info.plist */,
 			);
-			path = StaticTablesTests;
+			name = StaticTablesTests;
+			path = src/StaticTablesTests;
 			sourceTree = "<group>";
 		};
 		A17134FC185007F800E56C4D = {
@@ -205,7 +166,6 @@
 			children = (
 				A171350A185007F800E56C4D /* StaticTables */,
 				A14B80902209C95B00EBDCF6 /* StaticTablesTests */,
-				A1713507185007F800E56C4D /* Frameworks */,
 				A171351F185007F800E56C4D /* Supporting Files */,
 				A1713506185007F800E56C4D /* Products */,
 				A171352E185008F400E56C4D /* LICENSE */,
@@ -217,20 +177,10 @@
 		A1713506185007F800E56C4D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1713505185007F800E56C4D /* libStaticTables.a */,
 				A18D9BF01B44E64F00F43BF5 /* StaticTables.framework */,
 				A14B808F2209C95B00EBDCF6 /* StaticTablesTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		A1713507185007F800E56C4D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				A1713536185009F100E56C4D /* UIKit.framework */,
-				A1713508185007F800E56C4D /* Foundation.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A171350A185007F800E56C4D /* StaticTables */ = {
@@ -330,23 +280,6 @@
 			productReference = A14B808F2209C95B00EBDCF6 /* StaticTablesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A1713504185007F800E56C4D /* libStaticTables */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A1713528185007F800E56C4D /* Build configuration list for PBXNativeTarget "libStaticTables" */;
-			buildPhases = (
-				A1713501185007F800E56C4D /* Sources */,
-				A1713502185007F800E56C4D /* Frameworks */,
-				A1713503185007F800E56C4D /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = libStaticTables;
-			productName = JSMStaticTables;
-			productReference = A1713505185007F800E56C4D /* libStaticTables.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		A18D9BEF1B44E64F00F43BF5 /* StaticTables */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A18D9C031B44E64F00F43BF5 /* Build configuration list for PBXNativeTarget "StaticTables" */;
@@ -377,14 +310,13 @@
 				TargetAttributes = {
 					A14B808E2209C95B00EBDCF6 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
-					};
-					A1713504185007F800E56C4D = {
-						LastSwiftMigration = 0930;
 					};
 					A18D9BEF1B44E64F00F43BF5 = {
 						CreatedOnToolsVersion = 6.4;
 						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -400,7 +332,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1713504185007F800E56C4D /* libStaticTables */,
 				A18D9BEF1B44E64F00F43BF5 /* StaticTables */,
 				A14B808E2209C95B00EBDCF6 /* StaticTablesTests */,
 				A1713532185009D900E56C4D /* Documentation */,
@@ -451,26 +382,7 @@
 				A14B80A32209C9C400EBDCF6 /* JSMStaticDelegateTests.m in Sources */,
 				A14B80A72209C9C400EBDCF6 /* JSMRowTests.m in Sources */,
 				A14B80A52209C9C400EBDCF6 /* JSMDataSourceTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A1713501185007F800E56C4D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A19D143319541ADC005146CB /* JSMStaticRow.m in Sources */,
-				A1486E4B195AE6E60017CACD /* JSMStaticPreference.m in Sources */,
-				A1486E4E195DA3580017CACD /* JSMStaticTextPreference.m in Sources */,
-				A1486E571960223F0017CACD /* JSMStaticSelectPreferenceViewController.m in Sources */,
-				A19D143019541ACA005146CB /* JSMStaticSection.m in Sources */,
-				A1FA1FD01F820BB000C931A6 /* JSMStaticDelegate.m in Sources */,
-				A1486E5419601F550017CACD /* JSMStaticSelectPreference.m in Sources */,
-				A19D1436195426A2005146CB /* JSMStaticDataSource.m in Sources */,
-				A14B567C19604EEC00C2A701 /* JSMStaticTableViewController.m in Sources */,
-				A1486E4619599C330017CACD /* UITableView+StaticTables.m in Sources */,
-				492A9D771983AD3500EC9CF0 /* JSMStaticSliderPreference.m in Sources */,
-				A1486E5119601B2F0017CACD /* JSMStaticBooleanPreference.m in Sources */,
-				A1C0C4CD1B2AF177004561C9 /* JSMStaticDataSource+Convenience.m in Sources */,
+				A1E0BFBB220C67520022CDD7 /* StaticTablesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,6 +425,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
@@ -521,15 +434,17 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = src/StaticTablesTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jellystyle.StaticTablesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -541,6 +456,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
@@ -550,15 +466,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = src/StaticTablesTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jellystyle.StaticTablesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -680,47 +597,6 @@
 			};
 			name = Release;
 		};
-		A1713529185007F800E56C4D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DSTROOT = /tmp/JSMStaticTables.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = StaticTables_Prefix.pch;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = StaticTables;
-				PUBLIC_HEADERS_FOLDER_PATH = include/StaticTables;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		A171352A185007F800E56C4D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DSTROOT = /tmp/JSMStaticTables.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = StaticTables_Prefix.pch;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = StaticTables;
-				PUBLIC_HEADERS_FOLDER_PATH = include/StaticTables;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
 		A1713534185009D900E56C4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -743,10 +619,13 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -756,12 +635,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = src/StaticTables/Info.plist;
 				INSTALL_PATH = "@executable_path/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -777,11 +656,14 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -791,12 +673,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = src/StaticTables/Info.plist;
 				INSTALL_PATH = "@executable_path/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -822,15 +704,6 @@
 			buildConfigurations = (
 				A1713526185007F800E56C4D /* Debug */,
 				A1713527185007F800E56C4D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A1713528185007F800E56C4D /* Build configuration list for PBXNativeTarget "libStaticTables" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A1713529185007F800E56C4D /* Debug */,
-				A171352A185007F800E56C4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

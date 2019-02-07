@@ -22,8 +22,8 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <XCTest/XCTest.h>
-#import "StaticTables.h"
+@import XCTest;
+@import StaticTables;
 
 @interface JSMSectionTests : XCTestCase
 
