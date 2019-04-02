@@ -32,7 +32,7 @@ public let JSMStaticSelectOptionImage: JSMStaticSelectPreference.OptionKey = .im
 
 public extension JSMStaticSelectPreference {
 
-	public enum OptionKey: String {
+	enum OptionKey: String {
 		case value = "JSMStaticSelectOptionValue"
 		case label = "JSMStaticSelectOptionLabel"
 		case image = "JSMStaticSelectOptionImage"
@@ -46,7 +46,7 @@ public extension JSMStaticSelectPreference {
 	/// and should be either an `String` with the name of an image, or a `UIImage`, which is displayed as an icon on the
 	///	left side of the option's cell.
 
-	public var options: [[OptionKey: Any]] {
+	var options: [[OptionKey: Any]] {
 		get {
 			return __options.map {
 				var dictionary: [OptionKey: Any] = [:]
