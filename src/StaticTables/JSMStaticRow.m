@@ -145,16 +145,32 @@
     if( [_text isEqualToString:text] ) {
         return;
     }
-    _text = text;
-    [self setNeedsReload];
+
+	_text = text;
+
+	UITableViewCell *cell = self.currentCell;
+	if( cell != nil ) {
+		cell.textLabel.text = text;
+	}
+	else {
+		[self setNeedsReload];
+	}
 }
 
 - (void)setDetailText:(NSString *)detailText {
     if( [_detailText isEqualToString:detailText] ) {
         return;
     }
-    _detailText = detailText;
-    [self setNeedsReload];
+
+	_detailText = detailText;
+
+	UITableViewCell *cell = self.currentCell;
+	if( cell != nil ) {
+		cell.detailTextLabel.text = detailText;
+	}
+	else {
+		[self setNeedsReload];
+	}
 }
 
 - (void)setImage:(UIImage *)image {
@@ -162,7 +178,14 @@
         return;
     }
     _image = image;
-    [self setNeedsReload];
+
+	UITableViewCell *cell = self.currentCell;
+	if( cell != nil ) {
+		cell.imageView.image = image;
+	}
+	else {
+		[self setNeedsReload];
+	}
 }
 
 - (void)setStyle:(UITableViewCellStyle)style {
