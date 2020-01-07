@@ -28,6 +28,16 @@
 
 @property (nonatomic, strong) NSTimer *timer;
 
+@property (nonatomic, strong) UITapGestureRecognizer *gestureRecognizer;
+
+@end
+
+@interface JSMStaticRow ()
+
+- (void)performDefaultConfiguration:(UITableViewCell *)cell;
+
+- (void)performCustomConfiguration:(UITableViewCell *)cell;
+
 @end
 
 @implementation JSMStaticTextPreference
@@ -45,11 +55,58 @@
 	[textField addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
 	[textField addTarget:self action:@selector(updatePreferenceValue:) forControlEvents:UIControlEventEditingDidEnd];
 
+	UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:textField action:@selector(becomeFirstResponder)];
+	gestureRecognizer.numberOfTapsRequired = 1;
+	gestureRecognizer.numberOfTouchesRequired = 1;
+	_gestureRecognizer = gestureRecognizer;
+
 	super.control = (UIControl *)textField;
 }
 
 - (UITextField *)textField {
     return (UITextField *)self.control;
+}
+
+#pragma mark - Configuring the cell
+
+- (void)prepareCell:(UITableViewCell *)cell {
+	[self performDefaultConfiguration:cell];
+
+    if( self.control != nil ) {
+		[cell addGestureRecognizer:self.gestureRecognizer];
+
+		if( self.selectionStyle != UITableViewCellSelectionStyleNone ) {
+            self.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        if( ! self.fitControlToCell ) {
+			if( ! [self.control.superview isEqual:cell.contentView] ) {
+				[cell.contentView addSubview:self.control];
+			}
+
+			self.control.translatesAutoresizingMaskIntoConstraints = NO;
+			[cell.contentView addConstraints:@[
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeTopMargin multiplier:1 constant:0],
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeBottomMargin multiplier:1 constant:0],
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationLessThanOrEqual toItem:cell.textLabel attribute:NSLayoutAttributeRightMargin multiplier:1 constant:30],
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeRightMargin multiplier:1 constant:0]
+											  ]];
+        }
+        else if( self.fitControlToCell ) {
+			if( ! [self.control.superview isEqual:cell.contentView] ) {
+				[cell.contentView addSubview:self.control];
+			}
+
+			self.control.translatesAutoresizingMaskIntoConstraints = NO;
+			[cell.contentView addConstraints:@[
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeTopMargin multiplier:1 constant:0],
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeBottomMargin multiplier:1 constant:0],
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeLeftMargin multiplier:1 constant:0],
+											  [NSLayoutConstraint constraintWithItem:self.control attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeRightMargin multiplier:1 constant:0]
+											  ]];
+        }
+    }
+
+	[self performCustomConfiguration:cell];
 }
 
 #pragma mark - Updating the value
