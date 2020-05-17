@@ -265,6 +265,16 @@ typedef void(^JSMStaticTableViewCellConfiguration)( JSMStaticRow *row, __kindof 
 
 @property (nonatomic) BOOL canBeDeleted;
 
+///---------------------------------------------
+/// @name Creating Table View Cells
+///---------------------------------------------
+
+/**
+ * The class used by the data source when allocating new table view cells for this row.
+ */
+
+@property (nonatomic, nullable) Class cellClass;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -357,36 +357,44 @@ static Class _staticCellClass = nil;
     return [[self sectionAtIndex:(NSUInteger)section] footerText];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView dequeueReusableCellWithStyle:(UITableViewCellStyle)style {
-    id cell;
-    // Get the cell style
-    switch( style ) {
+- (UITableViewCell *)tableView:(UITableView *)tableView dequeueReusableCellForRow:(JSMStaticRow *)row {
+    UITableViewCell *cell;
+	Class cellClass;
+	// Get the cell class
+	if( row.cellClass != nil ) {
+		cellClass = row.cellClass;
+	}
+	else {
+		cellClass = self.cellClass;
+	}
+	// Get the cell style
+	switch( row.style ) {
         case UITableViewCellStyleDefault: {
-            static NSString *JSMStaticDataSourceDefaultReuseIdentifier = @"JSMStaticDataSourceDefaultReuseIdentifier";
-            if( ( cell = [tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceDefaultReuseIdentifier] ) == nil ) {
-                cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:JSMStaticDataSourceDefaultReuseIdentifier];
+			NSString *reuseIdentifier = [NSString stringWithFormat:@"JSMStaticDataSourceDefaultReuseIdentifier.%@", cellClass];
+            if( ( cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier] ) == nil ) {
+                cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
             }
             break;
         }
         case UITableViewCellStyleValue1:
         default: {
-            static NSString *JSMStaticDataSourceValue1ReuseIdentifier = @"JSMStaticDataSourceValue1ReuseIdentifier";
-            if( ( cell = [tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceValue1ReuseIdentifier] ) == nil ) {
-                cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:JSMStaticDataSourceValue1ReuseIdentifier];
+            NSString *reuseIdentifier = [NSString stringWithFormat:@"JSMStaticDataSourceValue1ReuseIdentifier.%@", cellClass];
+            if( ( cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier] ) == nil ) {
+                cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
             }
             break;
         }
         case UITableViewCellStyleValue2: {
-            static NSString *JSMStaticDataSourceValue2ReuseIdentifier = @"JSMStaticDataSourceValue2ReuseIdentifier";
-            if( ( cell = [tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceValue2ReuseIdentifier] ) == nil ) {
-                cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:JSMStaticDataSourceValue2ReuseIdentifier];
+            NSString *reuseIdentifier = [NSString stringWithFormat:@"JSMStaticDataSourceValue2ReuseIdentifier.%@", cellClass];
+            if( ( cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier] ) == nil ) {
+                cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:reuseIdentifier];
             }
             break;
         }
         case UITableViewCellStyleSubtitle: {
-            static NSString *JSMStaticDataSourceSubtitleReuseIdentifier = @"JSMStaticDataSourceSubtitleReuseIdentifier";
-            if( ( cell = [tableView dequeueReusableCellWithIdentifier:JSMStaticDataSourceSubtitleReuseIdentifier] ) == nil ) {
-                cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:JSMStaticDataSourceSubtitleReuseIdentifier];
+            NSString *reuseIdentifier = [NSString stringWithFormat:@"JSMStaticDataSourceSubtitleReuseIdentifier.%@", cellClass];
+            if( ( cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier] ) == nil ) {
+                cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
             }
             break;
         }
@@ -399,7 +407,7 @@ static Class _staticCellClass = nil;
 	// Get the row for this particular index path
 	JSMStaticRow *row = [self rowAtIndexPath:indexPath];
 	// Get a cell
-	UITableViewCell *cell = [self tableView:tableView dequeueReusableCellWithStyle:row.style];
+	UITableViewCell *cell = [self tableView:tableView dequeueReusableCellForRow:row];
 	// Remove invalid subviews
 	for(UIView *subview in cell.contentView.subviews) {
 		if( [subview isEqual:cell.textLabel] ) continue;
