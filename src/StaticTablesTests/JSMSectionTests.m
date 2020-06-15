@@ -37,7 +37,7 @@
 	if( _section == nil ) {
 		_section = [JSMStaticSection section];
 
-		for( NSString *rowKey in @[ @"one", @"two", @"three", @"four" ] ) {
+		for( NSString *rowKey in @[ @"one", @"two", @3, @"four", @5 ] ) {
 			[_section addRow:[JSMStaticRow rowWithKey:rowKey]];
 		}
 	}
@@ -55,10 +55,15 @@
 }
 
 - (void)test_sectionWithKey {
-	JSMStaticSection *section = [JSMStaticSection sectionWithKey:@"test"];
+	JSMStaticSection *section1 = [JSMStaticSection sectionWithKey:@"test"];
+	XCTAssertNotNil(section1, @"Section was not created with the key `test`.");
+	XCTAssertEqualObjects(section1.key, @"test", @"Section created with the key `test` does not have the correct key.");
 
-	XCTAssertNotNil(section, @"Section was not created with the key `test`.");
-	XCTAssertEqualObjects(section.key, @"test", @"Section created with the key `test` does not have the correct key.");
+	JSMStaticSection *section2 = [JSMStaticSection sectionWithKey:@42];
+	XCTAssertNotNil(section2, @"Section was not created with the key `42`.");
+	XCTAssertEqualObjects(section2.key, @42, @"Section created with the key `42` does not have the correct key.");
+
+	XCTAssertNotEqualObjects(section1, section2, @"Sections created with different keys should not be equal.");
 }
 
 #pragma mark - Managing the Section's Content
@@ -98,30 +103,36 @@
 }
 
 - (void)test_rowWithKey {
-	NSString *key = self.section.rows[2].key;
-	JSMStaticRow *row = [self.section rowWithKey:key];
+	for (NSUInteger i = 0; i < self.section.rows.count; i++) {
+		NSString *key = self.section.rows[i].key;
+		JSMStaticRow *row = [self.section rowWithKey:key];
 
-	XCTAssertTrue([self.section.rows containsObject:row], @"Row does not exist within the section.");
-	XCTAssertEqualObjects(self.section.rows[2], row, @"Row at index is different to the fetched row.");
+		XCTAssertTrue([self.section.rows containsObject:row], @"Row does not exist within the section.");
+		XCTAssertEqualObjects(self.section.rows[i], row, @"Row at index is different to the fetched row.");
+	}
 }
 
 - (void)test_rowAtIndex {
-	JSMStaticRow *row = [self.section rowAtIndex:2];
+	for (NSUInteger i = 0; i < self.section.rows.count; i++) {
+		JSMStaticRow *row = [self.section rowAtIndex:i];
 
-	XCTAssertEqualObjects(self.section.rows[2], row, @"Row at index returns a different row to that found in the rows array.");
+		XCTAssertEqualObjects(self.section.rows[i], row, @"Row at index returns a different row to that found in the rows array.");
+	}
 }
 
 - (void)test_containsRow {
-	JSMStaticRow *row = self.section.rows[2];
+	for (NSUInteger i = 0; i < self.section.rows.count; i++) {
+		JSMStaticRow *row = self.section.rows[i];
 
-	XCTAssertTrue([self.section containsRow:row], @"Row does not exist within the section.");
+		XCTAssertTrue([self.section containsRow:row], @"Row does not exist within the section.");
+	}
 }
 
 - (void)test_removeRowAtIndex {
 	JSMStaticRow *row = self.section.rows[2];
 	[self.section removeRowAtIndex:2];
 
-	XCTAssertEqual(self.section.rows.count, (unsigned long)3, @"There are more than the expected number of rows.");
+	XCTAssertEqual(self.section.rows.count, (unsigned long)4, @"There are more than the expected number of rows.");
 	XCTAssertFalse([self.section.rows containsObject:row], @"Row still exists within the section.");
 	XCTAssertNotEqualObjects(self.section.rows[2], row, @"Row still exists at the original index within the section.");
 	XCTAssertNil(row.section, @"Removed row still declares a parent section.");
@@ -131,7 +142,7 @@
 	JSMStaticRow *row = self.section.rows[2];
 	[self.section removeRow:row];
 
-	XCTAssertEqual(self.section.rows.count, (unsigned long)3, @"There are more than the expected number of rows.");
+	XCTAssertEqual(self.section.rows.count, (unsigned long)4, @"There are more than the expected number of rows.");
 	XCTAssertFalse([self.section.rows containsObject:row], @"Row still exists within the section.");
 	XCTAssertNotEqualObjects(self.section.rows[2], row, @"Row still exists at the original index within the section.");
 	XCTAssertNil(row.section, @"Removed row still declares a parent section.");

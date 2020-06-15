@@ -115,7 +115,7 @@
     }
 
     // Otherwise compare the keys
-    return [self.key isEqualToString:section.key];
+    return [self.key isEqual:section.key];
 }
 
 - (NSUInteger)hash {
@@ -166,7 +166,7 @@
 	return self.mutableRows.count;
 }
 
-- (JSMStaticRow *)rowWithKey:(NSString *)key {
+- (JSMStaticRow *)rowWithKey:(id)key {
 	return [[self.mutableRows filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"key = %@",key]] firstObject];
 }
 

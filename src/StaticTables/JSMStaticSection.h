@@ -253,7 +253,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The key matching the given key, or `nil` if no key is available.
  */
 
-- (__kindof JSMStaticRow * _Nullable)rowWithKey:(NSString *)key NS_SWIFT_NAME(row(key:));
+- (__kindof JSMStaticRow * _Nullable)rowWithKey:(id)key NS_SWIFT_NAME(row(key:));
 
 /**
  * Fetch the `JSMStaticRow` representing the row at the given index.

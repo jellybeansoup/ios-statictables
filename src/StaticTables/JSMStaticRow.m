@@ -106,7 +106,7 @@
     }
 
     // Otherwise compare the keys
-    return [self.key isEqualToString:row.key];
+	return [self.key isEqual:row.key];
 }
 
 - (NSUInteger)hash {

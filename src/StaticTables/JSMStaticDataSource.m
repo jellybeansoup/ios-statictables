@@ -92,7 +92,7 @@ static Class _staticCellClass = nil;
 	return self.mutableSections.count;
 }
 
-- (JSMStaticSection *)sectionWithKey:(NSString *)key {
+- (JSMStaticSection *)sectionWithKey:(id)key {
 	return [[self.mutableSections filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"key = %@",key]] firstObject];
 }
 
@@ -235,7 +235,7 @@ static Class _staticCellClass = nil;
 
 #pragma mark - Accessing rows
 
-- (JSMStaticRow *)rowWithKey:(NSString *)key {
+- (JSMStaticRow *)rowWithKey:(id)key {
 	__block JSMStaticRow *foundRow;
 	
 	[self.mutableSections enumerateObjectsUsingBlock:^(JSMStaticSection *section, NSUInteger idx, BOOL *stop) {

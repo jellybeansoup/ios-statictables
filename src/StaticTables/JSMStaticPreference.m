@@ -56,11 +56,11 @@
     return [self preferenceWithKey:key andUserDefaultsKey:key];
 }
 
-+ (instancetype)transientPreferenceWithKey:(NSString *)key {
++ (instancetype)transientPreferenceWithKey:(id)key {
     return [self preferenceWithKey:key andUserDefaultsKey:nil];
 }
 
-+ (instancetype)preferenceWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey {
++ (instancetype)preferenceWithKey:(id)key andUserDefaultsKey:(NSString *)userDefaultsKey {
     return [[self alloc] initWithKey:key andUserDefaultsKey:userDefaultsKey];
 }
 
@@ -68,7 +68,7 @@
     return [self initWithKey:key andUserDefaultsKey:key];
 }
 
-- (instancetype)initWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey {
+- (instancetype)initWithKey:(id)key andUserDefaultsKey:(NSString *)userDefaultsKey {
     if( ( self = [super initWithKey:key] ) ) {
         self.userDefaultsKey = userDefaultsKey;
 		self.enabled = YES;

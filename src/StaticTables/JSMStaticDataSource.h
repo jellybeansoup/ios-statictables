@@ -257,7 +257,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The section matching the given key, or `nil` if no section is available.
  */
 
-- (__kindof JSMStaticSection * _Nullable)sectionWithKey:(NSString *)key NS_SWIFT_NAME(section(key:));
+- (__kindof JSMStaticSection * _Nullable)sectionWithKey:(id)key NS_SWIFT_NAME(section(key:));
 
 /**
  * Fetch the `JSMStaticSection` representing the section at the given index.
@@ -342,7 +342,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The key matching the given key, or `nil` if no key is available.
  */
 
-- (__kindof JSMStaticRow * _Nullable)rowWithKey:(NSString *)key NS_SWIFT_NAME(row(key:));
+- (__kindof JSMStaticRow * _Nullable)rowWithKey:(id)key NS_SWIFT_NAME(row(key:));
 
 /**
  * Fetch the `JSMStaticRow` representing the row at the given index path.

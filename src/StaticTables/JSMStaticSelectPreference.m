@@ -38,7 +38,7 @@ NSString *const JSMStaticSelectOptionImage = @"JSMStaticSelectOptionImage";
 
 #pragma mark - Creating Preferences
 
-- (instancetype)initWithKey:(NSString *)key andUserDefaultsKey:(NSString *)userDefaultsKey {
+- (instancetype)initWithKey:(id)key andUserDefaultsKey:(NSString *)userDefaultsKey {
     if( ( self = [super initWithKey:key andUserDefaultsKey:userDefaultsKey] ) ) {
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.style = UITableViewCellStyleValue1;

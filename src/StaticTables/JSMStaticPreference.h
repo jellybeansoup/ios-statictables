@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-+ (instancetype)transientPreferenceWithKey:(NSString * _Nullable)key NS_SWIFT_UNAVAILABLE("Use init(key:userDefaultsKey:) instead.");
++ (instancetype)transientPreferenceWithKey:(id _Nullable)key NS_SWIFT_UNAVAILABLE("Use init(key:userDefaultsKey:) instead.");
 
 /**
  * Allocates a new instance of `JSMStaticPreference`, and initialises it with the provided `key`
@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-+ (instancetype)preferenceWithKey:(NSString * _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey NS_SWIFT_UNAVAILABLE("Use init(key:userDefaultsKey:) instead.");
++ (instancetype)preferenceWithKey:(id _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey NS_SWIFT_UNAVAILABLE("Use init(key:userDefaultsKey:) instead.");
 
 /**
  * Initialises a new instance of `JSMStaticPreference`, and initialises it with the provided `key`
@@ -108,7 +108,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A new instance of `JSMStaticPreference` with the given `key`.
  */
 
-- (instancetype)initWithKey:(NSString * _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey NS_SWIFT_NAME(init(key:userDefaultsKey:));
+- (instancetype)initWithKey:(id _Nullable)key andUserDefaultsKey:(NSString * _Nullable)userDefaultsKey NS_SWIFT_NAME(init(key:userDefaultsKey:));
 
 ///---------------------------------------------
 /// @name Storage

@@ -61,9 +61,15 @@
 }
 
 - (void)test_rowWithKey {
-	JSMStaticRow *row = [JSMStaticRow rowWithKey:@"test"];
-	XCTAssertNotNil(row, @"Row was not created with the key `test`.");
-	XCTAssertEqualObjects(row.key, @"test", @"Row created with the key `test` does not have the correct key.");
+	JSMStaticRow *row1 = [JSMStaticRow rowWithKey:@"test"];
+	XCTAssertNotNil(row1, @"Row was not created with the key `test`.");
+	XCTAssertEqualObjects(row1.key, @"test", @"Row created with the key `test` does not have the correct key.");
+
+	JSMStaticRow *row2 = [JSMStaticRow rowWithKey:@42];
+	XCTAssertNotNil(row2, @"Row was not created with the key `42`.");
+	XCTAssertEqualObjects(row2.key, @42, @"Row created with the key `42` does not have the correct key.");
+
+	XCTAssertNotEqualObjects(row1, row2, @"Rows created with different keys should not be equal.");
 }
 
 - (void)test_prepareCell {
