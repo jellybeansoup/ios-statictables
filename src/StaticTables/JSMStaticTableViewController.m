@@ -45,7 +45,7 @@
 #pragma mark - Creating a Table View Controller
 
 + (instancetype)grouped {
-    return [[self alloc] initWithStyle:UITableViewStyleGrouped];
+    return [[JSMStaticTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 }
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
