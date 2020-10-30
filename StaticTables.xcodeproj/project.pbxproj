@@ -305,7 +305,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = JSM;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Daniel Farrelly";
 				TargetAttributes = {
 					A14B808E2209C95B00EBDCF6 = {
