@@ -409,11 +409,13 @@ static Class _staticCellClass = nil;
 	// Get a cell
 	UITableViewCell *cell = [self tableView:tableView dequeueReusableCellForRow:row];
 	// Remove invalid subviews
-	for(UIView *subview in cell.contentView.subviews) {
-		if( [subview isEqual:cell.textLabel] ) continue;
-		if( [subview isEqual:cell.detailTextLabel] ) continue;
-		if( [subview isEqual:cell.imageView] ) continue;
-		[subview removeFromSuperview];
+	if (row.cellClass == nil) {
+		for(UIView *subview in cell.contentView.subviews) {
+			if( [subview isEqual:cell.textLabel] ) continue;
+			if( [subview isEqual:cell.detailTextLabel] ) continue;
+			if( [subview isEqual:cell.imageView] ) continue;
+			[subview removeFromSuperview];
+		}
 	}
 	// Configure the cell using the row's configuration block
 	[row prepareCell:cell];
